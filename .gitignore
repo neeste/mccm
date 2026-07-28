@@ -25,3 +25,15 @@ save20240607/
 
 # Solver checkpoint scratch -- auto-created beside every saved .mat, no value.
 *.ckpt.mat
+
+# Transient .mat untracked in 375d51b. Listed explicitly rather than by pattern
+# so a future `git add -A` cannot silently re-add them, and so that a genuinely
+# valuable result with a similar name is not caught by accident. Still on disk.
+fold_probe.mat
+refit_m4_map.mat
+refit_m1_n2801.mat
+refit_ss10_pre.mat
+oscline_check.mat
+chszderive_check.mat
+wstat_smoke.mat
+wstat_smoke2.mat
