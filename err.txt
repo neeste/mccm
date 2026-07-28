@@ -1,0 +1,32 @@
+pa.khe=5.242; pa.rhe=0.01; pa.mhe=203.868567; % err=28.1 28.1
+pa.kme=1.326; pa.rme=810.47; pa.mme=0.01; % err=28.1 27
+err=74.29 72.11
+pa.khe=2.453; pa.rhe=0.01001; pa.mhe=391.796246; % err=26.35 26.35
+pa.kme=1.204; pa.rme=911.24; pa.mme=0.01; % err=26.35 25.57
+err=71.32 69.75
+pa.khe=2.481; pa.rhe=0.01; pa.mhe=391.877706; % err=25.19 25.19
+pa.kme=1.112; pa.rme=1017.19; pa.mme=0.01; % err=25.19 24.44
+err=69 67.86
+pa.khe=2.551; pa.rhe=0.01; pa.mhe=391.882125; % err=24.84 24.84
+pa.kme=1.056; pa.rme=1102.40; pa.mme=0.01; % err=24.84 24.43
+err=67.45 66.58
+pa.khe=2.57; pa.rhe=0.01; pa.mhe=391.853072; % err=23.37 23.37
+pa.kme=1.02; pa.rme=1172.15; pa.mme=0.01; % err=23.37 23.13
+err=66.34 65.72
+pa.khe=2.619; pa.rhe=0.01; pa.mhe=392.094725; % err=23.25 23.25
+pa.kme=1.004; pa.rme=1242.85; pa.mme=0.01; % err=23.25 23.03
+err=65.5 64.86
+pa.khe=2.648; pa.rhe=0.01; pa.mhe=392.095093; % err=22.82 22.82
+pa.kme=1.023; pa.rme=1320.24; pa.mme=0.01; % err=22.82 22.58
+err=64.62 64.27
+pa.khe=2.7; pa.rhe=0.01001; pa.mhe=392.054036; % err=22.5 22.5
+pa.kme=1.027; pa.rme=1396.35; pa.mme=0.01; % err=22.5 22.29
+err=64.07 63.66
+pa.khe=3.19; pa.rhe=0.01356; pa.mhe=0.033502; % err=22.12 22.12
+pa.kme=1.029; pa.rme=1468.96; pa.mme=0.01; % err=22.12 21.95
+err=63.49 63.33
+pa.khe=3.688; pa.rhe=0.01; pa.mhe=0.033722; % err=21.81 21.81
+pa.kme=1.025; pa.rme=1530.17; pa.mme=0.01; % err=21.81 21.7
+err=63.22 63.05
+pa.khe=0.2921; pa.rhe=0.01; pa.mhe=0.164976; % err=21.59 21.59
+pa.kme=0.9945; pa.rme=1585.07; pa.mme=0.01; % err=21.59 21.5

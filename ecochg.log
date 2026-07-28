@@ -1,0 +1,1789 @@
+ECoG protocol...
+stimulus calibration...
+eardrum pressue: 40.0 (dB SPL) 60.4 (dB ppeSPL) 
+BF =    0.24  0.49  1.00  2.03  4.00  8.01 15.99  
+Qe =    3.48  5.93  8.82 12.03 17.59 23.13 15.17  
+pbf=-[  2.02  4.54  4.90  4.93  4.57  3.86  2.39];
+isv=[ 1132 1000 840 658 466 273 80];
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 19.935 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.221 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.235 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.326 s
+position(1)=2.0 amplitude=0.0 delay=1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.117 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.071 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 19.990 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.058 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.027 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.6 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.3 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=8.0 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=8.5 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.1 delay=34.7 shift= 2.6 ms
+position(7)=22.0 amplitude=6.0 delay=35.6 shift= 3.6 ms
+position(8)=23.0 amplitude=2.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=0.5 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.1 delay=15.2 shift=-16.9 ms
+position(11)=26.0 amplitude=0.1 delay=16.3 shift=-15.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.020 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.6 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.9 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.6 delay=34.3 shift= 2.2 ms
+position(6)=21.0 amplitude=2.3 delay=35.2 shift= 3.1 ms
+position(7)=22.0 amplitude=0.6 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.9 shift=-7.2 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-15.4 ms
+position(10)=25.0 amplitude=0.0 delay=15.9 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=17.9 shift=-14.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 19.968 s
+position(1)=16.0 amplitude=1.0 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.3 delay=33.4 shift= 0.7 ms
+position(3)=18.0 amplitude=0.0 delay=39.3 shift= 6.6 ms
+position(4)=19.0 amplitude=0.0 delay=41.5 shift= 8.8 ms
+position(5)=20.0 amplitude=0.0 delay=38.7 shift= 6.1 ms
+position(6)=21.0 amplitude=0.0 delay=36.2 shift= 3.5 ms
+position(7)=22.0 amplitude=0.0 delay=34.3 shift= 1.7 ms
+position(8)=23.0 amplitude=0.0 delay=22.2 shift=-10.5 ms
+position(9)=24.0 amplitude=0.0 delay=16.4 shift=-16.2 ms
+position(10)=25.0 amplitude=0.0 delay=17.0 shift=-15.6 ms
+position(11)=26.0 amplitude=0.0 delay=19.3 shift=-13.3 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.258 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 20.112 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.161 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.131 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.6 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.3 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=8.0 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=8.5 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.1 delay=34.7 shift= 2.6 ms
+position(7)=22.0 amplitude=6.0 delay=35.6 shift= 3.6 ms
+position(8)=23.0 amplitude=2.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=0.5 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.1 delay=15.2 shift=-16.9 ms
+position(11)=26.0 amplitude=0.1 delay=16.3 shift=-15.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.147 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.6 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.9 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.6 delay=34.3 shift= 2.2 ms
+position(6)=21.0 amplitude=2.3 delay=35.2 shift= 3.1 ms
+position(7)=22.0 amplitude=0.6 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.9 shift=-7.2 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-15.4 ms
+position(10)=25.0 amplitude=0.0 delay=15.9 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=17.9 shift=-14.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>accel', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 488)" style="font-weight:bold">tdm25>accel</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',488,0)">line 488</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_step', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 134)" style="font-weight:bold">tdm25>tdm_step</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',134,0)">line 134</a>)
+		[cur,an] = accel(pa,cp,me,cur,nxt); % get next acceleration
+             ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1452)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1452,0)">line 1452</a>)
+[sav,cur,ts,cp] = tdm_step(pa,sav,cur,ts);    % step through time
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 988)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',988,0)">line 988</a>)
+    [ecochg1,prf]=ecochg_condition(prf,1);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 812)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',812,0)">line 812</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg2', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m', 26)" style="font-weight:bold">ecochg2</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m',26,0)">line 26</a>)
+S=tdm25('ecochg',pr);
+  ^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg3>ecochg_comp', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m', 20)" style="font-weight:bold">ecochg3>ecochg_comp</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m',20,0)">line 20</a>)
+[~,S3]=ecochg2(0);           % initial condition
+       ^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg3', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m', 5)" style="font-weight:bold">ecochg3</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m',5,0)">line 5</a>)
+ecochg_comp(var,val,4);
+^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg_all', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg_all.m', 4)" style="font-weight:bold">ecochg_all</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg_all.m',4,0)">line 4</a>)
+ecochg3(1)
+^^^^^^^^^^
+} 
+ecochg2
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 19.972 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>xpnd_q', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 359)" style="font-weight:bold">tdm25>xpnd_q</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',359,0)">line 359</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>accel', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 476)" style="font-weight:bold">tdm25>accel</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',476,0)">line 476</a>)
+    qq=xpnd_q(qst,ss,m,n); % expand to multiple chambers
+       ^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_step', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 134)" style="font-weight:bold">tdm25>tdm_step</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',134,0)">line 134</a>)
+		[cur,an] = accel(pa,cp,me,cur,nxt); % get next acceleration
+             ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1452)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1452,0)">line 1452</a>)
+[sav,cur,ts,cp] = tdm_step(pa,sav,cur,ts);    % step through time
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 987)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',987,0)">line 987</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 812)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',812,0)">line 812</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg2', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m', 28)" style="font-weight:bold">ecochg2</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m',28,0)">line 28</a>)
+S=tdm25('ecochg',pr);
+  ^^^^^^^^^^^^^^^^^^
+} 
+ecochg2;ecochg2(0)
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 19.941 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.086 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 19.993 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 20.106 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.053 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.087 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.6 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.3 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=8.0 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=8.5 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.1 delay=34.7 shift= 2.6 ms
+position(7)=22.0 amplitude=6.0 delay=35.6 shift= 3.6 ms
+position(8)=23.0 amplitude=2.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=0.5 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.1 delay=15.2 shift=-16.9 ms
+position(11)=26.0 amplitude=0.1 delay=16.3 shift=-15.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.036 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.6 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.9 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.6 delay=34.3 shift= 2.2 ms
+position(6)=21.0 amplitude=2.3 delay=35.2 shift= 3.1 ms
+position(7)=22.0 amplitude=0.6 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.9 shift=-7.2 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-15.4 ms
+position(10)=25.0 amplitude=0.0 delay=15.9 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=17.9 shift=-14.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 19.936 s
+position(1)=16.0 amplitude=1.0 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.3 delay=33.4 shift= 0.7 ms
+position(3)=18.0 amplitude=0.0 delay=39.3 shift= 6.6 ms
+position(4)=19.0 amplitude=0.0 delay=41.5 shift= 8.8 ms
+position(5)=20.0 amplitude=0.0 delay=38.7 shift= 6.1 ms
+position(6)=21.0 amplitude=0.0 delay=36.2 shift= 3.5 ms
+position(7)=22.0 amplitude=0.0 delay=34.3 shift= 1.7 ms
+position(8)=23.0 amplitude=0.0 delay=22.2 shift=-10.5 ms
+position(9)=24.0 amplitude=0.0 delay=16.4 shift=-16.2 ms
+position(10)=25.0 amplitude=0.0 delay=17.0 shift=-15.6 ms
+position(11)=26.0 amplitude=0.0 delay=19.3 shift=-13.3 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('subplot_parseargs', '/Applications/MATLAB_R2024b.app/toolbox/matlab/graphics/graphics/graph2d/private/subplot_parseargs.m', 28)" style="font-weight:bold">subplot_parseargs</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2024b.app/toolbox/matlab/graphics/graphics/graph2d/private/subplot_parseargs.m',28,0)">line 28</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('subplot', '/Applications/MATLAB_R2024b.app/toolbox/matlab/graphics/graphics/graph2d/subplot.m', 52)" style="font-weight:bold">subplot</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2024b.app/toolbox/matlab/graphics/graphics/graph2d/subplot.m',52,0)">line 52</a>)
+    [args,pvpairs,narg] = subplot_parseargs(varargin);
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>plot_ts', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1719)" style="font-weight:bold">tdm25>plot_ts</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1719,0)">line 1719</a>)
+    subplot(2,1,1)
+    ^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>savest', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 673)" style="font-weight:bold">tdm25>savest</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',673,0)">line 673</a>)
+   ts = plot_ts(pa,sav,cur,ts,i);
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_step', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 130)" style="font-weight:bold">tdm25>tdm_step</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',130,0)">line 130</a>)
+    sav = savest(pa,sav,cur,ts);        % save current state
+          ^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1452)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1452,0)">line 1452</a>)
+[sav,cur,ts,cp] = tdm_step(pa,sav,cur,ts);    % step through time
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 988)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',988,0)">line 988</a>)
+    [ecochg1,prf]=ecochg_condition(prf,1);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 812)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',812,0)">line 812</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg2', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m', 28)" style="font-weight:bold">ecochg2</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m',28,0)">line 28</a>)
+S=tdm25('ecochg',pr);
+  ^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg3>ecochg_comp', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m', 19)" style="font-weight:bold">ecochg3>ecochg_comp</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m',19,0)">line 19</a>)
+ecochg2(0);                  % capture electrode-location plot
+^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg3', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m', 5)" style="font-weight:bold">ecochg3</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m',5,0)">line 5</a>)
+ecochg_comp(var,val,4);
+^^^^^^^^^^^^^^^^^^^^^^
+} 
+
+ecochg3
+eardrum pressue: 40.0 (dB SPL) 60.4 (dB ppeSPL) 
+BF =    0.24  0.49  1.00  2.03  4.00  8.01 15.99  
+Qe =    3.48  5.93  8.82 12.03 17.59 23.13 15.17  
+pbf=-[  2.02  4.54  4.90  4.93  4.57  3.86  2.39];
+isv=[ 1132 1000 840 658 466 273 80];
+eardrum pressue: 40.0 (dB SPL) 60.4 (dB ppeSPL) 
+BF =    0.24  0.49  1.00  2.03  4.00  8.01 15.99  
+Qe =    3.48  5.93  8.82 12.03 17.59 23.13 15.17  
+pbf=-[  2.02  4.54  4.90  4.93  4.57  3.86  2.39];
+isv=[ 1132 1000 840 658 466 273 80];
+ECoG protocol...
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>plot_ts', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1696)" style="font-weight:bold">tdm25>plot_ts</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1696,0)">line 1696</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>savest', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 673)" style="font-weight:bold">tdm25>savest</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',673,0)">line 673</a>)
+   ts = plot_ts(pa,sav,cur,ts,i);
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_step', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 130)" style="font-weight:bold">tdm25>tdm_step</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',130,0)">line 130</a>)
+    sav = savest(pa,sav,cur,ts);        % save current state
+          ^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1452)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1452,0)">line 1452</a>)
+[sav,cur,ts,cp] = tdm_step(pa,sav,cur,ts);    % step through time
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 987)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',987,0)">line 987</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 812)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',812,0)">line 812</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg2', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m', 28)" style="font-weight:bold">ecochg2</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m',28,0)">line 28</a>)
+S=tdm25('ecochg',pr);
+  ^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg3>ecochg_comp', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m', 19)" style="font-weight:bold">ecochg3>ecochg_comp</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m',19,0)">line 19</a>)
+ecochg2(0);                  % capture electrode-location plot
+^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg3', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m', 5)" style="font-weight:bold">ecochg3</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m',5,0)">line 5</a>)
+ecochg_comp(var,val,4);
+^^^^^^^^^^^^^^^^^^^^^^
+} 
+
+
+
+ecochg2;ecochg2(0);ecochg3
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 19.971 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.161 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.028 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 20.172 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.065 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.050 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.6 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.3 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=8.0 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=8.5 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.1 delay=34.7 shift= 2.6 ms
+position(7)=22.0 amplitude=6.0 delay=35.6 shift= 3.6 ms
+position(8)=23.0 amplitude=2.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=0.5 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.1 delay=15.2 shift=-16.9 ms
+position(11)=26.0 amplitude=0.1 delay=16.3 shift=-15.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.062 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.6 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.9 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.6 delay=34.3 shift= 2.2 ms
+position(6)=21.0 amplitude=2.3 delay=35.2 shift= 3.1 ms
+position(7)=22.0 amplitude=0.6 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.9 shift=-7.2 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-15.4 ms
+position(10)=25.0 amplitude=0.0 delay=15.9 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=17.9 shift=-14.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 19.941 s
+position(1)=16.0 amplitude=1.0 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.3 delay=33.4 shift= 0.7 ms
+position(3)=18.0 amplitude=0.0 delay=39.3 shift= 6.6 ms
+position(4)=19.0 amplitude=0.0 delay=41.5 shift= 8.8 ms
+position(5)=20.0 amplitude=0.0 delay=38.7 shift= 6.1 ms
+position(6)=21.0 amplitude=0.0 delay=36.2 shift= 3.5 ms
+position(7)=22.0 amplitude=0.0 delay=34.3 shift= 1.7 ms
+position(8)=23.0 amplitude=0.0 delay=22.2 shift=-10.5 ms
+position(9)=24.0 amplitude=0.0 delay=16.4 shift=-16.2 ms
+position(10)=25.0 amplitude=0.0 delay=17.0 shift=-15.6 ms
+position(11)=26.0 amplitude=0.0 delay=19.3 shift=-13.3 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.213 s
+position(1)=2.0 amplitude=0.0 delay=1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.166 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 19.993 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 19.950 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.057 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1474)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1474,0)">line 1474</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 987)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',987,0)">line 987</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 812)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',812,0)">line 812</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg2', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m', 28)" style="font-weight:bold">ecochg2</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg2.m',28,0)">line 28</a>)
+S=tdm25('ecochg',pr);
+  ^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg3>ecochg_comp', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m', 20)" style="font-weight:bold">ecochg3>ecochg_comp</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m',20,0)">line 20</a>)
+[~,S3]=ecochg2(0);           % initial condition
+       ^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg3', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m', 5)" style="font-weight:bold">ecochg3</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg3.m',5,0)">line 5</a>)
+ecochg_comp(var,val,4);
+^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg_all', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg_all.m', 3)" style="font-weight:bold">ecochg_all</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg_all.m',3,0)">line 3</a>)
+ecochg3(0)
+^^^^^^^^^^
+} 
+ecochg3(0)
+eardrum pressue: 40.0 (dB SPL) 60.4 (dB ppeSPL) 
+BF =    0.24  0.49  1.00  2.03  4.00  8.01 15.99  
+Qe =    3.48  5.93  8.82 12.03 17.59 23.13 15.17  
+pbf=-[  2.02  4.54  4.90  4.93  4.57  3.86  2.39];
+isv=[ 1132 1000 840 658 466 273 80];
+eardrum pressue: 40.0 (dB SPL) 60.4 (dB ppeSPL) 
+BF =    0.24  0.49  1.00  2.03  4.00  8.01 15.99  
+Qe =    3.48  5.93  8.82 12.03 17.59 23.13 15.17  
+pbf=-[  2.02  4.54  4.90  4.93  4.57  3.86  2.39];
+isv=[ 1132 1000 840 658 466 273 80];
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 19.910 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 19.969 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.044 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.008 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.056 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 19.940 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.033 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.043 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.6 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.3 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=8.0 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=8.5 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.1 delay=34.7 shift= 2.6 ms
+position(7)=22.0 amplitude=6.0 delay=35.6 shift= 3.6 ms
+position(8)=23.0 amplitude=2.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=0.5 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.1 delay=15.2 shift=-16.9 ms
+position(11)=26.0 amplitude=0.1 delay=16.3 shift=-15.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.012 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.6 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.9 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.6 delay=34.3 shift= 2.2 ms
+position(6)=21.0 amplitude=2.3 delay=35.2 shift= 3.1 ms
+position(7)=22.0 amplitude=0.6 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.9 shift=-7.2 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-15.4 ms
+position(10)=25.0 amplitude=0.0 delay=15.9 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=17.9 shift=-14.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 19.920 s
+position(1)=16.0 amplitude=1.0 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.3 delay=33.4 shift= 0.7 ms
+position(3)=18.0 amplitude=0.0 delay=39.3 shift= 6.6 ms
+position(4)=19.0 amplitude=0.0 delay=41.5 shift= 8.8 ms
+position(5)=20.0 amplitude=0.0 delay=38.7 shift= 6.1 ms
+position(6)=21.0 amplitude=0.0 delay=36.2 shift= 3.5 ms
+position(7)=22.0 amplitude=0.0 delay=34.3 shift= 1.7 ms
+position(8)=23.0 amplitude=0.0 delay=22.2 shift=-10.5 ms
+position(9)=24.0 amplitude=0.0 delay=16.4 shift=-16.2 ms
+position(10)=25.0 amplitude=0.0 delay=17.0 shift=-15.6 ms
+position(11)=26.0 amplitude=0.0 delay=19.3 shift=-13.3 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.300 s
+position(1)=2.0 amplitude=0.0 delay=1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.044 s
+position(1)=24.0 amplitude=10.5 delay=36.9 shift= 0.0 ms
+position(2)=23.0 amplitude=12.7 delay=36.0 shift=-0.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 19.998 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 19.943 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.048 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.354 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.6 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.3 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=8.0 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=8.5 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.1 delay=34.7 shift= 2.6 ms
+position(7)=22.0 amplitude=6.0 delay=35.6 shift= 3.6 ms
+position(8)=23.0 amplitude=2.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=0.5 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.1 delay=15.2 shift=-16.9 ms
+position(11)=26.0 amplitude=0.1 delay=16.3 shift=-15.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.175 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.6 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.9 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.6 delay=34.3 shift= 2.2 ms
+position(6)=21.0 amplitude=2.3 delay=35.2 shift= 3.1 ms
+position(7)=22.0 amplitude=0.6 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.9 shift=-7.2 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-15.4 ms
+position(10)=25.0 amplitude=0.0 delay=15.9 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=17.9 shift=-14.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 19.962 s
+position(1)=16.0 amplitude=1.0 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.3 delay=33.4 shift= 0.7 ms
+position(3)=18.0 amplitude=0.0 delay=39.3 shift= 6.6 ms
+position(4)=19.0 amplitude=0.0 delay=41.5 shift= 8.8 ms
+position(5)=20.0 amplitude=0.0 delay=38.7 shift= 6.1 ms
+position(6)=21.0 amplitude=0.0 delay=36.2 shift= 3.5 ms
+position(7)=22.0 amplitude=0.0 delay=34.3 shift= 1.7 ms
+position(8)=23.0 amplitude=0.0 delay=22.2 shift=-10.5 ms
+position(9)=24.0 amplitude=0.0 delay=16.4 shift=-16.2 ms
+position(10)=25.0 amplitude=0.0 delay=17.0 shift=-15.6 ms
+position(11)=26.0 amplitude=0.0 delay=19.3 shift=-13.3 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 20.045 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.159 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.144 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.6 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.3 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=8.0 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=8.5 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.1 delay=34.7 shift= 2.6 ms
+position(7)=22.0 amplitude=6.0 delay=35.6 shift= 3.6 ms
+position(8)=23.0 amplitude=2.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=0.5 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.1 delay=15.2 shift=-16.9 ms
+position(11)=26.0 amplitude=0.1 delay=16.3 shift=-15.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.153 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.6 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.9 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.6 delay=34.3 shift= 2.2 ms
+position(6)=21.0 amplitude=2.3 delay=35.2 shift= 3.1 ms
+position(7)=22.0 amplitude=0.6 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.9 shift=-7.2 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-15.4 ms
+position(10)=25.0 amplitude=0.0 delay=15.9 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=17.9 shift=-14.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 20.066 s
+position(1)=16.0 amplitude=1.0 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.3 delay=33.4 shift= 0.7 ms
+position(3)=18.0 amplitude=0.0 delay=39.3 shift= 6.6 ms
+position(4)=19.0 amplitude=0.0 delay=41.5 shift= 8.8 ms
+position(5)=20.0 amplitude=0.0 delay=38.7 shift= 6.1 ms
+position(6)=21.0 amplitude=0.0 delay=36.2 shift= 3.5 ms
+position(7)=22.0 amplitude=0.0 delay=34.3 shift= 1.7 ms
+position(8)=23.0 amplitude=0.0 delay=22.2 shift=-10.5 ms
+position(9)=24.0 amplitude=0.0 delay=16.4 shift=-16.2 ms
+position(10)=25.0 amplitude=0.0 delay=17.0 shift=-15.6 ms
+position(11)=26.0 amplitude=0.0 delay=19.3 shift=-13.3 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 20.222 s
+position(1)=16.0 amplitude=3.5 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=4.1 delay=32.2 shift= 0.2 ms
+position(3)=18.0 amplitude=4.8 delay=32.4 shift= 0.4 ms
+position(4)=19.0 amplitude=5.5 delay=32.7 shift= 0.7 ms
+position(5)=20.0 amplitude=6.4 delay=33.0 shift= 1.0 ms
+position(6)=21.0 amplitude=7.3 delay=33.4 shift= 1.4 ms
+position(7)=22.0 amplitude=8.2 delay=33.9 shift= 1.9 ms
+position(8)=23.0 amplitude=9.0 delay=34.5 shift= 2.5 ms
+position(9)=24.0 amplitude=9.2 delay=35.2 shift= 3.2 ms
+position(10)=25.0 amplitude=8.6 delay=35.9 shift= 3.9 ms
+position(11)=26.0 amplitude=7.0 delay=36.4 shift= 4.4 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.197 s
+position(1)=16.0 amplitude=4.5 delay=31.8 shift= 0.0 ms
+position(2)=17.0 amplitude=5.0 delay=32.0 shift= 0.2 ms
+position(3)=18.0 amplitude=5.4 delay=32.3 shift= 0.4 ms
+position(4)=19.0 amplitude=5.6 delay=32.5 shift= 0.7 ms
+position(5)=20.0 amplitude=5.6 delay=32.9 shift= 1.1 ms
+position(6)=21.0 amplitude=5.1 delay=33.3 shift= 1.5 ms
+position(7)=22.0 amplitude=4.2 delay=33.7 shift= 1.9 ms
+position(8)=23.0 amplitude=3.0 delay=34.2 shift= 2.4 ms
+position(9)=24.0 amplitude=1.9 delay=34.7 shift= 2.9 ms
+position(10)=25.0 amplitude=1.1 delay=35.1 shift= 3.3 ms
+position(11)=26.0 amplitude=0.5 delay=32.7 shift= 0.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.250 s
+position(1)=16.0 amplitude=4.0 delay=31.8 shift= 0.0 ms
+position(2)=17.0 amplitude=4.1 delay=32.0 shift= 0.2 ms
+position(3)=18.0 amplitude=3.9 delay=32.2 shift= 0.5 ms
+position(4)=19.0 amplitude=3.3 delay=32.5 shift= 0.7 ms
+position(5)=20.0 amplitude=2.6 delay=32.8 shift= 1.0 ms
+position(6)=21.0 amplitude=1.7 delay=33.1 shift= 1.4 ms
+position(7)=22.0 amplitude=1.0 delay=33.5 shift= 1.7 ms
+position(8)=23.0 amplitude=0.6 delay=34.0 shift= 2.2 ms
+position(9)=24.0 amplitude=0.3 delay=34.4 shift= 2.7 ms
+position(10)=25.0 amplitude=0.1 delay=34.1 shift= 2.3 ms
+position(11)=26.0 amplitude=0.0 delay=21.1 shift=-10.6 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.354 s
+position(1)=16.0 amplitude=3.0 delay=31.7 shift= 0.0 ms
+position(2)=17.0 amplitude=2.6 delay=32.0 shift= 0.2 ms
+position(3)=18.0 amplitude=2.0 delay=32.2 shift= 0.4 ms
+position(4)=19.0 amplitude=1.4 delay=32.4 shift= 0.6 ms
+position(5)=20.0 amplitude=0.9 delay=32.6 shift= 0.9 ms
+position(6)=21.0 amplitude=0.5 delay=33.0 shift= 1.2 ms
+position(7)=22.0 amplitude=0.3 delay=33.4 shift= 1.7 ms
+position(8)=23.0 amplitude=0.1 delay=34.0 shift= 2.3 ms
+position(9)=24.0 amplitude=0.0 delay=34.6 shift= 2.8 ms
+position(10)=25.0 amplitude=0.0 delay=33.0 shift= 1.2 ms
+position(11)=26.0 amplitude=0.0 delay=26.9 shift=-4.9 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 20.335 s
+position(1)=16.0 amplitude=0.3 delay=31.6 shift= 0.0 ms
+position(2)=17.0 amplitude=0.1 delay=31.8 shift= 0.2 ms
+position(3)=18.0 amplitude=0.1 delay=32.0 shift= 0.4 ms
+position(4)=19.0 amplitude=0.0 delay=32.3 shift= 0.8 ms
+position(5)=20.0 amplitude=0.0 delay=32.8 shift= 1.2 ms
+position(6)=21.0 amplitude=0.0 delay=33.3 shift= 1.7 ms
+position(7)=22.0 amplitude=0.0 delay=33.5 shift= 1.9 ms
+position(8)=23.0 amplitude=0.0 delay=33.2 shift= 1.6 ms
+position(9)=24.0 amplitude=0.0 delay=31.0 shift=-0.6 ms
+position(10)=25.0 amplitude=0.0 delay=28.6 shift=-3.0 ms
+position(11)=26.0 amplitude=0.0 delay=26.6 shift=-4.9 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 20.338 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.395 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.387 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.6 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.3 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=8.0 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=8.5 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.1 delay=34.7 shift= 2.6 ms
+position(7)=22.0 amplitude=6.0 delay=35.6 shift= 3.6 ms
+position(8)=23.0 amplitude=2.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=0.5 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.1 delay=15.2 shift=-16.9 ms
+position(11)=26.0 amplitude=0.1 delay=16.3 shift=-15.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.432 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.6 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.9 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.6 delay=34.3 shift= 2.2 ms
+position(6)=21.0 amplitude=2.3 delay=35.2 shift= 3.1 ms
+position(7)=22.0 amplitude=0.6 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.9 shift=-7.2 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-15.4 ms
+position(10)=25.0 amplitude=0.0 delay=15.9 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=17.9 shift=-14.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 20.268 s
+position(1)=16.0 amplitude=1.0 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.3 delay=33.4 shift= 0.7 ms
+position(3)=18.0 amplitude=0.0 delay=39.3 shift= 6.6 ms
+position(4)=19.0 amplitude=0.0 delay=41.5 shift= 8.8 ms
+position(5)=20.0 amplitude=0.0 delay=38.7 shift= 6.1 ms
+position(6)=21.0 amplitude=0.0 delay=36.2 shift= 3.5 ms
+position(7)=22.0 amplitude=0.0 delay=34.3 shift= 1.7 ms
+position(8)=23.0 amplitude=0.0 delay=22.2 shift=-10.5 ms
+position(9)=24.0 amplitude=0.0 delay=16.4 shift=-16.2 ms
+position(10)=25.0 amplitude=0.0 delay=17.0 shift=-15.6 ms
+position(11)=26.0 amplitude=0.0 delay=19.3 shift=-13.3 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 20.445 s
+position(1)=16.0 amplitude=4.7 delay=32.2 shift= 0.0 ms
+position(2)=17.0 amplitude=5.4 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.3 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.3 delay=33.0 shift= 0.8 ms
+position(5)=20.0 amplitude=8.4 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=9.8 delay=33.9 shift= 1.6 ms
+position(7)=22.0 amplitude=11.5 delay=34.5 shift= 2.2 ms
+position(8)=23.0 amplitude=13.5 delay=35.2 shift= 2.9 ms
+position(9)=24.0 amplitude=15.5 delay=35.9 shift= 3.6 ms
+position(10)=25.0 amplitude=17.7 delay=36.8 shift= 4.6 ms
+position(11)=26.0 amplitude=19.1 delay=37.4 shift= 5.1 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.542 s
+position(1)=16.0 amplitude=6.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=6.9 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.7 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=8.7 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=9.9 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.1 delay=34.1 shift= 2.0 ms
+position(7)=22.0 amplitude=12.1 delay=34.8 shift= 2.8 ms
+position(8)=23.0 amplitude=12.6 delay=35.8 shift= 3.7 ms
+position(9)=24.0 amplitude=11.7 delay=36.7 shift= 4.7 ms
+position(10)=25.0 amplitude=8.7 delay=37.2 shift= 5.1 ms
+position(11)=26.0 amplitude=4.6 delay=37.0 shift= 4.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.344 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.5 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.2 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=7.9 delay=33.2 shift= 1.1 ms
+position(5)=20.0 amplitude=8.3 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.2 delay=34.6 shift= 2.5 ms
+position(7)=22.0 amplitude=6.7 delay=35.5 shift= 3.5 ms
+position(8)=23.0 amplitude=3.9 delay=36.3 shift= 4.3 ms
+position(9)=24.0 amplitude=1.3 delay=34.1 shift= 2.1 ms
+position(10)=25.0 amplitude=0.2 delay=19.3 shift=-12.8 ms
+position(11)=26.0 amplitude=0.1 delay=15.7 shift=-16.4 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.483 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.8 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.8 delay=34.2 shift= 2.1 ms
+position(6)=21.0 amplitude=2.8 delay=35.1 shift= 3.0 ms
+position(7)=22.0 amplitude=0.9 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.1 delay=28.8 shift=-3.3 ms
+position(9)=24.0 amplitude=0.0 delay=16.8 shift=-15.3 ms
+position(10)=25.0 amplitude=0.0 delay=15.8 shift=-16.3 ms
+position(11)=26.0 amplitude=0.0 delay=16.9 shift=-15.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 20.382 s
+position(1)=16.0 amplitude=1.1 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.3 delay=33.4 shift= 0.7 ms
+position(3)=18.0 amplitude=0.0 delay=38.5 shift= 5.8 ms
+position(4)=19.0 amplitude=0.0 delay=42.6 shift= 9.9 ms
+position(5)=20.0 amplitude=0.0 delay=38.3 shift= 5.7 ms
+position(6)=21.0 amplitude=0.0 delay=37.1 shift= 4.4 ms
+position(7)=22.0 amplitude=0.0 delay=34.1 shift= 1.5 ms
+position(8)=23.0 amplitude=0.0 delay=23.8 shift=-8.9 ms
+position(9)=24.0 amplitude=0.0 delay=16.1 shift=-16.6 ms
+position(10)=25.0 amplitude=0.0 delay=16.5 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=18.3 shift=-14.3 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 20.334 s
+position(1)=16.0 amplitude=4.7 delay=32.3 shift= 0.0 ms
+position(2)=17.0 amplitude=5.5 delay=32.5 shift= 0.2 ms
+position(3)=18.0 amplitude=6.4 delay=32.7 shift= 0.5 ms
+position(4)=19.0 amplitude=7.5 delay=33.1 shift= 0.8 ms
+position(5)=20.0 amplitude=8.7 delay=33.4 shift= 1.2 ms
+position(6)=21.0 amplitude=10.4 delay=33.9 shift= 1.7 ms
+position(7)=22.0 amplitude=12.4 delay=34.5 shift= 2.3 ms
+position(8)=23.0 amplitude=14.8 delay=35.3 shift= 3.1 ms
+position(9)=24.0 amplitude=17.4 delay=36.1 shift= 3.8 ms
+position(10)=25.0 amplitude=19.9 delay=37.1 shift= 4.9 ms
+position(11)=26.0 amplitude=21.2 delay=38.1 shift= 5.9 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.496 s
+position(1)=16.0 amplitude=6.2 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=7.0 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=7.9 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=9.0 delay=33.0 shift= 0.9 ms
+position(5)=20.0 amplitude=10.2 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=11.5 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=12.6 delay=35.0 shift= 2.9 ms
+position(8)=23.0 amplitude=12.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=10.5 delay=36.9 shift= 4.9 ms
+position(10)=25.0 amplitude=5.7 delay=36.8 shift= 4.7 ms
+position(11)=26.0 amplitude=1.5 delay=32.9 shift= 0.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.434 s
+position(1)=16.0 amplitude=5.9 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=6.6 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=7.3 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=8.0 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=8.5 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=8.1 delay=34.7 shift= 2.6 ms
+position(7)=22.0 amplitude=6.0 delay=35.6 shift= 3.6 ms
+position(8)=23.0 amplitude=2.7 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=0.5 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.1 delay=15.2 shift=-16.9 ms
+position(11)=26.0 amplitude=0.1 delay=16.3 shift=-15.8 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.455 s
+position(1)=16.0 amplitude=5.1 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=5.6 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=5.9 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=5.8 delay=33.5 shift= 1.4 ms
+position(5)=20.0 amplitude=4.6 delay=34.3 shift= 2.2 ms
+position(6)=21.0 amplitude=2.3 delay=35.2 shift= 3.1 ms
+position(7)=22.0 amplitude=0.6 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.9 shift=-7.2 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-15.4 ms
+position(10)=25.0 amplitude=0.0 delay=15.9 shift=-16.2 ms
+position(11)=26.0 amplitude=0.0 delay=17.9 shift=-14.2 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 20.353 s
+position(1)=16.0 amplitude=1.0 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.3 delay=33.4 shift= 0.7 ms
+position(3)=18.0 amplitude=0.0 delay=39.3 shift= 6.6 ms
+position(4)=19.0 amplitude=0.0 delay=41.5 shift= 8.8 ms
+position(5)=20.0 amplitude=0.0 delay=38.7 shift= 6.1 ms
+position(6)=21.0 amplitude=0.0 delay=36.2 shift= 3.5 ms
+position(7)=22.0 amplitude=0.0 delay=34.3 shift= 1.7 ms
+position(8)=23.0 amplitude=0.0 delay=22.2 shift=-10.5 ms
+position(9)=24.0 amplitude=0.0 delay=16.4 shift=-16.2 ms
+position(10)=25.0 amplitude=0.0 delay=17.0 shift=-15.6 ms
+position(11)=26.0 amplitude=0.0 delay=19.3 shift=-13.3 ms
+ECoG protocol...
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.25 kHz
+elapsed time = 20.438 s
+position(1)=16.0 amplitude=1.7 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=1.9 delay=32.3 shift= 0.2 ms
+position(3)=18.0 amplitude=2.2 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=2.6 delay=32.9 shift= 0.8 ms
+position(5)=20.0 amplitude=3.1 delay=33.3 shift= 1.2 ms
+position(6)=21.0 amplitude=3.6 delay=33.8 shift= 1.7 ms
+position(7)=22.0 amplitude=4.4 delay=34.4 shift= 2.3 ms
+position(8)=23.0 amplitude=5.3 delay=35.2 shift= 3.1 ms
+position(9)=24.0 amplitude=6.2 delay=36.0 shift= 3.9 ms
+position(10)=25.0 amplitude=7.2 delay=37.0 shift= 4.9 ms
+position(11)=26.0 amplitude=7.9 delay=38.1 shift= 6.0 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.50 kHz
+elapsed time = 20.524 s
+position(1)=16.0 amplitude=2.2 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=2.5 delay=32.2 shift= 0.2 ms
+position(3)=18.0 amplitude=2.8 delay=32.6 shift= 0.5 ms
+position(4)=19.0 amplitude=3.2 delay=32.9 shift= 0.9 ms
+position(5)=20.0 amplitude=3.7 delay=33.5 shift= 1.4 ms
+position(6)=21.0 amplitude=4.2 delay=34.1 shift= 2.1 ms
+position(7)=22.0 amplitude=4.7 delay=35.0 shift= 3.0 ms
+position(8)=23.0 amplitude=4.9 delay=36.0 shift= 4.0 ms
+position(9)=24.0 amplitude=4.2 delay=37.0 shift= 5.0 ms
+position(10)=25.0 amplitude=2.3 delay=37.0 shift= 5.0 ms
+position(11)=26.0 amplitude=0.6 delay=33.1 shift= 1.1 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=0.75 kHz
+elapsed time = 20.419 s
+position(1)=16.0 amplitude=2.2 delay=32.0 shift= 0.0 ms
+position(2)=17.0 amplitude=2.4 delay=32.3 shift= 0.3 ms
+position(3)=18.0 amplitude=2.7 delay=32.7 shift= 0.7 ms
+position(4)=19.0 amplitude=3.1 delay=33.2 shift= 1.2 ms
+position(5)=20.0 amplitude=3.3 delay=33.8 shift= 1.8 ms
+position(6)=21.0 amplitude=3.3 delay=34.7 shift= 2.7 ms
+position(7)=22.0 amplitude=2.5 delay=35.7 shift= 3.7 ms
+position(8)=23.0 amplitude=1.1 delay=36.2 shift= 4.2 ms
+position(9)=24.0 amplitude=0.2 delay=28.2 shift=-3.8 ms
+position(10)=25.0 amplitude=0.0 delay=15.3 shift=-16.7 ms
+position(11)=26.0 amplitude=0.0 delay=16.4 shift=-15.6 ms
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 101.0 (dB ppeSPL) 
+ecog protocol: frequency=1.00 kHz
+elapsed time = 20.467 s
+position(1)=16.0 amplitude=2.0 delay=32.1 shift= 0.0 ms
+position(2)=17.0 amplitude=2.2 delay=32.4 shift= 0.4 ms
+position(3)=18.0 amplitude=2.4 delay=32.9 shift= 0.8 ms
+position(4)=19.0 amplitude=2.4 delay=33.5 shift= 1.5 ms
+position(5)=20.0 amplitude=2.0 delay=34.3 shift= 2.3 ms
+position(6)=21.0 amplitude=1.0 delay=35.3 shift= 3.2 ms
+position(7)=22.0 amplitude=0.2 delay=36.1 shift= 4.0 ms
+position(8)=23.0 amplitude=0.0 delay=24.2 shift=-7.9 ms
+position(9)=24.0 amplitude=0.0 delay=16.8 shift=-15.3 ms
+position(10)=25.0 amplitude=0.0 delay=16.1 shift=-16.0 ms
+position(11)=26.0 amplitude=0.0 delay=18.3 shift=-13.7 ms
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+eardrum pressue: 99.9 (dB SPL) 100.9 (dB ppeSPL) 
+ecog protocol: frequency=2.00 kHz
+elapsed time = 20.329 s
+position(1)=16.0 amplitude=0.5 delay=32.7 shift= 0.0 ms
+position(2)=17.0 amplitude=0.1 delay=33.6 shift= 0.8 ms
+position(3)=18.0 amplitude=0.0 delay=41.3 shift= 8.5 ms
+position(4)=19.0 amplitude=0.0 delay=41.1 shift= 8.4 ms
+position(5)=20.0 amplitude=0.0 delay=38.3 shift= 5.6 ms
+position(6)=21.0 amplitude=0.0 delay=35.1 shift= 2.3 ms
+position(7)=22.0 amplitude=0.0 delay=34.0 shift= 1.3 ms
+position(8)=23.0 amplitude=0.0 delay=21.0 shift=-11.7 ms
+position(9)=24.0 amplitude=0.0 delay=16.7 shift=-16.0 ms
+position(10)=25.0 amplitude=0.0 delay=17.5 shift=-15.2 ms
+position(11)=26.0 amplitude=0.0 delay=19.9 shift=-12.9 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.247 s
+position(1)=2.0 amplitude=0.0 delay=1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.220 s
+position(1)=2.0 amplitude=0.0 delay=1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.246 s
+position(1)=2.0 amplitude=0.0 delay=1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.388 s
+position(1)=2.0 amplitude=0.0 delay=1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.367 s
+position(1)=2.0 amplitude=0.0 delay=1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 4.790 s
+position(1)=2.0 amplitude=0.0 delay=1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.974 s
+position( 1)=2.0 amplitude= 0.0 delay= 1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+elapsed time = 3.452 s
+position( 1)=2.0 amplitude= 0.0 delay= 1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+position( 1)=2.0 amplitude= 0.0 delay= 1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+position( 1)=2.0 amplitude= 0.0 delay= 1.0 shift= 0.0 ms
+ECoG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecog protocol: frequency=4.00 kHz
+position( 1)=2.0 amplitude= 0.0 delay= 1.0 shift= 0.0 ms
+ECochG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecochg stimulus: frequency=4.00 kHz
+position( 1)=2.0 amplitude= 0.0 delay= 1.0 shift= 0.0 ms
+ECochG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecochg stimulus: frequency=4.00 kHz
+position( 1)=2.0 amplitude= 0.0 delay= 1.0 shift= 0.0 ms
+ECochG protocol...
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressue: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecochg stimulus: frequency=4.00 kHz
+position( 1)=2.0 amplitude= 0.0 delay= 1.0 shift= 0.0 ms
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+ecochg stimulus: frequency=500.00 kHz
+position( 1)=22.0 amplitude= 0.0 delay= NaN shift= NaN ms
+position( 2)=20.0 amplitude= 0.0 delay= NaN shift= NaN ms
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>hc_step', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 591)" style="font-weight:bold">tdm25>hc_step</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',591,0)">line 591</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_step', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 129)" style="font-weight:bold">tdm25>tdm_step</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',129,0)">line 129</a>)
+    cur = hc_step(pa,cur,nf);           % update HC & HB state
+          ^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1481)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1481,0)">line 1481</a>)
+[sav,cur,ts,cp] = tdm_step(pa,sav,cur,ts);       % step through time
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 987)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',987,0)">line 987</a>)
+    [ecochg1,prf]=ecochg_condition(prf,1);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 813)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',813,0)">line 813</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg.m', 11)" style="font-weight:bold">ecochg</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg.m',11,0)">line 11</a>)
+tdm25('ecochg',pr);
+^^^^^^^^^^^^^^^^^^
+} 
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('listfonts')" style="font-weight:bold">listfonts</a>
+
+
+In matlab.graphics.internal.toolstrip.FigureToolstripManager.generateList
+} 
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+ecochg stimulus: frequency=500.00 kHz
+position( 1)=22.0 amplitude= 0.0 delay= NaN shift= NaN ms
+position( 2)=20.0 amplitude= 0.0 delay= NaN shift= NaN ms
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('matlab.graphics.chart.primitive.Line/set')" style="font-weight:bold">matlab.graphics.chart.primitive.Line/set</a>
+Invalid or deleted object.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>plot_ts', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1798)" style="font-weight:bold">tdm25>plot_ts</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1798,0)">line 1798</a>)
+        set(p1,'XData',xx,'YData',yy)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>savest', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 674)" style="font-weight:bold">tdm25>savest</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',674,0)">line 674</a>)
+   ts = plot_ts(pa,sav,cur,ts,i);
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_step', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 130)" style="font-weight:bold">tdm25>tdm_step</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',130,0)">line 130</a>)
+    sav = savest(pa,sav,cur,ts);        % save current state
+          ^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1481)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1481,0)">line 1481</a>)
+[sav,cur,ts,cp] = tdm_step(pa,sav,cur,ts);       % step through time
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 987)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',987,0)">line 987</a>)
+    [ecochg1,prf]=ecochg_condition(prf,1);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 813)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',813,0)">line 813</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg.m', 11)" style="font-weight:bold">ecochg</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg.m',11,0)">line 11</a>)
+tdm25('ecochg',pr);
+^^^^^^^^^^^^^^^^^^
+} 
+ecochg
+ECoG protocol...
+eardrum pressue: NaN (dB SPL) NaN (dB ppeSPL) 
+eardrum pressue: NaN (dB SPL) NaN (dB ppeSPL) 
+ecog protocol: elapsed time = 18.127 (sec)
+{Index in position 2 exceeds array bounds. Index must not exceed 1.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm24>ecog_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm24.m', 985)" style="font-weight:bold">tdm24>ecog_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm24.m',985,0)">line 985</a>)
+r21=wnr(:,2,1);
+    ^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm24>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm24.m', 808)" style="font-weight:bold">tdm24>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm24.m',808,0)">line 808</a>)
+    ts=ecog_protocol(pr);                               % ECOG
+       ^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm24', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm24.m', 23)" style="font-weight:bold">tdm24</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm24.m',23,0)">line 23</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2); % protocol ?
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg.m', 11)" style="font-weight:bold">ecochg</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg.m',11,0)">line 11</a>)
+tdm24('ecog',pr);
+^^^^^^^^^^^^^^^^
+} 
+ecochg
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+ecochg stimulus: frequency=500.00 kHz
+position( 1)=22.0 amplitude= 0.0 delay= NaN shift= NaN ms
+position( 2)=20.0 amplitude= 0.0 delay= NaN shift= NaN ms
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+{Output argument "bf" (and possibly others) not assigned a value in the execution with "tdm25>plot_sv" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_show', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 382)" style="font-weight:bold">tdm25>tdm_show</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',382,0)">line 382</a>)
+[mbf,bf]=plot_sv(pa,sav,ts,cp); % saved-variables plot
+         ^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1482)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1482,0)">line 1482</a>)
+                  tdm_show(pa,sav,cur,ts,cp);    % plot saved variables
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 986)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',986,0)">line 986</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 813)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',813,0)">line 813</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg1', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m', 18)" style="font-weight:bold">ecochg1</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m',18,0)">line 18</a>)
+tdm25('ecochg',pr);
+^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg_all', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg_all.m', 3)" style="font-weight:bold">ecochg_all</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg_all.m',3,0)">line 3</a>)
+ecochg1
+^^^^^^^
+} 
+ecochg
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+ecochg stimulus: frequency=500.00 kHz
+position( 1)=22.0 amplitude= 0.0 delay= NaN shift= NaN ms
+position( 2)=20.0 amplitude= 0.0 delay= NaN shift= NaN ms
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+{Output argument "bf" (and possibly others) not assigned a value in the execution with "tdm25>plot_sv" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_show', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 382)" style="font-weight:bold">tdm25>tdm_show</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',382,0)">line 382</a>)
+[mbf,bf]=plot_sv(pa,sav,ts,cp); % saved-variables plot
+         ^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1482)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1482,0)">line 1482</a>)
+                  tdm_show(pa,sav,cur,ts,cp);    % plot saved variables
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 986)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',986,0)">line 986</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 813)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',813,0)">line 813</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg1', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m', 18)" style="font-weight:bold">ecochg1</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m',18,0)">line 18</a>)
+tdm25('ecochg',pr);
+^^^^^^^^^^^^^^^^^^
+} 
+ecochg1
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+{Output argument "bf" (and possibly others) not assigned a value in the execution with "tdm25>plot_sv" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_show', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 382)" style="font-weight:bold">tdm25>tdm_show</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',382,0)">line 382</a>)
+[mbf,bf]=plot_sv(pa,sav,ts,cp); % saved-variables plot
+         ^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1482)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1482,0)">line 1482</a>)
+                  tdm_show(pa,sav,cur,ts,cp);    % plot saved variables
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 986)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',986,0)">line 986</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 813)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',813,0)">line 813</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg1', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m', 18)" style="font-weight:bold">ecochg1</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m',18,0)">line 18</a>)
+tdm25('ecochg',pr);
+^^^^^^^^^^^^^^^^^^
+} 
+ecochg1
+ECochG protocol...
+eardrum pressure: NaN (dB SPL) NaN (dB ppeSPL) 
+{Output argument "bf" (and possibly others) not assigned a value in the execution with "tdm25>plot_sv" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_show', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 382)" style="font-weight:bold">tdm25>tdm_show</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',382,0)">line 382</a>)
+[mbf,bf]=plot_sv(pa,sav,ts,cp); % saved-variables plot
+         ^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1482)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1482,0)">line 1482</a>)
+                  tdm_show(pa,sav,cur,ts,cp);    % plot saved variables
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 986)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',986,0)">line 986</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 813)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',813,0)">line 813</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg1', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m', 18)" style="font-weight:bold">ecochg1</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m',18,0)">line 18</a>)
+tdm25('ecochg',pr);
+^^^^^^^^^^^^^^^^^^
+} 
+delete *.mat
+ecochg1
+ECochG protocol...
+stimulus calibration...
+eardrum pressure: 40.0 (dB SPL) 60.5 (dB ppeSPL) 
+BF =    0.27  0.49  1.00  2.03  4.00  8.01 15.99  
+Qe =    4.38  5.98  8.65 11.91 17.48 22.99 14.75  
+pbf=-[  0.48  4.46  4.92  3.95  3.59  2.88  1.40];
+isv= [ 1145 1000 840 658 466 273 80];
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+{Output argument "bf" (and possibly others) not assigned a value in the execution with "tdm25>plot_sv" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_show', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 382)" style="font-weight:bold">tdm25>tdm_show</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',382,0)">line 382</a>)
+[mbf,bf]=plot_sv(pa,sav,ts,cp); % saved-variables plot
+         ^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1482)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1482,0)">line 1482</a>)
+                  tdm_show(pa,sav,cur,ts,cp);    % plot saved variables
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 986)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',986,0)">line 986</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 813)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',813,0)">line 813</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg1', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m', 18)" style="font-weight:bold">ecochg1</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m',18,0)">line 18</a>)
+tdm25('ecochg',pr);
+^^^^^^^^^^^^^^^^^^
+} 
+ecochg1
+ECochG protocol...
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+{Output argument "bf" (and possibly others) not assigned a value in the execution with "tdm25>plot_sv" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_show', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 382)" style="font-weight:bold">tdm25>tdm_show</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',382,0)">line 382</a>)
+[mbf,bf]=plot_sv(pa,sav,ts,cp); % saved-variables plot
+         ^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1482)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1482,0)">line 1482</a>)
+                  tdm_show(pa,sav,cur,ts,cp);    % plot saved variables
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 986)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',986,0)">line 986</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 813)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',813,0)">line 813</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg1', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m', 18)" style="font-weight:bold">ecochg1</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m',18,0)">line 18</a>)
+tdm25('ecochg',pr);
+^^^^^^^^^^^^^^^^^^
+} 
+ecochg1
+ECochG protocol...
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',382,1)">382 </a>[mbf,bf]=plot_sv(pa,sav,ts,cp); % saved-variables plot
+<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1874,1)">1874 </a>end % return
+delete *.mat
+delete *.mat
+ecochg1
+ECochG protocol...
+stimulus calibration...
+eardrum pressure: 40.0 (dB SPL) 60.5 (dB ppeSPL) 
+<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',382,1)">382 </a>[mbf,bf]=plot_sv(pa,sav,ts,cp); % saved-variables plot
+BF =    0.27  0.49  1.00  2.03  4.00  8.01 15.99  
+Qe =    4.38  5.98  8.65 11.91 17.48 22.99 14.75  
+pbf=-[  0.48  4.46  4.92  3.95  3.59  2.88  1.40];
+isv= [ 1145 1000 840 658 466 273 80];
+<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',383,1)">383 </a>end % return
+tdm25
+eardrum pressure: 40.0 (dB SPL) 60.5 (dB ppeSPL) 
+ecochg1
+ECochG protocol...
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+{Output argument "bf" (and possibly others) not assigned a value in the execution with "tdm25>plot_sv" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>tdm_show', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 382)" style="font-weight:bold">tdm25>tdm_show</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',382,0)">line 382</a>)
+[mbf,bf]=plot_sv(pa,sav,ts,cp); % saved-variables plot
+         ^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_condition', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 1482)" style="font-weight:bold">tdm25>ecochg_condition</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',1482,0)">line 1482</a>)
+                  tdm_show(pa,sav,cur,ts,cp);    % plot saved variables
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>ecochg_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 986)" style="font-weight:bold">tdm25>ecochg_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',986,0)">line 986</a>)
+    [ecochg0,prf]=ecochg_condition(prf,0);
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25>check_protocol', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 813)" style="font-weight:bold">tdm25>check_protocol</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',813,0)">line 813</a>)
+    ts=ecochg_protocol(pr);                             % ECOCHG
+       ^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tdm25', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m', 25)" style="font-weight:bold">tdm25</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/tdm25.m',25,0)">line 25</a>)
+ts = check_protocol(stcfg,nch,dsp1,dsp2);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('ecochg1', '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m', 18)" style="font-weight:bold">ecochg1</a> (<a href="matlab: opentoline('/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm/ecochg1.m',18,0)">line 18</a>)
+tdm25('ecochg',pr);
+^^^^^^^^^^^^^^^^^^
+} 
+ecochg1
+ECochG protocol...
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecochg stimulus: frequency=4.00 kHz
+position( 1)=2.0 amplitude= 0.0 delay= 2.6 shift= 0.0 ms
+ECochG protocol...
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecochg stimulus: frequency=4.00 kHz
+position( 1)=2.0 amplitude= 0.0 delay= 2.6 shift= 0.0 ms
+ECochG protocol...
+stimulus calibration...
+eardrum pressure: 40.0 (dB SPL) 60.5 (dB ppeSPL) 
+BF =    0.27  0.49  1.00  2.03  4.00  8.01 15.99  
+Qe =    4.38  5.98  8.65 11.91 17.48 22.99 14.75  
+pbf=-[  0.48  4.46  4.92  3.95  3.59  2.88  1.40];
+isv= [ 1145 1000 840 658 466 273 80];
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+eardrum pressure: 81.5 (dB SPL) 101.1 (dB ppeSPL) 
+ecochg stimulus: frequency=4.00 kHz
+position( 1)=2.0 amplitude= 0.0 delay= 2.6 shift= 0.0 ms

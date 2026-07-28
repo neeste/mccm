@@ -1,0 +1,28 @@
+plot_aba
+Elapsed time is 1.151925 seconds.
+eardrum pressue: 40.0 (dB SPL) 52.7 (dB ppeSPL) 
+WNR latency: 268.4 (ms)
+Elapsed time is 8657.934437 seconds.
+plot_aba
+Elapsed time is 1.503159 seconds.
+<a href="matlab: opentoline('\\Mac\Home\Library\CloudStorage\OneDrive-Personal\STN\mod\mccm\tdm24.m',562,1)">562 </a>    vi = s * sf;                       % scale IHC membrane potential
+if system_dependent('IsDebugMode')==1, dbquit; end
+plot_aba
+Elapsed time is 0.590928 seconds.
+<a href="matlab: opentoline('\\Mac\Home\Library\CloudStorage\OneDrive-Personal\STN\mod\mccm\plot_aba.m',3,1)">3   </a>tic;tdm24('aba.wav',1,1,3); toc;print(figure(1),'-dpng', 'aba-ld.png');
+if system_dependent('IsDebugMode')==1, dbquit; end
+plot_aba
+Elapsed time is 0.301015 seconds.
+<a href="matlab: opentoline('\\Mac\Home\Library\CloudStorage\OneDrive-Personal\STN\mod\mccm\plot_aba.m',3,1)">3   </a>tic;tdm24('aba.wav',1,1,3); toc;print(figure(1),'-dpng', 'aba-ld.png');
+if system_dependent('IsDebugMode')==1, dbquit; end
+plot_aba
+Elapsed time is 0.325918 seconds.
+<a href="matlab: opentoline('\\Mac\Home\Library\CloudStorage\OneDrive-Personal\STN\mod\mccm\plot_aba.m',3,1)">3   </a>tic;tdm24('aba.wav',1,1,3); toc;print(figure(1),'-dpng', 'aba-ld.png');
+if system_dependent('IsDebugMode')==1, dbquit; end
+plot_aba
+Elapsed time is 0.303469 seconds.
+<a href="matlab: opentoline('\\Mac\Home\Library\CloudStorage\OneDrive-Personal\STN\mod\mccm\plot_aba.m',3,1)">3   </a>tic;tdm24('aba.wav',1,1,3); toc;print(figure(1),'-dpng', 'aba-ld.png');
+if system_dependent('IsDebugMode')==1, dbquit; end
+tdm24(0,1)
+<a href="matlab: opentoline('\\Mac\Home\Library\CloudStorage\OneDrive-Personal\STN\mod\mccm\tdm24.m',587,1)">587 </a>v1 = st.v(i1);
+quit

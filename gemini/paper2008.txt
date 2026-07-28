@@ -1,0 +1,303 @@
+August 7, 2008 18:20 WSPC - Proceedings Trim Size: 9.75in x 6.5i n retro˙wave
+1
+RETROGRADE W A VES IN THE COCHLEA
+S. T. NEELY
+Boys Town National Research Hospital,
+Omaha, Nebraska 68131, USA
+E-mail: neely@boystown.org
+J. B. ALLEN
+University of Illinois at Urbana-Champaign,
+Urbana, Illinois 61801, USA
+E-mail: jontalle@uiuc.edu
+Retrograde waves in the cochlea are important because they p rovide information about
+cochlear mechanics that may be measured in the external ear c anal as otoacoustic emis-
+sions. By extending traditional wave-variable methods, an e xplicit equation is derived for
+the forward-traveling wave in a one-dimensional cochlear m odel that is equivalent to the
+WKB approximation. The corresponding equation for the retr ograde waves requires no
+additional approximation and provides a simple characteri zation of cochlear reﬂectance.
+Keywords: cochlear model; wave propagation; reﬂectance; WKB.
+1. Introduction
+The importance of retrograde waves was not fully appreciated until the discovery
+of sounds measured in the ear canal that originate within the cochlea [1]. These
+otoacoustic emissions (OAE) provide a noninvasive means to acquire inform ation
+about cochlear function.
+Coherent reﬂection theory is the accepted explanation for stimulus-frequency
+OAEs (SFOAE) [2]. Zweig and Shera use the WKB approximation [3,4] to obtain
+a solution for the ﬂuid pressure in a cochlear transmission line. Their coherent
+reﬂection theory provides a theoretical explanation for observed amplitude and
+phase characteristics of SFOAEs.
+In this paper, wave-variable methods that have traditionally been applied to
+uniform transmission lines are extended to obtain the WKB formula described by
+[4]. This formulation leads to a simple equation for reﬂectance looking into the
+cochlea from the base.August 7, 2008 18:20 WSPC - Proceedings Trim Size: 9.75in x 6.5i n retro˙wave
+2
+2. Cochlear model
+The equation for a one-dimensional long-wave transmission-line model of the
+cochlea[3] is
+d
+dx
+[ P (x, f )
+U (x, f )
+]
+= −
+[ 0 Zs(x, s )
+Yb(x, s ) 0
+] [ P (x, f )
+U (x, f )
+]
+, (1)
+where P (x, f ) is the scala ﬂuid pressure, U (x, f ) is the longitudinal volume velocity
+of the scala ﬂuid, Zs(x, s ) is the scala impedance (per unit length) and Yb(x, s ) is the
+BM admittance (per unit length). The Laplace frequency s is used for expressions
+of frequency, such as impedances, that are causal functions in the time domain.
+The real frequency f (and ω ≡ 2πf ) are restricted to the Fourier transform of
+noncausal functions. These model variables are shown in Fig. 1 in the context of a
+single section of a transmission line.
+Fig. 1. Transmission line model for a section of the cochlea o f length ∆ x. The series-
+impedance Zs(x, s)∆ x limits ﬂuid translational volume velocity U (x, f), while the shunt-
+admittance Yb(x, s)∆ x limits the basilar membrane volume velocity.
+Scala impedance depends on ﬂuid density ρ 0 and cross-sectional area A(x).
+Zs(x, s ) = sρ 0/A s(x). (2)
+BM velocity is proportional to the gradient of the scala volume velocity:
+dU
+dx (x, f ) = −Yb(x, s ) ·P (x, f ) = b ·Vb(x, f ), (3)
+where b is the eﬀective BM width.
+3. W ave variables
+The wave propagation function κ (x, s ) and the characteristic impedance z0(x, s ) are
+determined entirely by the medium, and therefore only depend on the per unit
+length series impedance Z(x, s ) and shunt admittance Yb(x, s ) [5]:
+κ (x, s ) ≡
+√
+Zs(x, s ) ·Yb(x, s ) (4)August 7, 2008 18:20 WSPC - Proceedings Trim Size: 9.75in x 6.5i n retro˙wave
+3
+z0(x, s ) ≡
+√
+Zs(x, s )/Y b(x, s ). (5)
+The pressure wave variables P+ and P− are deﬁned by
+[ P+
+P−
+]
+≡ 1
+2
+[ 1 z0
+1 −z0
+] [ P
+U
+]
+(6)
+We invert Eq. 6
+[ P
+U
+]
+=
+[ 1 1
+y0 −y0
+] [ P+
+P−
+]
+, (7)
+where y0 = 1/z 0, and substitute Eq. 7 into Eq. 1:
+d
+dx
+[ P+
+P−
+]
+= − 1
+2
+[ y0Zs + z0Yb + z0y′ −y0Zs + z0Yb − z0y′
+y0Zs − z0Yb − z0y′ −y0Zs − z0Yb + z0y′
+] [ P+
+P−
+]
+. (8)
+In this equation y′
+0 = dy0/dx . The equivalence of y0Zs = z0Yb = κ allows Eq. 8 to
+be written as
+d
+dx
+[ P+
+P−
+]
+=
+[ −κ + ε −ε
+−ε κ + ε
+] [ P+
+P−
+]
+(9)
+with
+ε (x, f ) ≡ 1
+2
+d
+dx ln z0(x, s ). (10)
+Note that when z0(x, s ) is independent of x, ε is equal to zero, which decouples
+P+(x, f ) and P−(x, f ) in Eq. 9. When z0(x, s ) varies slowly with x, |ε/κ | is small,
+which may be exploited to obtain approximate model solutions.
+Figure 2 shows examples of P+ and P− that demonstrate the importance of
+BM roughness in generating retrograde waves. Model parameters were selected to
+maintain nearly uniform characteristic impedance by making the scala area decrea se
+with x at the same rate as BM stiﬀness [4]. The “tall broad peaks” of the BM exci-
+tation patterns were created by specifying a negative damping region at a locati on
+just basal to the tonotopic place. The negative damping was suﬃcient to boost the
+tip-to-tail ratio of the BM excitation patterns by about 60 dB. The model result s
+shown in Fig. 2 were obtained by ﬁnite-diﬀerence solution of Eq. 1 and are called
+exact to contrast them with approximate results described below.
+4. Approximate wave variables
+The top row of Eq. 9 provides a diﬀerential equation for P+ coupled to P−
+d
+dx P+ = (ε − κ ) P+ − εP −. (11)
+When y0(x, s ) varies slowly with x, we can obtain an approximate equation for
+P+ that is independent of P− by assuming that |(κ + ε ) P+| ≫ | ε P −|. With this
+approximation, Eq. 11 reduces to
+d
+dx
+˜P+ = (ε − κ ) ˜P+ (12)August 7, 2008 18:20 WSPC - Proceedings Trim Size: 9.75in x 6.5i n retro˙wave
+4
+Fig. 2. Forward-traveling (solid) and retrograde (dashed) pressure components for the approxi-
+mate model. The magnitude and phase are shown relative to pre ssure at the stapes. The results
+on the left side are for smooth BM impedance. The results on the right side are for rough BM
+impedance. The arrow indicates the phase at the characteris tic place.
+which can be integrated to obtain
+˜P+(x, f ) = P+(0, f ) ·exp
+[ ∫ x
+0
+ε (x1, f ) − κ (x1, f )dx1
+]
+, (13)
+giving an approximate expression for P+. Surprisingly this expression is the WKB
+approximation for the forward-traveling pressure wave [3,6,7].
+The bottom row of Eq. 9 gives us a diﬀerential equation for P− that is coupled
+to P+,
+d
+dx P− = (κ + ε ) P− − εP +. (14)
+No further approximations are needed to obtain a solution for the retrograde wa ve.
+Substitute Eq. 13 into Eq. 14 to obtain
+d
+dx
+˜P− − (κ + ε ) ˜P− = −εP +(0, f ) ·exp
+[
+−
+∫ x
+0
+(κ − ε ) dx1
+]
+. (15)
+The integration of this equation requires a boundary condition. If we assume tha t
+˜P−(L, f ) ≈ 0, we obtain
+˜P−(x, f ) = P+(0, f ) ·exp
+[ ∫ x
+0
+(κ + ε ) dx1
+]
+·
+∫ L
+x
+ε exp
+[
+−2
+∫ x2
+0
+κdx 3
+]
+dx2, (16)
+where x2 and x3 are additional integration variables for x. The sum of Eqs. 13 and
+16 provides an approximate solution for the total pressure ˜P (x, f ). The accuracy of
+this approximation is demonstrated in Fig 3 by comparing exact and approximat e
+solutions of peak pressure (at the characteristic place) relative to stapes pr essure
+for versions of the cochlear model with smooth and rough BM. The exact solutio ns
+required about 20 times longer to compute.August 7, 2008 18:20 WSPC - Proceedings Trim Size: 9.75in x 6.5i n retro˙wave
+5
+Fig. 3. Peak pressure (re stapes pressure) as a function of frequency. The peak pres-
+sure is deﬁned as the maximum pressure magnitude over the entire le ngth of the BM
+at each frequency. The four curves represent diﬀerent model cond itions: (1) exact-smooth
+(thick dashed); (2) exact-rough (thick solid); (3) approxima te-smooth (thin dashed); (4)
+approximate-rough (thin solid). The approximate results (th in) are barely visible in this
+ﬁgure because they are covered by the exact results (thick).
+We use Eqs. 13 and 16 to write an approximate equation for reﬂectance
+˜R(x, f ) = exp
+[
+2
+∫ x
+0
+κ (x1)dx1
+]
+·
+∫ L
+x
+ε (x2) exp
+[
+−2
+∫ x2
+0
+κ (x3)dx3
+]
+dx2, (17)
+which at the stapes reduces to
+˜R(0, f ) =
+∫ L
+0
+ε (x2) exp
+[
+−2
+∫ x2
+0
+κ (x3)dx3
+]
+dx2. (18)
+Comparison between exact and approximate reﬂectance (not shown) demonstrate
+excellent agreement.
+5. Discussion
+Figure 2 shows exact model results for forward-traveling pressure P+, and retrograde
+pressure P−, at one frequency. The results on the left of Fig. 2 are for a smooth
+BM stiﬀness. The relatively small P− level at the stapes indicates that reﬂection
+at the tonotopic place is insigniﬁcant. The results on the right are for a roug h BM
+stiﬀness. The rough stiﬀness had a small, random increase added to the smooth
+stiﬀness at each place along the BM. The random stiﬀness increase was uniformly
+distributed between 0 and 0.001%. This small amount of roughness was suﬃcient
+to produce signiﬁcant reﬂection of the forward-traveling wave in the vicinity of t he
+tonotopic place. The positive slope of the phase of the P− component indicates that
+retrograde energy is being propagated. Another interesting feature demonstated by
+the cochlear model results in Fig. 2 is that the round trip delay of an SFOAE may
+be less than the twice forward delay to the characteristic place.
+In Fig. 3, we see that the pressure diﬀerence between the smooth and rough
+models (i.e., the peak pressure ﬁne structure) is the same for the exact and approx-August 7, 2008 18:20 WSPC - Proceedings Trim Size: 9.75in x 6.5i n retro˙wave
+6
+imate results. In other words, the ﬁne structure of the approximate pressure is t he
+same as the ﬁne structure of the exact pressure. Model peak-pressure ﬁne structure
+represents threshold ﬁne-structure rather than SFOAE ﬁne-structure [8].
+In Eq. 18, the accumulated phase of the incident wave ˜P+ at location x comes
+primarily from the integral of κ . In Eq. 18, note that the contribution to the stapes
+reﬂectance ˜R of the retrograde wave from any location x has twice the phase accu-
+mulation of the incident wave to that location. This doubling of phase is consisten t
+with the mechanism of reﬂection being place-ﬁxed . Experimental observations of
+OAE phase as a function of frequency suggest that some types of emissions are
+generated by a place-ﬁxed mechanism [9].
+6. Conclusions
+The wave variable decomposition traditionally applied to uniform transmi ssion lines
+may be extended to the case of nonuniform transmission lines, which may be used
+to represent one-dimensional models of cochlear mechanics. When the character-
+istic impedance z0 varies slowly, the equations for ˜P+, ˜P− and ˜R provide useful
+approximations for solutions of cochlear models with “tall broad peaks.”
+Acknowledgments
+This work was partially supported by a grant from NIH-NIDCD (R01-DC8 318).
+References
+1. Kemp, D., 1980. Stimulated acoustic emissions from within the human aud itory system.
+J. Acoust. Soc. Am. 5, 1386-1391.
+2. Zweig, G., Shera, C.A., 1995. The origin of periodicity in the spectru m of evoked
+otoacoustic emissions. J. Acoust. Soc. Am. 98, 2018-2047.
+3. Zweig, G., Lipes, R., Pierce, J.R., 1976. The cochlear compromise. J . Acoust. Soc. Am.
+59, 975-982.
+4. Shera, C.A., Zweig, G., 1991. Reﬂection of retrograde waves within the c ochlea. J.
+Acoust. Soc. Am. 89, 1290-1305.
+5. Brillouin, L, 1953. Wave propagation in periodic structures. Dover, L ondon, second
+edition.
+6. Durney, C.H. Johnson, C.C., 1969. Introduction to modern electromagn etics. McGraw-
+Hill, New York.
+7. Viergever, M.A., de Boer, E., 1987. Matching impedance of a nonuniform transmission
+line: Application to cochlear modeling. J. Acoust. Soc. Am. 81, 184-186.
+8. Choi, Y.-S., Lee, S.-Y., Parham, K., Neely,S., Kim, D., 2008. Stimu lus-frequency otoa-
+coustic emission: Measurements in humans and simulations with an acti ve cochlear
+model. J. Acoust. Soc. Am. 123, 2651-2669.
+9. Shera, C.A., Guinan, J.J., 1999. Evoked otoacoustic emissions arise by tw o fundamen-
+tally diﬀerent mechanisms: A taxonomy for mammalian OAEs. J. Acoust Soc . Am. 105
+782-798.

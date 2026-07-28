@@ -1,0 +1,24 @@
+# OS / editor cruft
+.DS_Store
+*.asv
+*.autosave
+
+# Local Claude Code config (machine-specific permissions and paths)
+.claude/
+
+# UNPUBLISHED MANUSCRIPTS -- excluded from this PUBLIC repository.
+# The MOH2027 findings and the process documents are unpublished work behind
+# the capstone papers (MOH27 and the JASA paper that follows). They live in
+# OneDrive and are deliberately not tracked here.
+*.docx
+
+# Pre-git backups. Redundant now that history is versioned; these duplicate
+# files already present in the root.
+save/
+save20240607/
+*.bak
+
+# NOTE: .mat files are deliberately NOT ignored. Several are frozen parameter
+# sets that cost hours to regenerate (refit_c3_map.mat, refit_m4_map2.mat,
+# refit_m1_n2801b.mat), and the design note requires published figures to
+# regenerate from frozen parameter sets.

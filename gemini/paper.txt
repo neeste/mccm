@@ -1,0 +1,1252 @@
+Modeling signal propagation in the human cochlea
+Stephen T .Neelya) and Daniel M. Rasetshwane
+Boys Town National Research Hospital, 555 North 30th Street, Omaha, Nebraska 68131, USA
+(Received 12 February 2017; revised 28 September 2017; accepted 29 September 2017; published
+online 19 October 2017)
+The level-dependent component of the latency of human auditory brainstem responses (ABR) to
+tonebursts decreases by about 38% for every 20-dB increase in stimulus level over a wide range
+of both frequency and level [Neely, Norton, Gorga, and Jesteadt (1998). J. Acoust. Soc. Am. 31,
+87–97]. This level-dependence has now been simulated in an active, nonlinear, transmission-line
+model of cochlear mechanics combined with an adaptation stage. The micromechanics in this model
+are similar to previous models except that a dual role is proposed for the tectorial membrane (TM):
+(1) passive sharpening the tuning of sensory-cell inputs (relative to basilar-membrane vibrations)
+and (2) providing an optimal phase shift (relative to basilar-membrane vibrations) of outer-hair-cell
+feedback forces, so that ampliﬁcation is restricted to a limited range of frequencies. The adaptation
+stage, which represents synaptic adaptation of neural signals, contributes to the latency level-
+dependence more at low frequencies than at high frequencies. Compression in this model spans the
+range of audible sound levels with a compression ratio of about 2:1. With further development, the
+proposed model of cochlear micromechanics could be useful both (1) as a front-end to functional
+models of the auditory system and (2) as a foundation for understanding the physiological basis of
+cochlear ampliﬁcation.
+VC 2017 Acoustical Society of America . https://doi.org/10.1121/1.5007719
+[CAS] Pages: 2155–2167
+I. INTRODUCTION
+The primary sensory organ for our sense of hearing is
+the cochlea, which is the part of the inner ear that converts
+vibrations caused by sounds into the neural signals that are
+conveyed by the auditory nerve (AN) to the brain.
+Computational modeling is one of many tools that research-
+ers use to answer questions about cochlear function (e.g.,
+Allen and Neely, 1992 ). One question is how the cochlea
+delivers to each AN ﬁber only a speciﬁc range of frequen-
+cies. Another question is how the cochlea compresses the
+large dynamic range of audible sounds into the much smaller
+dynamic range of neural signals. The answers to these ques-
+tions lie within the realm of cochlear micromechanics.
+There are two types of sensory cells in the cochlea that
+detect vibrations: inner hair cells (IHCs), which are mainly
+responsible for converting cochlear vibrations into neural
+signals, and outer hair cells (OHCs), which have a different
+functional role that utilizes their shape-shifting ability
+(called motility) to inﬂuence cochlear vibrations ( Brownell
+et al., 1985). Although it is widely accepted that OHC motil-
+ity ampliﬁes cochlear vibrations (e.g., Dallos and Evans,
+1995), evidence supporting this action is inconclusive and
+some details of OHC function remain controversial (e.g.,
+van der Heijden and Versteegh, 2015 ). A goal of modeling
+cochlear micromechanics is to contribute toward resolving
+the lingering uncertainty surrounding the role of OHCs
+underlying these processes (Allen and Neely, 1992).
+The existence of cochlear compression implies the pres-
+ence of nonlinear elements in cochlear mechanics. An
+important consequence of the fact that cochlear mechanics is
+nonlinear is that the latency of AN responses to transient
+sounds is level dependent. Speciﬁcally, the latency of AN
+transient responses decreases as sound level increases.
+Evidence suggests that the level-dependent component of
+the latency of human auditory brainstem responses (ABR) to
+toneburst stimuli decreases by about 38% for every 20 dB
+increase in stimulus level ( Neely et al ., 1988; Rasetshwane
+et al., 2013). This rate of latency decrease remains approxi-
+mately constant across a wide range of toneburst frequencies
+and intensities.
+The level dependence of the latency of cochlear transi-
+ents has previously been partially simulated in models of
+cochlear mechanics by applying a saturating nonlinearity to
+the feedback force associated with OHCs (e.g., Neely,
+1989). However, modeling the full frequency and level range
+of this level dependence has been elusive (e.g., Neely, 1989;
+Rønne et al., 2012; Verhulst et al., 2016).
+The present study proposes a new way to model OHC
+feedback forces that operates over a wider range of stimulus
+levels and stimulus frequencies than has been achieved in
+previous models. An important feature of this model is that
+it maintains numerical stability for wideband stimuli in an
+active, nonlinear time–domain implementation. The key to
+the success of this approach is a new interpretation of the
+OHC feedback force in which the tectorial membrane (TM)
+plays an essential role in controlling the activation of
+cochlear ampliﬁcation.
+II. METHODS
+The model equations and mathematical notation pre-
+sented in this are essentially the same as Neely and Kim
+(1986) and Neely (1990) . Differences in the present model
+formulation include (1) the physiological interpretation ofaElectronic mail: Stephen.Neely@boystown.org
+J. Acoust. Soc. Am. 142 (4), October 2017 VC 2017 Acoustical Society of America 21550001-4966/2017/142(4)/2155/13/$30.00
+ 14 July 2026 21:58:02
+micromechanics, (2) details of the OHC nonlinearity, and (3)
+the inclusion of an adaptation stage. A frequency–domain
+formulation of the equations is useful for understanding how
+the model input to the hair cells differs from basilar mem-
+brane (BM) vibrations; however, a time–domain formulation
+is required to properly simulate the level dependence of
+OHC feedback forces.
+A. Fluid mechanics
+A one-dimensional (or transmission-line) approximation
+of cochlear–ﬂuid mechanics (e.g., Zweig et al., 1976) can be
+written as
+d2
+dx2 pd xðÞ ¼ 2q
+H n€
+p xðÞ ; (1)
+where pd is the difference in pressure across the cochlear
+partition (CP), np is the average displacement across the
+width of the CP, H is the height of the scale, and q is the
+density of the ﬂuid. (The dots above np indicate a second
+derivative with respect to time.) A ﬁnite-difference approxi-
+mation of the second-order spatial derivative (with respect
+to x) in Eq. (1) yields the following equation:
+2pd ðxÞ/C0 pdðx /C0 DÞ/C0 pdðx þ DÞ¼/C0 mf n€
+pðxÞ; (2)
+where D ¼ L=ðN /C0 1Þ is the small distance along the CP
+over which mechanical properties of the cochlea are lumped
+as a single section, L is the length of the CP, N is the number
+of discrete location that represent this length in the model,
+and mf ¼ 2qD2=H is the effective mass (per unit area) of the
+scala ﬂuid. In the cochlea, scala height decreases from base
+to apex, which has been shown to have an important inﬂu-
+ence on cochlear input impedance (e.g., Puria and Allen,
+1991; Shera and Zweig, 1991 ). In the present model, scala
+height decreases exponentially such that the height at the
+apex is about one-fourth the height at the base.
+B. Cochlear micromechanics
+The macromechnical equations that govern the relation
+between pressure difference pd and CP displacement np are
+described by Eqs. (1) and (2). The variables pd and np are
+also related by cochlear micromechanics.
+In the model, each lumped section of the microme-
+chanics contains two mechanical degrees-of-freedom (DOF),
+as shown in Fig. 1. The mass m1 represents the CP, which
+comprises the portion of the Organ of Corti (OC) between
+(and including) the BM and reticula lamina (RL). The mass
+m2 represents the TM, which is attached to the bony spiral
+limbus and is also elastically coupled to the RL (through the
+stiffness of the OHC hair bundles and the viscosity of the
+subtectorial ﬂuid).
+In the frequency domain, the micromechanical relation
+between pd and np can be expressed in terms of a partition
+impedance ( Zp) and a Fourier transform of _np (denoted as
+_Np):
+Pd ðxÞ¼ ZpðxÞ _NpðxÞ; (3)
+bZp ¼ Z1 þð Z3 /C0 cZ4ÞHc; (4)
+Hc ¼ Z2
+Z2 þ Z3
+; (5)
+where Pd is the Fourier transform of pd, Z1 ¼ m1s þ c1
+þ k1=s, Z2 ¼ m2s þ c2 þ k2=s, Z3 ¼ c3 þ k3=s, and Z4 ¼ c4
+þ k4=s are impedance functions, which are speciﬁed in the
+frequency domain, and s ¼ ix.1
+To compensate for the fact that local displacement of
+the CP varies across its width, a scale factor b is introduced
+in Eq. (4) that relates the average displacement of CP (across
+its width) to the point displacement of m1 by the equation
+np ¼ bn1. In effect, the scale factor b resolves the need to
+maintain conservation of volume in the ﬂuid mechanics with
+the need to report point displacements of the microme-
+chanics for comparison with experimental measurements.
+For simplicity, b is a constant (independent of x) in the pre-
+sent model.
+The term Z
+4 in Eq. (4) implements an OHC feedback
+force that is controlled by OHC hair-bundle deﬂection and
+acts on the CP. This feedback force provides the basis for
+ampliﬁcation of CP vibrations. The parameter c, which is a
+constant in the frequency–domain model and varies with
+hair-bundle displacement in the time–domain model,
+FIG. 1. Lumped-element model of cochlear micromechanics with two DOF.
+The mass m1 represents the portion of the OC between the BM and reticular
+lamina, which is attached to rigid bone by stiffness and damping elements
+k1 and c1. A difference in ﬂuid pressure ( Pd) across the OC creates a force
+that acts on the OC mass. Feedback force due to OHC motility creates a sec-
+ond force that also acts on the OC mass and is represented in this ﬁgure as
+Pa. The mass m2 represents the TM, which is attached to rigid bone by k2
+and c2. The two masses are coupled to each other by k3 and c3.
+Displacements of m1 and m2 are denoted by n1 and n2, respectively. In the
+model, the relative (or shear) displacement between m1 and m2 (deﬁned as
+nc ¼ n1 /C0 n2) becomes the input to outer hair cells. The relative velocity _nc
+drives inner hair cells.
+2156 J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane
+ 14 July 2026 21:58:02
+controls the magnitude of the OHC feedback force and,
+thereby, the ampliﬁer gain. The time dependence of c is
+what causes the time–domain model to become level depen-
+dent or, equivalently, to be nonlinear. The model is linear
+when c is constant and nonlinear when c varies with time.
+The parameter c also determines when the model is active.
+The model is active when c > 0 and passive when c ¼ 0.
+The model is most sensitive when c ¼ 1.
+The signal delivered to both IHCs and OHCs is the
+deﬂection of their hair bundles. Because the OHC hair bun-
+dle is embedded in the TM, deﬂection of the OHC hair bun-
+dle is equal to the relative displacement nc ¼ n1 /C0 n2
+between the TM and the CP. In Eq. (5), Hc is deﬁned as a
+transfer function between CP displacement and OHC hair-
+bundle deﬂection. So, in the frequency domain, _N
+c ¼ Hc _N1.
+The role of Hc in sharpening the tuning of cochlear
+responses as a passive ﬁlter has been suggested previously
+by Zwislocki and Kletsky (1979) and Allen (1980) . In the
+present model, passive sharpening due to Hc is mainly
+limited to the attenuation of low-frequency responses.
+However, in addition to this passive sharpening, Hc also con-
+tributes to active sharpening by limiting the frequency range
+over which OHC feedback forces can counteract intrinsic
+damping. This point is discussed further below.
+The magnitude and phase of H
+cðxÞ are shown in Fig. 2
+at four frequencies (1, 2, 4, and 8 kHz). Note that the “high-
+pass ﬁlter” shape of the transfer-function magnitude (in the
+upper panel of Fig. 2) provides an improvement in frequency
+selectivity of about 12 dB between its maximum and mini-
+mum.2 Also, note that (at each frequency) the phase of Hc
+increases to more than one-eighth cycle. As we shall see
+below, one consequence of this phase shift is that the OHC
+feedback force is shifted toward negative damping.
+The IHC hair bundle is not embedded in the TM, so it is
+displaced by viscous drag due to motion of the sub-tectorial
+ﬂuid that surrounds it. Considering this, we follow Verhulst
+et al . (2016) in modeling the IHC hair-bundle deﬂection as
+being proportional to the velocity _n
+c.
+The real part of ZpðxÞ is shown in Fig. 3 at the same four
+frequencies as in Fig. 2. The solid and dashed lines in Fig. 3
+show the impedance when c ¼ 1 and c ¼ 0, respectively. At
+each frequency, the real part of ZpðxÞ, which represents the
+damping effect of the CP on motion of the cochlear ﬂuid,
+becomes negative across a limited distance (when c ¼ 1).
+Note that the damping becomes most negative near the loca-
+tion where the phase of H
+cðxÞ equals one-eighth cycle, which
+is indicated by the ﬁlled circle on each curve. The presence
+of negative damping means that the CP introduces energy
+into the cochlear ﬂuid. The source of this energy is OHC
+motility. The open circles indicate locations of maximum
+response.
+A time–domain implementation is required to include
+nonlinear elements in the model. In our time–domain model,
+the only time-varying parameter is c, which was introduced
+in Eq. (4) as a multiplier of the OHC feedback force. In other
+words, the only nonlinear element in the model represents
+OHC mechanoelectric transduction. The OHC force is great-
+est when c ¼ 1, which occurs when signal levels are very
+low. The OHC force is absent when c ¼ 0, which is the
+passive condition of the model that occurs (1) when signal
+levels are extremely high or (2) when OHC function is
+impaired. The present time–domain model uses the follow-
+ing equation to gradually decrease c as the magnitude of n
+c
+increases:
+FIG. 2. (Color online) Transfer function between basilar-membrane (or
+reticular lamina) displacement and the shearing displacement between retic-
+ular lamina and the TM HcðxÞ at four frequencies, 1, 2, 4, and 8 kHz. In the
+model, this shearing displacement becomes the input to both IHCs and
+OHCs. These results were computed from a linearized version of the active,
+time–domain cochlear model. The ﬁlled circles indicate the locations where
+the phase equals one-eighth cycle, which is equal to 45/C14 or p=4 radians. The
+open circles indicate the location of maximum OHC displacement (nc).
+FIG. 3. (Color online) Real part of the impedance of the CP ZpðxÞ at four
+frequencies, 1, 2, 4, and 8 kHz. The solid lines represent the active condition
+of the model with c ¼ 1. The dashed lines represent the passive version of
+the model with c ¼ 0. These results were computed from a linearized ver-
+sion of the active, time–domain cochlear model. The ﬁlled circles indicate
+the locations where the transfer-function (Hc) phase equals one-eighth cycle
+(see Fig. 2). The open circles indicate the locations of maximum OHC dis-
+placement (nc).
+J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane 2157
+ 14 July 2026 21:58:02
+c ¼
+1; nc /C20 dm;
+1
+1 þ ac /C1 lnjnc=dmj ; nc > dm:
+8
+<
+: (6)
+In the model, c varies with time and location, but only
+because of its dependence on nc: The parameters ac and dm
+in Eq. (6) are (for simplicity) constant across time and
+location. 3
+C. Cochlear model parameters
+Parameter values for the present model are listed in
+Table I. Parameters associated with ﬂuid mechanics were
+selected to represent human cochlear anatomy and have
+the same values as in previous versions of the model (e.g.,
+Neely, 1990 ). Other parameters (associated with cochlear
+micromechanics) were selected for consistency with (1) the
+human frequency-to-place map suggested by Greenwood
+(1990) and (2) the level-dependence of ABR Wave-V
+latency reported ﬁrst by Neely et al . (1988) and replicated
+by Rasetshwane et al. (2013). Model results that demonstrate
+this consistency are presented below.
+D. Stimulus delivery and model response
+In the model, stimuli were delivered to the cochlea though
+simple earphone and ear-canal/coupler sections, which were
+connected (by an eardrum) to a middle-ear section. These sec-
+tions are the same in the present model as described by Liu
+and Neely (2010).
+For the purposes of this paper, the primary measure of
+the model’s response was a whole-nerve response (WNR),
+which was deﬁned as the sum of the outputs of all IHCs at
+each time step. To demonstrate how synapses may inﬂuence
+the latency of cochlear transient responses, each IHC output
+was computed in two different ways: (1) as a voltage repre-
+senting an IHC receptor potential due to hair-bundle deﬂec-
+tion or (2) as an instantaneous neural spike rate obtained by
+passing the IHC voltage through an adaptation stage.
+The adaptation stage is intended to represent the com-
+bined effect of all of the IHC synapses of the subset of AN
+ﬁbers attached to a single IHC. The adaption stage enhances
+the WNR onset by reducing steady response that occurs after
+the onset. This sensitivity reduction persists for a few milli-
+seconds after the stimulus ends and gradually recovers.
+IHC voltage was computed by taking a quantity that
+was proportional to the shear velocity _n
+c, which was
+described above in the context of cochlear micromechanics,
+then subjecting it to (1) half-wave rectiﬁcation and (2) a
+ﬁrst-order low-pass ﬁlter (with a time-constant of t
+ihc ¼ 0:2
+ms). The rectiﬁcation is attributed to mechanoelectric trans-
+duction at the IHC hair bundle and the low-pass ﬁlter is
+attributed to the combination of IHC membrane capacitance
+and conductance. For comparison, the time-constant of the
+IHC membrane is reported to be 0.26 ms and constant
+throughout the cochlea (Johnson et al., 2011).
+Our adaptation-stage formulation is essentially a nonlin-
+ear single-reservoir diffusion model. The time-varying inner-
+hair-cell membrane potential v
+ihcðtÞ is the input to the model.
+The model output rnsðtÞ is similar to a neural spike rate. For
+convenience, the synapse–model equations are expressed in
+terms of the dimensionless quantities v
+n ¼ vihcðtÞ=vnorm and
+rn ¼ rnsðtÞ=rnorm ;
+_r1 ¼/C0 qd rn þ qr ð1 /C0 r1Þ; (7)
+r2 ¼
+0; r1 /C20 0;
+r1; 0 < r1 < 1;
+1; r1 /C21 1;
+8
+><
+>:
+(8)
+rn ¼ ra
+2vn: (9)
+In these equations, r1 and r2 are similar to diffusion perme-
+abilities, the dot above r1 denotes a time derivative, qd is the
+reservoir depletion rate,qr is the reservoir recovery rate, anda
+is an exponent that has the effect of increasing the amount of
+forward masking produced by the model. For the results pre-
+sented in this paper, the model parameters wereq
+d ¼ 1:906/s,
+qr ¼ 17:52/s, and a ¼ 10:78. The model parameters (includ-
+ing vnorm) were selected to achieve a favorable compromise
+between the onset enhancement needed for latency compari-
+sons and the amount of masking needed for forward-masking
+comparisons.
+III. RESULTS
+Features of the most sensitive state of the model, which
+represents its behavior for the lowest audible stimulus levels,
+are best demonstrated by impulse responses from a linear
+version of the time–domain model with c ¼ 1. A nonlinear
+version of the model is required to demonstrate the level
+dependence of the latency of cochlear responses to toneburst
+stimuli. Model responses to longer-duration tones provide
+additional context for consideration of (1) tone detection, (2)
+tone-on-tone forward masking, and (3) power ﬂow as a func-
+tion of spatial location.
+A. Power flow
+Figure 4 shows the cochlear–partition displacement ( n1)
+magnitude (upper panel) and power ﬂow 4 (lower panel) as
+functions of place for a 1 kHz stimulus at two different
+levels. At 0 dB sound pressure level (SPL), power ﬂow is
+TABLE I. Model parameter values (cgs) units. The spatial dependence of
+parameter values is expressed in terms of a longitudinal place variable
+/C20x ¼ x /C1½ 1 þð 0:234xÞ6/C138 , which increases parameter gradients near the apex
+to better ﬁt to the desired frequency-place map.
+k1ðxÞ¼ 2:394 /C2 108e/C0 2:666/C20x (dyn cm-3) L ¼ 3:5 (cm)
+c1ðxÞ¼ 871:4e/C0 1:394/C20x (dyn s cm-3) H ¼ 0:1e/C0 0:4x (cm)
+m1ðxÞ¼ 7:417 /C2 10/C0 3e/C0 0:063/C20x (gm cm-2) W ¼ 0:1 (cm)
+k2ðxÞ¼ 3:036 /C2 108e/C0 3:476/C20x (dyn cm-3) q ¼ 1 (gm cm-3)
+c2ðxÞ¼ 1979e/C0 1:247/C20x (dyn s cm-3) b ¼ 0:05
+m2ðxÞ¼ 3:417 /C2 10/C0 2e/C0 0:083/C20x (gm cm-2) N ¼ 3501
+k3ðxÞ¼ 3:151 /C2 108e/C0 2:909/C20x (dyn cm-3) ac ¼ 0:05
+c3ðxÞ¼ 1:049e/C0 0:103/C20x (dyn s cm-3) dm ¼ 6 /C2 10/C0 9 (cm)
+k4ðxÞ¼ 4:045 /C2 108 e/C0 2:795 (dyn cm-3) tihc ¼ 0:2 (ms)
+c4ðxÞ¼ 0
+2158 J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane
+ 14 July 2026 21:58:02
+positive at some locations. Positive power ﬂow means that
+power is ﬂowing out of the CP, which is evidence of a net
+power gain. 5 At 60 dB SPL, power ﬂow is negative every-
+where. Negative power ﬂow means that power is ﬂowing
+into the CP, which indicates the absence of any power
+gain.
+Displacement gain (deﬁned as CP displacement ampli-
+tude at the characteristic place when c ¼ 1 compared to the
+amplitude when c ¼ 0) is typically larger in the model than
+power gain. Figure 5 shows how displacement gain and
+power gain both decrease as stimulus level increases. Note
+that the slope of the displacement gain is about /C0 0.5, which
+is equivalent to a compression ratio of 2:1.
+B. Impulse responses
+Isodisplacement tuning curves from the linearized
+time–domain model (with c ¼ 1) are shown in Fig. 6. The
+input stimulus to the model was a wide-band click. The
+model response was computed for 160 ms beyond the onset
+of the click. At ﬁve places (20, 40, 60, 80, and 90% of the
+distance from the base), CP displacement ( n
+p) and OHC dis-
+placements (nc) were Fourier transformed (and then divided
+by the Fourier transform of the pressure at the eardrum) to
+obtain the curves shown in Fig. 6. The isodisplacement
+curves (upper panel), indicate the pressure needed at the
+eardrum to elicit a displacement of nc ¼ 1 nm (rms) in the
+model. The group delay of nc (relative to eardrum pressure
+at the same ﬁve places; lower panel) is deﬁned as minus
+the slope of the phase with respect to frequency.
+The isodisplacement tuning curves (upper panel of Fig.6)
+show an increase in sharpness of tuning as characteristic
+frequency (CF) increases. A useful measure of the sharpness
+of tuning is Qerb, which is deﬁned as its CF divided by the
+“equivalent rectangular bandwidth” of the tuning curve.
+Direct measurement of tuning curves is not possible for
+human cochlear responses; however, Qerb may be inferred
+from human otoacoustic emission (OAE) latency (e.g., Shera
+et al ., 2002 ). Table II compares Qerb of the tuning curves
+in Fig. 6 with estimates derived from stimulus-frequency
+OAE latency measurements. Compared to the OAE estimate,
+Qerb in the active model is 37% less at 0.11 kHz and 41%
+greater at 7.8 kHz. In the passive model, Qerb is about 1 at all
+frequencies.
+Tonotopicity is a key feature of auditory-system organi-
+zation, so it is important that the model reproduces the
+frequency-place map of the human cochlea. In Fig. 7, the
+FIG. 4. (Color online) Cochlear-partition displacement ( n1) and power ﬂow
+at 1 kHz as a function of place at two stimulus levels (0, 60 dB SPL). The
+dB units for displacement magnitude (upper panel) are referenced to 1 pm
+and 1 nm for 0 and 60 dB SPL, respectively, which causes the two curves to
+have approximately the same dB values between x ¼ 1:0 and x ¼ 1:5. The
+two power-ﬂow curves (lower panel) are normalized to have the same maxi-
+mum in-ﬂow to facilitate visual determination of the regions where power
+ﬂow is positive or negative, which indicates that power is being produced or
+absorbed by the CP, respectively.
+FIG. 5. (Color online) Cochlear-ampliﬁer gain as a function of stimulus
+level for a 1-kHz tone. Displacement gain (triangles) is deﬁned as the ampli-
+tude of displacement of the CP at the 1-kHz characteristic place ( x ¼ 2:051
+cm) when c ¼ 1 relative to the amplitude at that place when c ¼ 0. Power
+gain (circles) is deﬁned as the total power absorbed by the CP at 1 kHz rela-
+tive to the power that enters the cochlea through the stapes.
+FIG. 6. (Color online) Isodisplacement tuning curves representing nc and n1
+at ﬁve locations. The locations are at 20, 40, 60, 80, and 90% of the distance
+from the stapes (to the apex). These results were computed from a linear
+version of the time–domain cochlear model with c ¼ 1.
+J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane 2159
+ 14 July 2026 21:58:02
+model frequency–place map is compared to maps derived by
+Greenwood (1990) for the human cochlea and the cat
+cochlea. The good agreement between the present model and
+the human map required special attention to the slope of the
+model map at low frequencies (see Fig. 7). The map–slope
+decrease was achieved by increasing the rate-of-change (with
+respect to distance from the stapes) of all micromechanical
+model parameters near the cochlear apex (see Table I cap-
+tion). This feature of the frequency-place map has the impor-
+tant beneﬁt of reducing reﬂections from the helicotrema
+(Puria and Allen, 1991 ; Shera and Zweig, 1991 ), which
+would otherwise create standing waves at low frequencies.
+C. Toneburst responses
+The set of toneburst stimuli that were selected to demon-
+strate the latency of cochlear transient responses consists of
+Blackman-windowed tones at four frequencies (0.5, 1, 2, and
+4 kHz) at four levels each (20, 40, 60, and 80 dB peSPL
+6).
+The duration of each toneburst is inversely proportional to
+the square root of its frequency (5.66, 4, 2.83, and 2 ms).
+Model responses to each of the tonebursts were computed for
+40 ms beyond the onset of the stimulus. Examples of the time
+course of the WNR are shown in Fig. 8 for the 1-kHz tone-
+burst at three levels (40, 60, and 80 dB peSPL). The middle
+and lower panels show WNR waveforms with and without
+inclusion of the adaptation stage, respectively. The latency of
+the WNR is measured from the onset of the stimulus to the
+peak (i.e., maximum value) of the WNR. In Fig. 8,W N R
+peaks are indicated by dots. Note that enhancement of the
+WNR onset when the adaptation stage is included causes
+more rapid decrease in the latency of the peak as level
+increases.
+In Fig. 9(a), the WNR latency for all 16 toneburst stim-
+uli (for the model without synapses) is compared to lines
+ﬁtted to measurements of human Wave-V ABR latencies
+after subtraction of 5 ms attributed to neural propagation
+delay ( Neely et al ., 1988 ). The dependence of the WNR
+latency on level and frequency is similar to the ABR data at
+the highest frequency, but the WNR latency is less depen-
+dent on level at the lowest frequency.
+Figure 9(b) shows WNR latency for the same tonebursts
+when the adaptation stage was included. The addition of the
+TABLE II. Sharpness of tuning (Qerb) in the model compared with estimates
+derived from OAE latency measurements. For the model, Qerb was calcu-
+lated (as the best frequency divided by an equivalent-rectangular bandwidth)
+from the n
+c tuning curves shown in Fig. 6 for both active and passive condi-
+tions of the model. The OAE estimates were calculated from a power law ﬁt
+Qerb ¼ bf a to SFOAE-delay data that was suggested by Shera et al. (2002)
+with a ¼ 0:30 and b ¼ 12:7.
+0.11 kHz 0.27 kHz 1.0 kHz 2.8 kHz 7.8 kHz
+Passive nc 0.9 1.0 1.2 1.1 0.6
+Active nc 4.0 5.9 11.0 17.1 32.3
+OAE estimate 6.4 8.4 12.2 16.8 22.9
+FIG. 7. (Color online) Frequency-place map showing the CF at ﬁve locations.
+The locations are the same as for the tuning curves in Fig.4. These frequency-
+place results were computed from a linear version of the time–domain cochlear
+model with c ¼ 1. The man and cat maps shown for comparison are based on
+equations suggested byGreenwood (1990).
+FIG. 8. (Color online) Pressure at eardrum ( Pe) and WNR for a 1-kHz tone-
+burst. Each curve is normalized to its maximum value. WNR is shown at
+three stimulus levels (40, 60, and 80 dB peSPL). The dots at the maximum
+value of each WNR curve indicate its latency, which decreases as stimulus
+level increases.
+FIG. 9. WNR latency for tone bursts. The symbols indicate model latency at
+four levels (20, 40, 60, 80 dB peSPL) and four frequencies (0.5, 1, 2, 4 kHz).
+Panel A shows model results without any adaptation. Panel B shows model
+results with adaptation applied to each IHC. The dotted lines are ﬁts to the level-
+dependent component of human ABR Wave-V latency (Neely et al., 1988).
+2160 J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane
+ 14 July 2026 21:58:02
+adaptation stage causes the latency to become more level
+dependent at the lowest frequency, but has little effect at the
+highest frequency. These results demonstrate that including
+the adaptation stage in the model improves the agreement
+between WNR latency and the ABR latency.
+D. Tone detection and forward masking
+Onset emphasis due to adaptation is illustrated in Fig.
+10, which superimposes WNR for 1-kHz tones at three stim-
+ulus levels (80, 60, and 40 dB SPL). The duration of these
+tones is 100 ms, which includes 10 ms cosine-shaped ramps
+at the beginning and end. To facilitate comparison, WNR at
+all stimulus levels has been normalized to the peak value of
+WNR at 80 dB in the time range from 80 to 90 ms. Note that
+the WNR peak-to-steady ratio is 5.9 at 80 dB and decreases
+to 3.0 at 40 dB SPL.
+Reduction in sensitivity of the adaption model due to
+the 100 ms tone is illustrated in Fig. 10 by showing a corre-
+sponding reduction in WNR when a second tone, which we
+call the probe, was presented with a delay of 20 ms after the
+end of the ﬁrst tone, which we call the masker. The probe
+tone had a duration of 20 ms (with 10 ms ramps) and a level
+of 20 dB SPL. Figure 10 shows that WNR produced by the
+probe decreases in amplitude as masker level increases. The
+decrease in WNR amplitude is interpreted as an increase in
+forward masking due to reduced sensitivity of the adaptation
+stage.
+The adaptation stage produces onset emphasis because
+steady signals experience decreased throughput. In other
+words, the adaptation stage adapts to its input signal level
+over a short period of time. After the input signal ends, the
+adaptation stage recovers from its reduced-sensitivity state
+over a short period of time. The adaptation model is intended
+to mimic a reduced sensitivity observed in IHC synapses
+that is known as short-term adaptation. When observed
+psychophysically, reduced sensitivity in the presence of a
+preceding tone is known as forward masking. Although
+short-term adaptation may play a role in forward masking,
+there are also differences between these two phenomena
+(e.g., Harris and Dallos, 1979 ), so these two phenomena are
+apparently not exactly equivalent. However, our adaptation
+stage is intended to combine simpliﬁed versions of both phe-
+nomena into a single stage of signal-processing.
+Table III lists the signal levels of tones at several
+frequencies that produce the same WNR-peak value as a 1-
+kHz tone at 9 dB SPL. These signal levels are compared toref-
+erence equivalent threshold sound-pressure levels (RETSPL)
+for ear-canal sound pressure at threshold ( ANSI, 2004). The
+model matches the RETSPL at 1 kHz (by design), but deviates
+by more than 40 dB at 8 kHz. This result suggests that further
+investigation is needed to determine whether the WNR is a
+reasonable proxy for behavioral threshold. However, in this
+paper, we restrict our consideration of masking to 1 kHz.
+The set of stimuli that was selected to quantify forward
+masking in the model consists of 1-kHz maskers (with
+250 ms duration) at three levels (40, 60, and 80 dB SPL) fol-
+lowed by a 1-kHz signal (with 20 ms duration) at one of
+three delays (10, 20, or 40 ms). The signal level was varied
+to determine the threshold level that produced the WNR-
+peak value as a signal at 19 dB SPL without a preceding tone
+(Jesteadt et al. , 1982). The amount of masking was deﬁned
+as the dB difference between the masked and unmasked
+threshold levels. Figure 11 shows how the amount of mask-
+ing produced by the model synapse (circles and solid lines)
+varies across the 9 stimulus conditions. For comparison,
+power-law ﬁts to psychophysical measurements in human
+subjects ( Jesteadt et al. , 1982 ) are superimposed (dashed
+lines). The agreement between the model and measurements
+is best for the shortest delay (10 ms). Masking in the model
+exceeds psychophysical masking by less than 3 dB at the
+longer latencies (20 and 40 ms).
+IV . DISCUSSION
+A. Modeling cochlear micromechanics
+The modeling approach described in this paper consoli-
+dates the two opposing views of cochlear micromechanics
+expressed by Allen and Neely (1992) . One of these view-
+points emphasized the passive role of the TM in sharpening
+the tuning of signals delivered to the IHC and argued against
+FIG. 10. (Color online) Time-course of WNR showing adaption due to IHC
+synapses. The three superimposed curves each show the WNR for two con-
+secutive short-duration tones. The ﬁrst tone had a duration of 100 ms (with
+10-ms ramps) and three different levels (80, 60, and 40 dB peSPL). The sec-
+ond tone started 20 ms after the end of the ﬁrst tone, had a duration of 20 ms,
+and had the same level (40 dB peSPL) for all curves. WNR has been normal-
+ized to have a steady value (deﬁned as its local maximum in the 80 to 90 ms
+time interval) of 1 when the masker level is 80 dB.
+TABLE III. Tone-detection threshold levels (dB SPL). The threshold crite-
+rion for the model was speciﬁed as having a peak-WNR value that matches
+a 1-kHz tone at 9 dB SPL. Reference equivalent thresholds for ear-canal
+sound levels (RETSPL, ANSI) are also listed for comparison.
+0.5 kHz 1 kHz 2 kHz 4 kHz 8 kHz
+Model WNR 17 9 11 34 56
+RETSPL 12 9 15 13 14
+J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane 2161
+ 14 July 2026 21:58:02
+any cochlear ampliﬁcation that required active elements.
+The other viewpoint argued the need for active elements (in
+the form of negative damping) to increase cochlear sensitiv-
+ity and thereby sharpen tuning. The present model incorpo-
+rates both the passive sharpening due to the TM and the
+active sharpening due to OHC feedback forces. Besides hav-
+ing the conceptual beneﬁt of consolidating opposing view-
+points, the formulation of the nonlinearity in the present
+model achieves the dual objectives of (1) implementing the
+requisite amount of dynamic-range compression and (2)
+being consistent with level-dependence observed in ABR
+latencies.
+The present model results differ from the model results
+of Allen (1980) in which the effect of H
+c was to make nc tun-
+ing much sharper at the tip compared to np tuning. In the pre-
+sent model, the passive sharpening of nc tuning due to the Hc
+is observable, but it is much less than the active sharpening
+due to OHC feedback forces. Comparison of the isodisplace-
+ment tuning curves (upper panel of Fig. 6) reveals that
+enhancement of tuning due the transfer function H
+c is mainly
+observed in elevation of the tails of the tuning curves, while
+only a slight sharpening is seen in the tips of the tuning
+curves. This feature of the model is reminiscent of similar
+experimental observation of Narayan et al . (1998) based on
+comparison of AN and BM tuning. However, in the present
+model, TM–RL shear velocity _n
+c was selected as the input to
+the IHC instead of TM–RL shear displacement nc.
+Differences between velocity and displacement tuning are
+illustrated in Fig. 12, which shows tuning curves for repre-
+senting n
+c, n1, _nc, and _n1. Comparison of Fig. 12 with Fig.
+1(a) of Narayan et al . suggests that n1 would have been a
+better choice for input to the IHC because it lies mostly
+between BM displacement n
+1 and BM velocity _n1 similar to
+the neural tuning curve of Narayan et al.
+Best results were obtained with the damping coefﬁcient
+c4 set to zero and c3 set to a relatively small value. Setting c3
+so small is probably unrealistic because the motion of the
+TM relative to the RL is thought to be a major source of
+damping in cochlear micromechanics. The need to set c3 to
+zero in the present model is attributed to the lack of an inde-
+pendent motion of the RL relative to the BM. The multi-
+chamber model described in the Discussion section could
+provide a means of testing this hypothesis.
+TM damping in the present model is larger than
+expected from previous work. For example, the TM model
+suggested by Allen (1980) produces an abrupt positive phase
+shift of nearly 180
+/C14 in the transfer function that resembles a
+phase shift observed in neural data by Kim et al . (1979) .
+Furthermore, a phase shift that was observed experimentally
+by Dong and Olson (2013) between BM displacement and
+OHC voltage (that might be caused by a TM resonance) is
+more sharply tuned than the TM resonance in the present
+model. In both cases, the present model appears to have
+some features that are qualitatively similar to the experimen-
+tal data. However, the phase shift of the transfer function in
+the present model is less abrupt than observed in the experi-
+mental data. This dissimilarity can be attributed to the limita-
+tions imposed by representing the micromechanics with only
+two DOFs. Better agreement would be expected with the
+multi-chamber model described below.
+Although the representation of cochlear micromechanics
+in the present model differs in many details from the recent
+model of Lamb and Chadwick (2014) , the role of the TM is
+similar. Speciﬁcally, we agree with their conclusion that the
+phase of shear vibrations within CP is crucial to activation of
+the cochlear ampliﬁer.
+The present model is consistent with the recent model
+reported by Meaud and Grosh (2011) in favoring OHC
+somatic motility over hair bundle motility as the predominate
+FIG. 11. (Color online) Amount of masking observed as a function of
+masker level for maskers for three probe delays (10, 20, 40 ms). The masker
+and probe had the same frequency (1-kHz) and their durations were 250 and
+20 ms, respectively. The method for calculating the amount of masking is
+described in the text. For comparison, the dashed lines are ﬁts to psycho-
+physical data (Jesteadt et al., 1982).
+FIG. 12. (Color online) Isodisplacement and isovelocity tuning curves repre-
+senting nc, n1, _nc, and _n1 at 80% of the distance from the stapes (to the
+apex). The isodisplacement curves are the same as shown in Fig. 6. IHC
+excitation in the model is proportional to _nc. The isovelocity criterion was
+selected to place the tips of the n1 and _n1 tuning curves at the same SPL.
+2162 J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane
+ 14 July 2026 21:58:02
+source of feedback force that drives the cochlear ampliﬁer.
+Likewise, the present model is consistent with the suggestion
+of Meaud and Grosh (2014) for the role of the TM in two-
+tone suppression because the phenomena of two-tone sup-
+pression is generally regarded as a reduction in cochlear
+ampliﬁer gain, which is inﬂuenced by mechanical properties
+of the TM. Variations in mechanical properties of the TM
+that have been observed in mutant mice could be simulated
+in the present model and the effect of these TM variations on
+two-tone suppression could be explored.
+The ﬁnding that achieving agreement with the level-
+dependence observed in ABR latency requires the inclusion
+of an adaptation stage is not entirely consistent with the sug-
+gestion by Neely et al . (1988) that the level dependence of
+ABR Wave-V latency can be attributed entirely to cochlear
+mechanics. As an alternative to the previous claim, the pre-
+sent model suggests that the level-dependence is mostly due
+to cochlear mechanics at high frequencies and only partially
+due to cochlear mechanics at low frequencies. In other
+words, onset enhancement due to the adaptation stage makes
+a substantial contribution to the level dependence of
+WNR latency at low frequencies, but not so much at high
+frequencies.
+Some aspects of the present model are less favorable
+compared to other models of cochlear mechanics. For exam-
+ple, although the present model can distinguish OHC feed-
+back force as being driven by OHC hair-bundle deﬂection
+better than the functional model of Verhulst et al. (2012) and
+may be computationally more efﬁcient, it does not preserve
+intensity invariance of zero crossings as well as their model.
+Resolving this issue in the present model deserves further
+attention.
+The present model may have the advantage of computa-
+tional efﬁciency over more detailed ﬁnite-element models
+(e.g., Meaud and Grosh, 2010 , 2011), but it does not do as
+well as ﬁnite-element models in distinguishing separate
+motions of micromechanical structures (such as the TM and
+the RL). Nevertheless, the simpliﬁcation of OHC feedback
+forces in the present model may be useful in efforts to make
+ﬁnite-element models more functionally realistic.
+The cochlear-response delays in the present model are
+longer than in previous active cochlear models. Previous
+attempts to obtain such long delays (e.g., Neely, 1990) have
+encountered computational instability due to excessive
+power being delivered to the cochlear ﬂuid at high frequen-
+cies. The present formulation of cochlear micromechanics
+alleviates the long-standing issue of computational instabil-
+ity in cochlear models with negative damping, so provides a
+useful foundation for future modeling research.
+B. Cochlear amplification
+The beneﬁt of providing signal ampliﬁcation in the
+cochlea prior to detection was ﬁrst suggested by Gold
+(1948), but this suggestion was largely ignored until the dis-
+covery of OAEs ( Kemp, 1978 ). Shortly after the discovery
+of OAEs, the term cochlear ampliﬁer was coined to describe
+the high sensitivity and sharp tuning that was observed
+experimentally in viable cochleae, but was not present post
+mortem (Davis, 1983 ). The ﬁrst computer models of the
+cochlear ampliﬁer (e.g., Neely and Kim, 1983 ) used
+negative-damping elements as a mechanism to sharpen
+tuning and increase sensitivity similar to what was being
+observed experimentally. The potential of negative-damping
+elements to produce more signal power than what entered
+the cochlea through the stapes was recognized; however, it
+remains an open question, due to lack of empirical evidence,
+whether the signal power delivered to IHCs ever exceeds the
+signal power that enters the cochlea from the middle ear.
+The presence of negative damping at low levels in the
+present model predicts that power gain would be observable
+experimentally in measurements of BM motion. However,
+recent experimental observations (e.g., van der Heijden and
+Versteegh, 2015) are incompatible with even as little as 6 dB
+of power gain in the BM traveling wave. As an alternative to
+ampliﬁcation, van der Heijden and Versteegh suggest that
+OHCs could cause damping to increase at high stimulus lev-
+els through a mechanism that they call braking. A different
+alternative, that may be preferable, is that a more detailed
+model of cochlear micromechanics could conﬁne longitudi-
+nal power ﬂow (due to OHC feedback forces) to structures
+internal to the OC in a manner that would not make this
+power ﬂow evident in BM motion. In any case, the failure by
+van der Heijden and Versteegh to observe power gain in BM
+motion is useful for restricting the scope of acceptable mod-
+els of cochlear micromechanics. However, their observations
+do not appear to be conclusive evidence against the existence
+of cochlear ampliﬁcation.
+To illustrate the inﬂuence of OHC feedback forces on
+cochlear tuning in the present model, the tuning curves
+shown in Fig. 6 are replotted in Fig. 13 for a passive version
+of the model that lacks any OHC feedback force. All tuning
+curves in Fig. 13 are broader and less sensitive. The group-
+delay curves are relatively constant across frequency and have
+a smaller maximum. The passive state of the model simulates
+cochlear responses in the presence of OHC dysfunction.
+Cochlear tuning approaches passive tuning when stimulus
+levels are so high that OHC feedback forces become negligible
+because their amplitude is limited by saturation of OHC
+transduction.
+C. Modeling auditory-system function
+Our interest in exploring the limits of the present model
+regarding forward masking stems from the importance of
+masking in determining the loudness of sounds.
+Prior to implementing the adaptation stage described by
+Eqs. (7)–(9), we considered the use of other synapse models
+in combination with the present cochlear model. Speciﬁcally,
+the models of Meddis et al. (1990) and Verhulst et al. (2016)
+were evaluated. These two synapse models are similar to
+each to other in many ways. Both use diffusion from multiple
+reservoirs to mimic responses of single AN ﬁbers. Both pro-
+duce sufﬁcient onset enhancement to improve the agreement
+between model WNR and ABR latencies. However, neither
+of these synapse models produces more than 3 dB of forward
+masking for the stimulus conditions shown in Fig. 11. The
+inability of a single synapse to account for psychophysical
+J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane 2163
+ 14 July 2026 21:58:02
+forward masking is not unexpected. Experimental observa-
+tions of neural responses ( Relkin and Turner, 1988) and pre-
+vious modeling efforts ( Meddis and O’Mard, 2005 ) also
+support this conclusion.
+Efforts have been made to extend single-synapse models
+to provide better simulation of psychophysical masking by
+including complex neural circuits that contain multiple syn-
+apses with either coincidence detectors (e.g., Meddis and
+O’Mard, 2005 ) or inhibitory connections (e.g., Verhulst
+et al ., 2016 ). However, if the objective is only to simulate
+the function of forward masking (and not necessarily its
+associated neural physiology), then the synapse model
+described by Eqs. (7)–(9) offers a simpler alternative. The
+key to its effectiveness in producing a greater amount of for-
+ward masking (compared to other synapse models) is the
+parameter a, which raises a variable representing diffusion
+permeability to the 10th power. Perhaps it is this mechanism
+that allows a single-reservoir model to achieve amounts of
+masking that would otherwise require multiple reservoirs. It
+should be noted, however, raising the diffusion permeability
+to any power is incompatible with linear diffusion and there
+is no experimental evidence to support a power of 10.
+The peak-to-steady ratio was speciﬁed indirectly in our
+adaptation stage by requiring agreement with psychophysical
+forward masking. In other words, the same inherent balance
+between depletion and recovery in the synapse that produces
+forward masking is also responsible for determining the
+peak-to-steady ratio. Besides its function in increasing the
+level dependence of cochlear transient-response latencies at
+low frequencies, the peak-to-steady ratio may also play a
+role in the phenomenon known as overshoot (e.g., Elliott,
+1965; Bacon, 1990), in which a short-duration tone presented
+simultaneously with a longer-duration masker is easier to
+detect when its onset is delayed relative to the onset of the
+masker.
+In general, models of cochlear compression agree on
+exhibiting linear behavior at very low levels and compres-
+sive behavior at very high levels. However, there is disagree-
+ment among models on the sound level at which the
+transition from linear to compressive behavior, sometimes
+called the compression knee-point (CK), occurs. In the pre-
+sent model, low-level linear behavior is indicated in Eq. (5)
+by c being constant for n
+c /C20 dm. Some functional models of
+the auditory system place the CK at about 40 dB SPL (e.g.,
+Meddis et al., 2001). Some evidence, such as measurements
+of BM motion (e.g., Rhode, 1971; Ruggero and Rich, 1991 )
+and stimulus-frequency OAEs ( Shera and Zweig, 1993 ),
+suggests that the CK occurs at or above 20 dB SPL. Other
+evidence, such as measurements of ABR latency ( Gorga
+et al ., 1988 ), categorical loudness scaling ( Al-Salim et al .,
+2010), distortion-product OAEs ( Neely et al ., 2003 ), and
+BM measurements (Rhode and Recio, 2000) suggest that the
+CK occurs at or below 20 dB SPL. Knowing the sound level
+at which the CK occurs has clinical relevance when ﬁtting
+hearing aids that feature wide-dynamic range compression ,
+which has the objective of restoring normal cochlear com-
+pression. The fact that the displacement-gain curve in Fig. 4
+has a negative slope at 0 dB SPL indicates that the CK in the
+present model occurs at or below 0 dB SPL. The weight of
+evidence from measurements and models appears to favor
+the view that the compressive range of human cochlear
+mechanics extends all the way down to the threshold of
+hearing.
+D. OAE
+Although the focus of this model development was on
+simulating ABR toneburst latencies, it is of interest to know
+how these latencies compare with toneburst otoacoustic
+emission (TBOAE) latencies. Because the model described
+in this paper includes ear-canal and middle-ear sections
+between the sound source and cochlea, TBOAEs may be
+simulated in the modeled pressure at the eardrum ( P
+e) fol-
+lowing the toneburst stimulus. Unfortunately, this model did
+not produce TBOAE waveforms with well-deﬁned latencies
+at all levels and frequencies. In Fig. 14, TBOAE waveforms
+are shown for responses from tonebursts at four frequencies
+(0.5, 1, 2, 4 kHz) at the same level (20 dB SPL). The model
+is the same as for all of the previous model results, except
+that 60:01% random variation was added to the partition
+stiffness along the entire length of the cochlea to simulate
+roughness in the partition impedance. This roughness
+increased the OAE amplitude at 4 kHz, but had little effect at
+lower frequencies. The presence of multiple local maxima in
+the TBOAE waveforms at all frequencies suggests interfer-
+ence among contributions to the TBOAE that originate from
+different locations. At higher stimulus levels, the modeled
+TBOAE waveforms were irregular and did not have well
+deﬁned peaks, so are not included in the results presented
+here.
+FIG. 13. (Color online) Isodisplacement tuning curves representing nc and
+n1 at ﬁve locations for a passive version of the model. The locations are at
+20, 40, 60, 80, and 90% of the distance from the stapes (to the apex). These
+results were computed from a linear version of the time–domain cochlear
+model with c ¼ 0. Compare with the active version of the model with c ¼ 1
+shown in Fig. 6.
+2164 J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane
+ 14 July 2026 21:58:02
+The TBOAE latencies shown in Fig. 15 are nearly equal
+to the corresponding WNR latencies at the lower frequencies.
+This means that the modeled OAE did not encounter any
+additional traveling-wave delay at the lower frequencies. At
+the highest stimulus frequency (4 kHz), the TBOAE latency
+is more than twice the WNR latency, which suggests the
+presence of an additional travelling-wave delay in the propa-
+gation of the return wave toward the stapes. The ratio of
+OAE latency to WNR latency is 2.3 at 4 kHz and has a mean
+value of 1.0 at the three lowest frequencies. Comparable
+latency ratios based on OAE and ABR measurements were
+1.33 for low-frequency (0.5–1.4 kHz) tonebursts and 2.33 for
+high-frequency (2–8 kHz) tonebursts ( Rasetshwane et al .,
+2013).
+These comparisons between TBOAE and WNR laten-
+cies should be regarded as preliminary. Further development
+and exploration of the model are needed before any conclu-
+sions are made about TBOAE mechanisms based on this
+model.
+E. Next steps
+Perhaps the most disappointing ﬁnding of this study is
+the discrepancy between the RETSPL and WNR thresholds
+at 8 kHz (see Table III). Adjustments to the present model to
+reduce this discrepancy are warranted. One reason for the
+elevated 8-kHz threshold in the model is that (for any given
+SPL) the amplitude of the IHC hair-bundle deﬂection is
+smaller at the 8-kHz characteristic place, compared to the
+characteristic place for lower frequencies. Another reason is
+that the excitation pattern at that place is narrower due to its
+sharper tuning (i.e., Q
+erb ¼ 32:3), which causes fewer IHCs
+to produce neural signals. The excitation pattern may be
+unrealistically narrow due to that lack of longitudinal
+bending-stiffness in the present model (e.g., Wickesberg and
+Geisler, 1986). Modiﬁcations to the present model that may
+help to reduce the 8-kHz threshold discrepancy include (1)
+reducing the geometric scale factor b to increase the ampli-
+tude of CP point-displacements, (2) adding longitudinal
+bending-stiffness to broaden the CP excitation pattern, and
+(3) increasing the stiffness parameter k
+4 to increase the
+amplitude of the OHC feedback-forces. Additionally, better
+agreement between the model and behavioral measurements
+might be achieved by deﬁning threshold in the model in a
+more realistic manner.
+The use of WNR to deﬁne tone threshold should be
+reconsidered. A more realistic deﬁnition of tone threshold
+would combine responses from IHCs within a narrow region
+of the CP ( /C24 1 mm) associated with a “critical band” of fre-
+quencies. A more useful deﬁnition of threshold would incor-
+porate (1) the random nature of neural signals and (2) time-
+varying factors, such as temporal integration, that cause
+the random processes involved in tone detection to become
+non-stationary.
+Other cochlear modeling efforts have made progress in
+recent years toward simulating OAEs (e.g., Liu and Neely,
+2010; Verhulst et al ., 2012 ; Moleti et al ., 2013 ).
+Compatibility of the present model with measurements of
+OAEs, other than TBOAE latency, has not yet been explored.
+The model should be capable of producing distortion-product
+OAEs without any additional elements. Modiﬁcation of CP
+stiffness to include small, spatially-random perturbations
+should enable the model to also simulate stimulus-frequency
+OAEs. Of particular interest, because of its comprehensive
+nature, would be the simulation of DPOAE suppression tun-
+ing curves such as those described byGorga et al. (2011).
+The present study has revealed new capabilities and lim-
+itations of the transmission-line approach to cochlear model-
+ing. For some applications, the computational efﬁciency of
+transmission-line models makes them more suitable than
+more detailed models of the cochlea. In addition, the limita-
+tion of the micromechanics to only two DOF has conceptual
+advantages for its simplicity when trying to understand
+FIG. 14. (Color online) TBOAE waveforms modeled as eardrum pressure
+following the stimulus. The responses to tonebursts are shown at four fre-
+quencies (0.5, 1, 2, 4 kHz) at the same level (20 dB SPL) and with the same
+durations used for the WNR data shown in Fig. 7. In this ﬁgure, the stimulus
+portion of the eardrum pressure has been set to zero and the pressure follow-
+ing the stimulus has been scaled to the same maximum value in each case.
+FIG. 15. (Color online) TBOAE latency as a function of frequency. TBOAE
+latencies were deﬁned as the peak of the TBOAE waveforms shown in Fig.
+14. For comparison, the WNR and ABR latencies at the same stimulus level
+(20 dB SPL) were copied from Fig. 9. Note that TBOAE latency is nearly
+equal to WNR latency at the lower frequencies (0.5, 1, 2 kHz). At the high-
+est frequency (4 kHz), TBOAE latency is more than twice WNR latency.
+J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane 2165
+ 14 July 2026 21:58:02
+general principles of cochlear mechanics. Finite-element
+models of cochlear micromechanics have the advantage of
+providing more realistic comparisons with experimental
+measurements (e.g., Soons et al ., 2015; Elliott et al ., 2013;
+Meaud and Grosh, 2014 ). However, ﬁnite-element models
+are computationally expensive and understanding interactions
+among the large number of elements is more difﬁcult concep-
+tually. An intermediate approach to cochlear modeling would
+help to bridge the large gap between transmission-line mod-
+els and ﬁnite-element models.
+The present model has only a single ﬂuid-ﬁlled cham-
+ber, which is made to represent both scala vestibuli and scala
+tympani by assuming symmetry of the two scalae. A more
+detailed approach could represent ﬁve distinct ﬂuid cham-
+bers: (1) scala vestibuli, (2) scala tympani, (3) scala media,
+(4) the spiral sulcus (SS), and (5) the ﬂuid space in the OC
+between the RL and BM that surrounds the OHCs. The sepa-
+ration between scala media and scala vestibuli is not thought
+to be important mechanically, but is conceptually important
+because (1) the ﬂuids in these two chambers differ and (2)
+the cochlea maintains a voltage difference between them.
+The SS is important because shear displacement between
+TM and RL changes its cross-sectional area. Likewise, the
+OC chamber is important because OHC motility changes its
+cross-sectional area. This ﬁve-chamber model might allow
+signal power ﬂow through the inner chamber that would not
+be observable in BM motion, so could help resolve questions
+about cochlear ampliﬁcation that transmission lines lack suf-
+ﬁcient detail to address. Results of the present study could
+provide a useful foundation for the development of a ﬁve-
+chamber model of cochlear mechanics.
+V . CONCLUSIONS
+• The model results indicate that ABR latency originates in
+cochlear mechanics by the same mechanism that slows
+energy to propagate in the traveling wave. The level
+dependence of ABR latency is mainly due to the level
+dependence of cochlear tuning, but additional level depen-
+dence must be attributed to synaptic adaptation to explain
+observed latencies, especially at low frequencies.
+• The simulation of a latency decrease of about 38% per
+20 dB increase in stimulus level, which is what has been
+observed in human ABR Wave-V data, is achievable in an
+active, nonlinear, transmission-line model of cochlear
+mechanics when it includes an adaptation stage.
+• A dual role is proposed for the TM as both (1) sharpening
+the tuning of CP responses and (2) controlling the phase
+of OHC feedback forces in a manner that restricts the acti-
+vation of cochlear ampliﬁcation to a limited frequency
+range.
+• Although the power gain associated with the present
+model is smaller than the amplitude gain, it remains too
+large at low levels for compatibility with recent observa-
+tions of BM vibrations ( van der Heijden and Versteegh,
+2015) that fail to see evidence of signiﬁcant power ampli-
+ﬁcation. More detailed models of cochlear microme-
+chanics are needed to resolve this issue.
+• The simultaneous agreement of the model WNR with both
+ABR latency and psychophysical forward masking is
+unprecedented. The simplicity of our adaptation stage
+compared to other synapse models combined with its
+effectiveness in producing both onset enhancement and
+forward masking support consideration of its use in future
+efforts to model auditory psychophysics. However, its
+lack of representation of individual synapses could make
+it inappropriate, in its present form, for modeling phenom-
+ena such as synaptopathy (e.g., Verhulst, 2016).
+ACKNOWLEDGMENTS
+This research was supported by a grant from the
+National Institutes of Health: R01 DC008318 (S.T.N.).
+1In the definition of s, i ¼
+ﬃﬃﬃﬃﬃﬃ ﬃ
+/C0 1
+p
+and x ¼ 2pf is the radian frequency.
+2The description of the shape of Hc as a “high-pass filter” may be confusing
+because the abscissa in Fig. 2 is place and not frequency. However, a plot
+of Hc versus frequency at one place has a similar appearance.
+3The model implementation that produced the results presented in this
+paper used an internal time-step of 2 ls. The specific method used to inte-
+grate the model equations across time was suggested by Allen and Sondhi
+(1979). Model inputs and outputs were each sampled at 50 kHz.
+4The power-flow calculation is based on an integer number of cycles of the
+steady-state response of the time–domain model to a tone. At each location
+along the CP, the velocity and pressure responses are Fourier transformed.
+Power flow is calculated at each location as half the real part of the com-
+plex product of the tone-frequency component of (1) partition velocity and
+(2) the complex conjugate of pressure difference across the partition.
+5Power gain is calculated as the ratio of the absorbed power to the total
+power. The total power is calculated as the sum of the power flow at all
+locations. The absorbed power is calculated as the negative sum of the
+power flow at locations where its value is negative. The existence of
+regions of positive power flow causes the total power to be less than the
+absorbed power, which makes the power gain greater than one (or greater
+than zero after power gain is converted to decibels).
+6The notation peSPL means that the stimulus level is specified as the peak
+pressure in decibels re 28.28 lPa. In the model, the stimulus pressure was
+specified at the eardrum.
+Allen, J. B. (1980). “Cochlear micromechanics—A physical model of trans-
+duction,” J. Acoust. Soc. Am. 68(6), 1660–1670.
+Allen, J. B., and Neely, S. T. (1992). “Micromechanical models of the coch-
+lea,” Phys. Today 45(7), 40–47.
+Allen, J. B., and Sondhi, M. M. ( 1979). “Cochlear macromechanics: Time
+domain solutions,” J. Acoust. Soc. Am. 66(1), 123–132.
+Al-Salim, S. C., Kopun, J. G., Neely, S. T., Jesteadt, W., Stiegemann, B.,
+and Gorga, M. P. ( 2010). “Reliability of categorical loudness scaling and
+its relation to threshold,” Ear Hear. 31(4), 567–578.
+ANSI ( 2004). ANSI S3.6-1996, Speciﬁcations for Audiometers (AIP, New
+York).
+Bacon, S. P. ( 1990). “Effect of masker level on overshoot,” J. Acoust. Soc.
+Am. 88(2), 698–702.
+Brownell, W. E., Bader, C. E., Bertrand, D., and deRibaupierre, Y. ( 1985).
+“Evoked mechanical responses of isolated cochlear outer hair cells,”
+Science 227, 194–196.
+Dallos, P., and Evans, B. N. ( 1995). “High-frequency motility of outer hair
+cells and the cochlear ampliﬁer,” Science 267(5206), 2006–2009.
+Davis, H. ( 1983). “An active process in cochlear mechanics,” Hear. Res.
+9(1), 79–90.
+Dong, W., and Olson, E. S. (2013). “Detection of cochlear ampliﬁcation and
+its activation,” Biophys. J. 105(4), 1067–1078.
+Elliott, L. L. (1965). “Changes in the simultaneous masked threshold of brief
+tones,” J. Acoust. Soc. Am. 38, 738–746.
+Elliott, S. J., Ni, G., Mace, B. R., and Lineton, B. (2013). “A wave ﬁnite ele-
+ment analysis of the passive cochlea,” J. Acoust. Soc. Am. 133(3),
+1535–1545.
+Gold, T. ( 1948). “Hearing. II. The physical basis of the action of the coch-
+lea,” Proc. R. Soc. Lond. B: Biol. Sci. 135(881), 492–498.
+2166 J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane
+ 14 July 2026 21:58:02
+Gorga, M. P., Neely, S. T., Kopun, J., and Tan, H. ( 2011). “Distortion-prod-
+uct otoacoustic emission suppression tuning curves in humans,” J. Acoust.
+Soc. Am. 129(2), 817–827.
+Gorga, M. P., Reiland, J. K., Beauchaine, K. A., and Jesteadt, W. ( 1988).
+“Auditory brainstem responses to tone bursts in normal hearing subjects,”
+J. Speech Hear. Res. 31, 87–97.
+Greenwood, D. D. ( 1990). “A cochlear frequency-position function for sev-
+eral species—29 years later,” J. Acoust. Soc. Am. 87(6), 2592–2605.
+Harris, D., and Dallos, P. ( 1979). “Forward masking of auditory nerve ﬁber
+responses,” J. Neurophys. 42(4), 1083–1107.
+Jesteadt, W., Bacon, S. P., and Lehman, J. R. (1982). “Forward masking as a
+function of frequency, masker level, and signal delay,” J. Acoust. Soc.
+Am. 71(4), 950–962.
+Johnson, S. L., Beurg, M., Marcotti, W., and Fettiplace, R. ( 2011). “Prestin-
+driven cochlear ampliﬁcation is not limited by the outer hair cell mem-
+brane time constant,” Neuron 70(6), 1143–1154.
+Kemp, D. T. (1978). “Stimulated acoustic emissions from within the human
+auditory system,” J. Acoust. Soc. Am. 64(5), 1386–1391.
+Kim, D. O., Siegel, J. H., and Molnar, C. E. ( 1979). “Cochlear nonlinear
+phenomena in two-tone responses,” Scand. Aud. Suppl. 8(9), 63–81.
+Lamb, J. S., and Chadwick, R. S. ( 2014). “Phase of shear vibrations within
+cochlear partition leads to activation of the cochlear ampliﬁer,” PLoS One
+9(2), e85969.
+Liu, Y. W., and Neely, S. T. ( 2010). “Distortion product emissions from a
+cochlear model with nonlinear mechanoelectrical transduction in outer
+hair cells,” J. Acoust. Soc. Am. 127(4), 2420–2432.
+Meaud, J., and Grosh, K. (2010). “The effect of tectorial membrane and bas-
+ilar membrane longitudinal coupling in cochlear mechanics,” J. Acoust.
+Soc. Am. 127(3), 1411–1421.
+Meaud, J., and Grosh, K. ( 2011). “Coupling active hair bundle mechanics,
+fast adaptation, and somatic motility in a cochlear model,” Biophys. J.
+100(11), 2576–2585.
+Meaud, J., and Grosh, K. ( 2014). “Effect of the attachment of the tectorial
+membrane on cochlear micromechanics and two-tone suppression,”
+Biophys. J. 106(6), 1398–1405.
+Meddis, R., Hewitt, M. J., and Shackleton, T. M. ( 1990). “Implementation
+details of a computation model of the inner hair-cell auditory-nerve syn-
+apse,” J. Acoust. Soc. Am. 87(4), 1813–1816.
+Meddis, R., and O’Mard, L. P. ( 2005). “A computer model of the auditory-
+nerve response to forward-masking stimuli,” J. Acoust. Soc. Am. 117(6),
+3787–3798.
+Meddis, R., O’Mard, L. P., and Lopez-Poveda, E. A. ( 2001). “A computa-
+tional algorithm for computing nonlinear auditory frequency selectivity,”
+J. Acoust. Soc. Am. 109(6), 2852–2861.
+Moleti, A., Al-Maamury, A. M., Bertaccini, D., Botti, T., and Sisto, R.
+(2013). “Generation place of the long- and short-latency components of
+transient-evoked otoacoustic emissions in a nonlinear cochlear model,”
+J. Acoust. Soc. Am. 133(6), 4098–4108.
+Narayan, S. S., Temchin, A. N., Recio, A., and Ruggero, M. A. ( 1998).
+“Frequency tuning of basilar membrane and auditory nerve ﬁbers in the
+same cochleae,” Science 282(5395), 1882–1884.
+Neely, S. T. ( 1989). “Transient responses in an active, nonlinear model of
+cochlear mechanics,” in Cochlear Mechanisms, edited by J. P. Wilson and
+D. O. Kemp (Plenum Press, London), pp. 106–113.
+Neely, S. T. ( 1990). “Level dependence of the latency of cochlear transi-
+ents,” in The Mechanics and Biophysics of Hearing , edited by P. Dallos et
+al. (Springer-Verlag, Berlin), pp. 411–418.
+Neely, S. T., Gorga, M. P., and Dorn, P. A. ( 2003). “Cochlear compression
+estimates from measurements of distortion-product otoacoustic
+emissions,” J. Acoust. Soc. Am. 114(3), 1499–1507.
+Neely, S. T., and Kim, D. O. ( 1983). “An active cochlear model showing
+sharp tuning and high sensitivity,” Hear. Res. 9(2), 123–130.
+Neely, S. T., and Kim, D. O. ( 1986). “A model for active elements in
+cochlear biomechanics,” J. Acoust. Soc. Am. 79, 1472–1480.
+Neely, S. T., Norton, S. J., Gorga, M. P., and Jesteadt, W. ( 1988). “Latency
+of auditory brain-stem responses and otoacoustic emissions using tone-
+burst stimuli,” J. Acoust. Soc. Am. 83, 652–656.
+Puria, S., and Allen, J. B. ( 1991). “A parametric study of cochlear input
+impedance,” J. Acoust. Soc. Am. 89(1), 287–309.
+Rasetshwane, D. M., Argenyi, M., Neely, S. T., Kopun, J. G., and Gorga, M.
+P. ( 2013). “Latency of tone-burst-evoked auditory brain stem responses
+and otoacoustic emissions: Level, frequency, and rise-time effects,”
+J. Acoust. Soc. Am. 133(5), 2803–2817.
+Relkin, E. M., and Turner, C. W. ( 1988). “A reexamination of forward
+masking in the auditory nerve,” J. Acoust. Soc. Am. 84(2), 584–591.
+Rhode, W. S. ( 1971). “Observations of the vibration of the basilar mem-
+brane in squirrel monkeys using the M €ossbauer technique,” J. Acoust.
+Soc. Am. 49(4B), 1218–1231.
+Rhode, W. S., and Recio, A. ( 2000). “Study of mechanical motions in the
+basal region of the chinchilla cochlea,” J. Acoust. Soc. of Am. 107(6),
+3317–3332.
+Rønne, F. M., Dau, T., Harte, J., and Elberling, C. ( 2012). “Modeling audi-
+tory evoked brainstem responses to transient stimuli,” J. Acoust. Soc. Am.
+131(5), 3903–3913.
+Ruggero, M. A., and Rich, N. C. ( 1991). “Furosemide alters organ of Corti
+mechanics: Evidence for feedback of outer hair cells upon the basilar
+membrane,” J. Neurosci. 11(4), 1057–1067.
+Shera, C. A., Guinan, J. J., and Oxenham, A. J. ( 2002). “Revised estimates
+of human cochlear tuning from otoacoustic and behavioral meas-
+urements,” Proc. Natl. Acad. Sci. 99(5), 3318–3323.
+Shera, C. A., and Zweig, G. ( 1991). “A symmetry suppresses the cochlear
+catastrophe,” J. Acoust. Soc. Am. 89(3), 1276–1289.
+Shera, C. A., and Zweig, G. ( 1993). “Noninvasive measurement of the
+cochlear traveling-wave ratio,” J. Acoust. Soc. Am. 93(6), 3333–3352.
+Soons, J., Dirckx, J., Steele, C., and Puria, S. ( 2015). “Basilar membrane
+and reticular lamina motion in a multi-scale ﬁnite element model of the
+mouse cochlea,” AIP Conf. Proc. 1703(1), 050006.
+van der Heijden, M., and Versteegh, C. P. ( 2015). “Energy ﬂux in the
+cochlea: Evidence against power ampliﬁcation of the traveling wave,”
+J. Assoc. Res. Otolaryngol. 16(5), 581–597.
+Verhulst, S., Dau, T., and Shera, C. A. ( 2012). “Nonlinear time–domain
+cochlear model for transient stimulation and human otoacoustic emission,”
+J. Acoust. Soc. Am. 132(6), 3842–3848.
+Verhulst, S., Jagadeesh, A., Mauermann, M., and Ernst, F. ( 2016).
+“Individual differences in auditory brainstem response wave characteris-
+tics: Relations to different aspects of peripheral hearing loss,” Trends
+Hear. 20, 27837052.
+W i c k e s b e r g ,R .E . ,a n dG e i s l e r ,C .D .(1986). “Longitudinal stiffness coupling
+in a 1-dimensional model of the peripheral ear,” in Peripheral Auditory
+Mechanisms(Springer, Berlin-Heidelberg, Germany), pp. 113–120.
+Zweig, G., Lipes, R., and Pierce, J. R. ( 1976). “The cochlear compromise,”
+J. Acoust. Soc. Am. 59(4), 975–982.
+Zwislocki, J. J., and Kletsky, E. J. ( 1979). “Tectorial membrane: A possible
+effect on frequency analysis in the cochlea,” Science 204(4393), 639–641.
+J. Acoust. Soc. Am. 142 (4), October 2017 Stephen T . Neely and Daniel M. Rasetshwane 2167
+ 14 July 2026 21:58:02

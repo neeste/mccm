@@ -1,0 +1,67 @@
+function pa=modpar17
+pa.tl = 0;                  % not transmission-line model
+pa.mcsz = 0.2;              % microchamber size
+% default parameters
+pa.aco = 0.01;              % area of cochlea
+pa.ace = -0.4;              % cochlear-area taper
+pa.ast = 0.01;              % area of stapes
+pa.arw = 0.01;              % area of round window
+pa.krw = 5e7;               % stiffness of round window
+pa.khe = 0;                 % stiffness of helicotrema
+pa.rhe = 0;                 % damping of helicotrema
+pa.mhe = 1e-5;              % mass of helicotrema
+pa.xhe = 0;                 % length of helicotrema
+pa.ahe= 0;                  % area of helicotrema
+pa.mmeq = 9;                % micromechanics eqs.
+pa.dof = 2;                 % degrees-of-freedom
+pa.gmo=1;                   % gamma at base [0.5]
+pa.gme=0;                   % basal-gamma taper [-8]
+pa.t1o=1e-9;                % OHC time constant
+pa.t1e=0;                   % time-constant taper
+pa.r1c=0;                   % 1st-DOF damping constant
+pa.r2c=0;                   % 2nd-DOF damping constant
+pa.m=1;                     % transmission-line model
+pa.k5o= 1e12;
+pa.k5e= 0;
+pa.r4o= 0;
+pa.r4e= 0;
+pa.r5o= 0;
+pa.r5e= 0;
+%  basic model parameters
+pa.n=3501;
+pa.xl = 3.500;
+pa.yw = 0.100;
+pa.zh = 0.100;
+pa.rho= 1.000;
+pa.bwo= 0.050;
+pa.bwe= 0.000;
+pa.gpo= 1.000;
+pa.gam= 1.000;
+% partition impedance
+pa.k1o=3.331e+08;
+pa.k2o=3.551e+08;
+pa.k3o=3.770e+08;
+pa.k4o=5.152e+08;
+pa.k5o=2.961e+08;
+pa.r1o=7.794e+02;
+pa.r2o=1.625e+03;
+pa.r3o=1.110e+03;
+pa.r4o=0.000e+00;
+pa.r5o=6.573e+04;
+pa.m1o=6.820e-03;
+pa.m2o=3.228e-02;
+pa.k1e=-2.493;
+pa.k2e=-3.513;
+pa.k3e=-3.094;
+pa.k4e=-2.820;
+pa.k5e=-2.716;
+pa.r1e=-1.739;
+pa.r2e=-1.591;
+pa.r3e=-0.925;
+pa.r4e= 0.000;
+pa.r5e=-1.082;
+pa.m1e= 0.100;
+pa.m2e= 0.080;
+pa.xtap=0.224;
+% changes
+return
