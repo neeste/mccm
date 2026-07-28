@@ -22,3 +22,6 @@ save20240607/
 # sets that cost hours to regenerate (refit_c3_map.mat, refit_m4_map2.mat,
 # refit_m1_n2801b.mat), and the design note requires published figures to
 # regenerate from frozen parameter sets.
+
+# Solver checkpoint scratch -- auto-created beside every saved .mat, no value.
+*.ckpt.mat
