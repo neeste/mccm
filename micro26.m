@@ -46,7 +46,7 @@ if (pa.hbnl)
     % confusion. dh matches cochlea_proc.docx's xi_h. See macro26.m:31 for what
     % the shear IS: gh*d1 - d2 at m<3 (d2 = TM), and just d2 at m>=3 (d2 = the
     % bundle itself, TM eliminated).
-    dh = cp.hb(:,1) .* d1 + cp.hb(:,2) .* d2;
+    if (has3), dh = hbmix(cp.hb, d1, d2, dc); else, dh = hbmix(cp.hb, d1, d2); end
     if (pa.mmeq == 1), hbt = max(abs(dh) / pa.hbmx,1); gam = cp.gm ./ (1 + pa.hbsc * log(hbt));
     elseif (pa.mmeq == 9), dbt = abs(dh) / pa.hbmx; if (dbt > 1), gam = cp.gm / (1 + pa.hbsc * log(dbt)); end; end
 end

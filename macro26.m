@@ -28,10 +28,25 @@ cp = imped26(pa);
 % m=1/2/3 silently running FREE and make the comparison meaningless.
 cp.bmrigid = 0; if (isfield(pa,'bmrigid')), cp.bmrigid = pa.bmrigid; end
 cp.clcouple = 1; if (isfield(pa,'clcouple')), cp.clcouple = pa.clcouple; end
+% cp.hb IS THREE COLUMNS as of 2026-07-29, over [d1 d2 d3]. The third column is
+% ZERO in both legacy forms, so this is behaviour-preserving. Always read it via
+% hbmix() -- there were five consumers and a 2-column read is silently wrong
+% whenever column 3 is nonzero.
 if (m<3)
-    cp.hb=[cp.gh -ones(n,1)];
+    cp.hb=[cp.gh -ones(n,1) zeros(n,1)];   % bundle = gh*d1 - d2   (d2 = TM)
 else
-    cp.hb=[zeros(n,1) ones(n,1)];
+    cp.hb=[zeros(n,1) ones(n,1) zeros(n,1)]; % bundle = d2         (d2 IS bundle)
+end
+% pa.hbrl: BUNDLE REFERENCED TO THE RL (d3) instead of the BM (d1). This is Liu &
+% Neely (2010)'s micromechanics, where MET current is driven by RL motion
+% (i_r = I(alpha_v*xi_r_dot + alpha_d*xi_r)) and the TM is not represented at
+% all. With the TM clamped, bundle = gh*d3, driven purely by the RL.
+% NOTE this changes only WHERE THE BUNDLE IS MEASURED. The active force's drive
+% coordinate in the m>=3 force law is still d2 directly (micro26's
+% k_act*d2 + r_act*v2), NOT routed through hb, so referencing the bundle to d3
+% does NOT by itself move the active drive. That is a separate change.
+if (isfield(pa,'hbrl') && pa.hbrl)
+    cp.hb=[zeros(n,1) -ones(n,1) cp.gh];   % bundle = gh*d3 - d2
 end
 dx = pa.xl / (n - 1);
 if (m < 1), cp.abmom=0; cp.alfx = me.mst / (2 * pa.rho * dx); return; end

@@ -779,8 +779,22 @@ for i=1:nsv
     if (pa.ihceq<1)
         vh = nr/1000; 
     else
-        sv = pa.isv(i); 
-        vh = (cp.hb(sv,1).*d1+cp.hb(sv,2).*d2).*s; 
+        sv = pa.isv(i);
+        % TWO-COLUMN ON PURPOSE. d1/d2 here are SAVED SPECTRA from fetch_sav, not
+        % current state, so the third term would have to be the saved d3 series at
+        % this place (sav.d3) transformed the same way -- fetch_sav does not
+        % return it. Passing cur.d(sv+2*n) here (which I briefly did) is a scalar
+        % from the FINAL timestep: wrong length and wrong quantity, and it would
+        % broadcast SILENTLY because hb(:,3) is zero today.
+        % So refuse rather than compute a wrong neural response.
+        if (isfield(pa,'hbrl') && pa.hbrl)
+            error('tdm26:hbrlIHC', ...
+                ['pa.hbrl (RL-referenced bundle) is not wired into the IHC path. ' ...
+                 'vh here is built from fetch_sav spectra, which do not include ' ...
+                 'd3. Extend fetch_sav to return the saved d3 series before using ' ...
+                 'hbrl with ihceq>=1, or set pa.ihceq<1 to take the nr/1000 path.']);
+        end
+        vh = hbmix(cp.hb(sv,:), d1, d2).*s;
     end
     mnvh=1e-22; vh(isnan(vh)|(abs(vh)<mnvh)) = mnvh; pe = pe / spl_ref;
     spl(:,i)=20*log10(abs(pe./vh))+pa.hbt-dsp_ref; phv(:,i)=unwrap(angle(vh./pe))/(2*pi); gdv(:,i)=delay(vh./pe,f);
