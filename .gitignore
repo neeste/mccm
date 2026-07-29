@@ -37,3 +37,9 @@ oscline_check.mat
 chszderive_check.mat
 wstat_smoke.mat
 wstat_smoke2.mat
+
+# Eardrum-pressure calibration cache, rewritten by the tdm* solver path on
+# every run that touches it. A derived cache, not a result: it churned on the
+# m=4 fit with no meaningful content change. tc.png stays tracked -- it is a
+# figure the design note wants regenerable from a frozen parameter set.
+pedcal.mat
