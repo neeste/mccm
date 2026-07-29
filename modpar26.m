@@ -2,6 +2,13 @@ function pa=modpar26(nch)
 % chamber sizes
 if (nch<3)
     pa=par_CEL16;
+    % Third-DOF impedance, seeded from the 3-chamber set. INERT unless pa.dof>=3
+    % is requested: imped26 builds cp.k5/r5/m5 but nothing reads them at dof=2.
+    % Present so that "1 chamber, 3 DOFs" -- the capstone workhorse -- is
+    % reachable without hand-assembling a parameter set.
+    pa.k5o = 3.05084e+08; pa.k5e = -3.5063; pa.k5q = 0.000002;
+    pa.r5o =     1984.19; pa.r5e = -1.2479; pa.r5q = 0.000002;
+    pa.m5o =   0.0360276; pa.m5e = -0.0812; pa.m5q = 0.000002;
 elseif (nch==3)
     pa=modpar26c3;
     % --- m=3 CONSOLIDATED with the internal third DOF, on by default ---------

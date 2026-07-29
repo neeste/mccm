@@ -1,10 +1,11 @@
 function C = macro_couple(pa, cp)
 % MACRO_COUPLE  The macromechanics/micromechanics interface, made explicit.
 %
-% STAGE 1 of the macro/micro separation (capstone design note: "chamber count
-% and DOF count are both parameters, not forks"). This function ONLY BUILDS the
-% interface -- nothing calls it yet. Stage 2 switches tdm26's xpnd_q/fold_p over
-% to it, once macro_shadow.m has proved it reproduces every hand-written branch.
+% The macro/micro separation (capstone design note: "chamber count and DOF count
+% are both parameters, not forks"). Built once per run by macro26 and carried as
+% cp.mc; tdm26's xpnd_q and fold_p consume it. macro_shadow.m proved it
+% reproduces every hand-written branch it replaced (11 configurations, errors
+% 0 to 6.8e-17).
 %
 % THE INTERFACE. tdm26's xpnd_q and fold_p are hand-written expansions of two
 % matrix operations:
@@ -52,19 +53,23 @@ function C = macro_couple(pa, cp)
 m = pa.m; n = pa.n;
 nest = isfield(pa,'nested') && pa.nested;
 cc   = 1; if (isfield(pa,'clcouple')), cc = pa.clcouple; end
-has3 = (m>=4) || (isfield(pa,'d3int') && pa.d3int);
+has3 = (m>=4) || (isfield(pa,'d3int') && pa.d3int) || (isfield(pa,'dof') && pa.dof>=3);
 has4 = (m>=4) && isfield(cp,'clvm') && ~isempty(cp.clvm) && ...
        isfield(cp,'clvk') && any(cp.clvk(:)~=0);
 
 % ---- DOF count and reference convention --------------------------------
 % dref: DOF k's acceleration is a(ik) = a(i1) + s_k/M_k when true, else s_k/M_k.
-% ABSOLUTE (referenced to the BM) for d2/d3 at m>=3; RELATIVE at m<=2. This is a
-% MICROMECHANICS property currently keyed on chamber count -- exactly the
-% entanglement the refactor exists to break. Preserved exactly (SN): changing it
-% would alter m=1/m=2 and break the m=1==m=2 gate.
+% This is a MICROMECHANICS property that used to be keyed on CHAMBER COUNT --
+% exactly the entanglement the refactor exists to break. It now follows the
+% micromechanics VARIANT instead; see the note below.
 ndof = 2 + double(has3) + double(has4);
 dref = false(ndof,1);
-if (m>=3), dref(2) = true; if (has3), dref(3) = true; end, end
+% The reference convention follows the MICROMECHANICS VARIANT, not the chamber
+% count: whenever the m=3/m=4 force law runs, d2 and d3 are ABSOLUTE (measured
+% from the BM). m<3 with dof=2 keeps the legacy RELATIVE d2 untouched, which is
+% what preserves m=1 == m=2.
+use3 = (m>=3) || (isfield(pa,'dof') && pa.dof>=3);
+if (use3), dref(2) = true; if (has3), dref(3) = true; end, end
 % dref(4) stays false: the vent state is a fluid FLOW, independent of BM motion.
 
 % ---- mass ratios, place-dependent --------------------------------------

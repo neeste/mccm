@@ -25,11 +25,18 @@ function [ss,ii,gam,ohcp,ohcbm] = micro26(pa, cp, st)
 % wants promoted to its own mass.
 
 n = pa.n; i1 = 1:n; i2 = (n+1):(2*n); gam = cp.gm; ohcp = 0; ohcbm = 0;
-if (pa.m>=4 || (isfield(pa,'d3int') && pa.d3int)), i3=(2*n+1):(3*n); ii=[i1(:) i2(:) i3(:)]; else, ii=[i1(:) i2(:)]; end
+% THIRD-DOF PREDICATE, defined ONCE. This condition previously appeared at three
+% separate sites (the i3 index, the dc/vc extraction, and the ss assembly) and
+% adding the m<3 case to only one of them produced "Unrecognized function or
+% variable 'dc'" -- the index and the force law disagreed about whether a third
+% DOF existed. Duplicated predicates are how that happens; keep this single.
+has3 = (pa.m>=4) || (isfield(pa,'d3int') && pa.d3int) || ...
+       (pa.m<3 && isfield(pa,'dof') && pa.dof>=3);
+if (has3), i3=(2*n+1):(3*n); ii=[i1(:) i2(:) i3(:)]; else, ii=[i1(:) i2(:)]; end
 if (pa.dof>=4), i4=(3*n+1):(4*n); ii=[ii i4(:)]; end   % vent flow state
 if (pa.m<1), ss=0; return; end
 d1 = st.d(i1); v1 = st.v(i1); d2 = st.d(i2); v2 = st.v(i2);
-if (pa.m>=4 || (isfield(pa,'d3int') && pa.d3int)), dc = st.d(i3); vc = st.v(i3); end   % DOF-3: OC height
+if (has3), dc = st.d(i3); vc = st.v(i3); end   % DOF-3: OC height / cortilymph
 if (pa.dof>=4), dq = st.d(i4); vq = st.v(i4); end   % DOF-4: vent flow (integrated)
 
 if (pa.hbnl)
@@ -38,12 +45,21 @@ if (pa.hbnl)
     elseif (pa.mmeq == 9), dbt = abs(d3) / pa.hbmx; if (dbt > 1), gam = cp.gm / (1 + pa.hbsc * log(dbt)); end; end
 end
 
-if (pa.m<3)
+% MICROMECHANICS VARIANT (2026-07-28, SN): "when m<3 the micro-mechanics should
+% mimic m=4 via interaction between SS and CL without longitudinal coupling."
+% At m3form=0 the m=3 force law is ALREADY identical to m=4's -- both give
+% s1 = -(k1*d1 + r1*v1 + k_act*d2 + r_act*v2) and the same shear row -- and
+% d3int is m=4's d3 mechanism with NO fluid compartment, i.e. no longitudinal
+% coupling. So "mimic m=4" reduces to: use the m=3 branch when a third DOF is
+% requested, whatever the chamber count. This is the FIRST behaviour change of
+% the refactor; m=1/m=2 with dof=2 are untouched and still take the legacy law.
+use3 = (pa.m==3) || (pa.m<3 && isfield(pa,'dof') && pa.dof>=3);
+if (pa.m<3 && ~use3)
     d3 = d1 - d2; v3 = v1 - v2;
     s1tmp = cp.k1 .* d1 + cp.r1 .* v1; s2tmp = cp.k2 .* d2 + cp.r2 .* v2;
     s3tmp = cp.k3 .* d3 + cp.r3 .* v3; s4tmp = cp.k4 .* d3 + cp.r4 .* v3;
     s1 = -(s1tmp + s3tmp .* cp.gh - s4tmp .* gam); s2 = -(s2tmp - s3tmp);
-elseif (pa.m==3)
+elseif (use3)
     % pa.m3form selects the MICROMECHANICS while leaving the 3-chamber
     % HYDRODYNAMICS untouched -- the separation the swap test could not make,
     % because that varied chamber count and parameter set together.
@@ -100,7 +116,9 @@ elseif (pa.m==3)
 
     % Row 2: -[(1-alpha)*z2 + alpha*zh]*V1 + (z2+zh)*V2
     s2 = -(-kmix .* d1 - rmix .* v1 + (cp.k2 + cp.k3) .* d2 + (cp.r2 + cp.r3) .* v2);
-    if (isfield(pa,'d3int') && pa.d3int)
+    % d3int, or an explicit third DOF at m<3 (which implies the internal form:
+    % there is no CL chamber below m=4 for it to couple to).
+    if (has3)
         % m=3b: d3 is an INTERNAL DOF (no fluid compartment). The OHC acts as an
         % internal pair between BM and RL, driven by the shear d2 exactly as in
         % m=3. THE SIGN IS FIXED BY THE REDUCTION GATE: s1 above is m=3's
@@ -184,7 +202,7 @@ s1(n) = 0; s2(n) = 0;
 % s3 as a 1xn ROW when no force law has defined it -- then [s1 s2 s3] fails with
 % "Dimensions of arrays being concatenated are not consistent", several frames
 % from the actual cause. That is what nch=1,dof=3 hit. Diagnose it properly.
-need3 = (pa.m>=4) || (isfield(pa,'d3int') && pa.d3int);
+need3 = has3;
 if (need3)
     if (~exist('s3','var') || numel(s3) ~= n)
         error('tdm26:noMicro3', ...
