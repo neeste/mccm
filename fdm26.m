@@ -7,6 +7,7 @@ if (isstruct(nch))                                        % struct arg => analys
     elseif (isfield(nch,'fdsolve')), R=fd_solve(nch);
     elseif (isfield(nch,'mreflect')),R=modal_reflectance(nch);
     elseif (isfield(nch,'modal')),   R=modal_wave_analysis(nch);
+    elseif (isfield(nch,'macroD')),  R=macroD_export(nch);
     elseif (isfield(nch,'cfmap')),   R=cfmap_analysis(nch);
     elseif (isfield(nch,'reflect')), R=reflect_analysis(nch);
     else,                            R=grpdelay_analysis(nch); end
@@ -1229,3 +1230,33 @@ end
 
 %% modpar26, par_CEL16, modpar26c3 moved to shared files modpar26.m / modpar26c3.m
 
+function R = macroD_export(pr)
+%MACROD_EXPORT  Expose this solver's D and B for the fdm/tdm parity check.
+%
+% The capstone design note requires "fdm/tdm parity checked at the partition
+% boundary". That check needs fdm26's coupling matrix, which is built inside
+% mxfill and is therefore unreachable from outside. This dispatch rebuilds it
+% from the same definitions and returns it, touching no solve.
+%
+% IT EXPORTS THE TOPOLOGY, which is the invariant that must never diverge:
+% which chamber pair each DOF spans, including the nested variant. It does NOT
+% claim the matrices should be numerically EQUAL to tdm26's. fdm26 poses
+% Y = T*(zk\D) in an impedance formulation; tdm26 poses s = s_int - Df*p with
+% the mass ratios applied separately. So the scalings legitimately differ --
+% m=2 by a factor of two, the d3 row by clcouple, B by sign convention.
+% Conflating "same topology" with "same matrix" would make the parity test
+% either vacuous or permanently red, and neither is worth having.
+pa = pr.pa; m = pa.m;
+if (m==1)
+    D=1;                      B=2;
+elseif (m==2)
+    D=[1 -1;0 0];             B=[-1;1];
+elseif (m==3)
+    D=[1 0 -1;0 -1 1; 0 0 0]; B=[-1;0;1];
+else
+    D=[1 0 -1 0; 0 -1 1 0; 0 -1 0 1; 0 0 0 0];
+    if (isfield(pa,'nested') && pa.nested), D(1,:)=[1 0 0 -1]; end
+    B=[-1;0;1;0];
+end
+R.D = D; R.B = B; R.m = m; R.topo = sign(D);
+end
