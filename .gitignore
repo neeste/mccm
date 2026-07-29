@@ -43,3 +43,10 @@ wstat_smoke2.mat
 # m=4 fit with no meaningful content change. tc.png stays tracked -- it is a
 # figure the design note wants regenerable from a frozen parameter set.
 pedcal.mat
+
+# Tuning-curve figure, rewritten by fdm26 on every run that calls it. Churned
+# twice in one day from unrelated work (the m=4 fit, then the arch_gate
+# capture). The design note requires figures to be REGENERABLE from a frozen
+# parameter set -- that is an argument for tracking the parameter set, which we
+# do, not for tracking every regeneration of the figure.
+tc.png
