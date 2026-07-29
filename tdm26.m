@@ -64,18 +64,7 @@ if (nargin<6), pa=modpar26(nch); end
 if (nch<1), pa.ihcv = 0; end
 if (pa.nmev==1 && pa.stim==3), pa.stim=2; fprintf('moved earphone stimulus to eardrum\n'); end
 
-dof = 2;                       % partition DOFs: d1 (BM), d2 (TM-RL shear)
-if (pa.m>=4 || (isfield(pa,'d3int') && pa.d3int)), dof = 3; end
-% DOF 4 = the vent flow, present only when the vent is RESONANT. A pure-inertia
-% vent (clvk=clvr=0) stays algebraically eliminated in the a2 stamp exactly as
-% before and needs no state, so dof stays 3 and every existing result is
-% untouched. See the cp.clvm block for why the stiffness is what makes the CL
-% resonance placeable.
-if (dof==3 && isfield(pa,'clvent') && pa.clvent > 0 && ...
-    ((isfield(pa,'clvk') && any(pa.clvk~=0)) || (isfield(pa,'clvr') && any(pa.clvr~=0)) || ...
-     (isfield(pa,'clvoct') && isfinite(pa.clvoct))))
-    dof = 4;
-end
+dof = resolve_dof(pa);   % Stage 3: DOF count is a PARAMETER (see resolve_dof)
 % m=3b (pa.d3int) has THREE DOFs on THREE chambers: d3 is INTERNAL, a local
 % mass-spring with no fluid compartment, exactly as d2 is in m=2. It is the
 % missing rung between m=3 and m=4.
@@ -946,7 +935,28 @@ elseif (pa.m>=4)
     s2 = -(-cp.k2 .* d1 - cp.r2 .* v1 + (cp.k2 + cp.k3) .* d2 + (cp.r2 + cp.r3) .* v2);
 end
 s1(n) = 0; s2(n) = 0;
-if (pa.m>=4 || (isfield(pa,'d3int') && pa.d3int)), s3(n) = 0; ss=[s1 s2 s3]; else, ss=[s1 s2]; end
+% THIRD DOF. The old one-liner did `s3(n)=0` unconditionally, which AUTO-CREATES
+% s3 as a 1xn ROW when no force law has defined it -- then [s1 s2 s3] fails with
+% "Dimensions of arrays being concatenated are not consistent", several frames
+% from the actual cause. That is what nch=1,dof=3 hit. Diagnose it properly.
+need3 = (pa.m>=4) || (isfield(pa,'d3int') && pa.d3int);
+if (need3)
+    if (~exist('s3','var') || numel(s3) ~= n)
+        error('tdm26:noMicro3', ...
+            ['A third DOF was requested (m=%d, d3int=%d) but no third-DOF force ' ...
+             'law ran.\nThe d3int block lives inside the m==3 branch. For m<3 the ' ...
+             'force law uses an ALGEBRAIC shear d3=d1-d2 (line 797) and defines ' ...
+             'no k_act/r_act, so there is nothing to drive a dynamical third DOF.' ...
+             '\nThis is design-note DECISION 1, not a plumbing gap: is DOF3 the ' ...
+             'OHC/cilia site promoted from that algebraic shear to its own mass, ' ...
+             'or a different partition of the three? That choice defines the m<3 ' ...
+             'third-DOF force law and cannot be guessed by a refactor.'], ...
+            pa.m, double(isfield(pa,'d3int') && pa.d3int));
+    end
+    s3 = s3(:); s3(n) = 0; ss = [s1 s2 s3];
+else
+    ss = [s1 s2];
+end
 if (pa.dof>=4)
     % VENT restoring force. The pressure drive (P_CL - P_target) is added in
     % fold_p, exactly as d1/d2/d3 receive theirs, so s4 here carries ONLY the
@@ -2076,12 +2086,8 @@ if (~isfield(pa,'gampro')||isempty(pa.gampro)), pa.gampro=ones(pa.n,1); end
 xf=((0:pa.n-1)')/(pa.n-1);
 pa.gampro = pa.gampro .* (1 + boost*0.5.*(1+cos(pi*min(xf/bfrac,1))));   % basal boost (matches gampro sweep)
 pa.hbnl=0;                                   % linear / small-signal
-dof=2; if (pa.m>=4 || (isfield(pa,'d3int') && pa.d3int)), dof=3; end   % must match tdm_init (m=3b also has 3 DOFs)
-if (dof==3 && isfield(pa,'clvent') && pa.clvent > 0 && ...
-    ((isfield(pa,'clvk') && any(pa.clvk~=0)) || (isfield(pa,'clvr') && any(pa.clvr~=0)) || ...
-     (isfield(pa,'clvoct') && isfinite(pa.clvoct))))
-    dof = 4;   % resonant vent carries a state; must match tdm_init above
-end
+dof = resolve_dof(pa);   % SAME function as tdm_init -- the two used to be
+                         % duplicated and had to be kept in sync by hand.
 pa.dof=dof; pa.ncp=pa.n*dof;
 if (pa.nmev<1), pa.nmev=1; end
 nsv=pa.ncp+pa.nmev; N=2*nsv;
@@ -2374,4 +2380,38 @@ function err = opt_cost(pv, nch, pa)
     
     err = mse_tbabr + mse_fwdmsk;
     fprintf('  MSE: ABR=%.3f, FwdMsk=%.3f, Total=%.3f\n', mse_tbabr, mse_fwdmsk, err);
+end
+
+function dof = resolve_dof(pa)
+% RESOLVE_DOF  Partition DOF count. Stage 3 of the macro/micro separation.
+%
+% The capstone design note requires chamber count and DOF count to be
+% "parameters, not forks". This was previously derived from pa.m at TWO sites
+% (tdm_init and coupeig) that had to be kept in sync by hand, with a comment
+% saying so. One function now serves both.
+%
+% DERIVED FLOOR: what the chamber configuration structurally requires.
+%   2   d1 (BM) + d2 (TM-RL shear)
+%   3   m>=4 (CL is a fluid chamber, d3 couples it) or pa.d3int (d3 internal)
+%   4   + the resonant vent, which carries its own state. A pure-inertia vent
+%       (clvk=clvr=0) stays algebraically eliminated in the a2 stamp and needs
+%       no state, so dof stays 3 and prior results are untouched.
+%
+% EXPLICIT REQUEST may RAISE the count, never lower it. pa.dof=3 on a 1-chamber
+% macromechanics is the capstone workhorse ("run 1-chamber with 3-DOF") and is
+% honoured; a request BELOW the floor is ignored, because m>=4 structurally
+% needs d3 to couple the CL chamber and honouring a stale lower value would
+% silently produce a different model. This matters because tdm_init WRITES
+% pa.dof back (pa.dof=dof), so every saved fit carries one as a side effect
+% rather than as an intent -- max() makes a stale value harmless.
+dof = 2;
+if (pa.m>=4 || (isfield(pa,'d3int') && pa.d3int)), dof = 3; end
+if (dof==3 && isfield(pa,'clvent') && pa.clvent > 0 && ...
+    ((isfield(pa,'clvk') && any(pa.clvk~=0)) || (isfield(pa,'clvr') && any(pa.clvr~=0)) || ...
+     (isfield(pa,'clvoct') && isfinite(pa.clvoct))))
+    dof = 4;
+end
+if (isfield(pa,'dof') && ~isempty(pa.dof) && isfinite(pa.dof))
+    dof = max(dof, round(pa.dof));
+end
 end
