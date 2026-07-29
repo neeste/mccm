@@ -130,7 +130,43 @@ elseif (use3)
         f3 = 1; if (isfield(pa,'ohcgain')), f3 = pa.ohcgain; end
         g3 = 1; if (isfield(pa,'ohcsgn')),  g3 = pa.ohcsgn;  end
         act3 = g3 * f3 .* act3;
-        s3 = -(cp.k5 .* dc + cp.r5 .* vc - act3);   % RL: +act3 (the reaction)
+        % PASSIVE ATTACHMENT IS RELATIVE (2026-07-28, SN). k5/r5 connect the
+        % OHC/OC-height DOF to the BM, so they act on (d3 - d1), not on d3
+        % alone. The old form used the ABSOLUTE dc, which is a spring to
+        % GROUND, while the acceleration was already referenced to the BM
+        % (a(i3) = a(i1) + s3/m5, i.e. m5 acting on the RELATIVE
+        % acceleration). Those two were inconsistent: a grounded stiffness
+        % with relative inertia.
+        % An attachment is a FORCE PAIR, so d1 receives the reaction. That is
+        % what gives d3 a path back to the BM -- without it d3 was a driven
+        % observer with no back-action, which is why k5/r5/m5 measured as
+        % EXACTLY inert in the distillation objective.
+        % EXTENSION IS (d3 - d1), and d3 is in the LAB frame (macro_couple sets
+        % dref(3)=false for m<4). The two go together and were MEASURED:
+        %   lab frame + k5*dc        -> d3 has no drive at all, stays at zero
+        %   lab frame + k5*(dc-d1)   -> STABLE, and d3 finally live (rel 9.698)
+        % The "d3 is the OC height, so the spring acts on dc itself" reading needs
+        % the BM-frame acceleration PLUS a fictitious force -m5*a1 that the force
+        % law does not supply, so it is not self-consistent here.
+        dcr = dc - d1; vcr = vc - v1;         % BM-to-OHC extension
+        spas = cp.k5 .* dcr + cp.r5 .* vcr;   % passive attachment force
+        % ACTIVE FORCE REACHES THE BM ONLY WHEN m<4 (SN, 2026-07-28, and
+        % cochlea_proc.docx: "an active force gamma*Za*xi_h ... that acts only on
+        % BM and is proportional to HB displacement"). It is already in s1 above,
+        % via the m=3 row-1 term (1-2al)*(k_act*d2 + r_act*v2) -- equation 24's
+        % gh*Zh - gamma*Za. So d3 gets NO active term here; it is driven purely by
+        % its passive attachment to the BM, which is what "d1 drives both d2 and
+        % d3" means at m<4.
+        % At m=4 the force instead acts BETWEEN BM and RL, and the m>=4 branch
+        % below keeps that pair. That is the one place the two differ.
+        s3 = -spas;                        % OHC DOF: passive attachment only
+        s1 = s1 + spas;                    % BM: reaction of that attachment
+        % NOTE ohcgain/ohcsgn now have NO effect at m<4: they scaled act3, which
+        % no longer reaches d3. They remain live at m=4, where the pair exists.
+        % act3 is NOT zeroed -- the diagnostics below still want it. ohcbm
+        % (act3.*v1) remains meaningful: the active force does act on the BM, via
+        % s1. ohcp (act3.*(vc-v1)) is now MOOT at m<4, since the active force no
+        % longer acts across the BM-to-OHC coordinate; read it only at m=4.
         bpow = act3 .* v1;  ohcbm = -sum(bpow(isfinite(bpow)));
         wpow = act3 .* (vc - v1); ohcp = -sum(wpow(isfinite(wpow)));
     end
@@ -191,7 +227,34 @@ elseif (pa.m>=4)
     if (lg)
         s1 = -(cp.k1 .* d1 + cp.r1 .* v1 - act);      % BM   : legacy (inverted)
         s3 = -(cp.k5 .* dc + cp.r5 .* vc + act);      % OC height : legacy
+        % pa.m4legacy deliberately keeps the OLD grounded passive element AND the
+        % inverted sign pair, so it remains a faithful pre-correction reference.
     else
+        % m=4 IS UNCHANGED FROM HEAD, DELIBERATELY (2026-07-29, SN: "split the
+        % change: keep the m<4 half, revert m=4").
+        %
+        % The m<4 correction below/above -- lab frame + reaction -- was applied
+        % here too and made m=4 DIVERGE. That was bisected, not guessed: m=4 runs
+        % clean at HEAD (max|d1| 1.04e-05), and the reaction alone is responsible.
+        % Eliminated by measurement, each in both directions:
+        %   frame        diverges in BM frame AND lab frame
+        %   extension    diverges with k5*dc AND k5*(dc-d1)
+        %   topology     diverges with nested=0, clcouple=0, vent removed
+        %   reciprocity  Dq == Df' holds in every configuration (not the cause)
+        %   somatic loop removing act from d3 still diverges (1.9e+07)
+        %
+        % With act off d3, m=4's third-DOF law is IDENTICAL to m=3b's, and m=3b is
+        % stable. The one difference left is that m=4's d3 is FLUID-COUPLED. So the
+        % reaction is incompatible with a d3 that also exchanges with a chamber,
+        % as currently formulated.
+        %
+        % HYPOTHESIS for whoever picks this up, NOT a finding: xpnd_q injects each
+        % DOF's force with mu = [1, m1/m2, m1/m5], weights derived when d3 reached
+        % the fluid only through its own chamber. The reaction sends part of that
+        % same force into d1, which injects at weight 1, so one force can enter the
+        % fluid twice under two weights. m=3b never triggers it (no chamber). That
+        % needs mu re-derived for a d3 that is both fluid-coupled and attached,
+        % which is a derivation, not a debugging step.
         s1 = -(cp.k1 .* d1 + cp.r1 .* v1 + act);      % BM   : -act (matches m=3b)
         s3 = -(cp.k5 .* dc + cp.r5 .* vc - act);      % OC height : +act reaction
     end

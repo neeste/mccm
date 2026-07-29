@@ -940,6 +940,30 @@ for k=1:n
     elseif (m==2)
         hh=z2(k)/(z2(k)+zh(k));
         zk(1,1)=z1(k)+(gh(k)*zh(k)-zg(k))*hh;
+        % THIRD DOF at m<3, mirroring micro26 (SN: "when m<3 the micro-mechanics
+        % should mimic m=4 via interaction between SS and CL without longitudinal
+        % coupling"). Without this fdm26 has no z5 below m=3, so the distillation
+        % objective was structurally BLIND to k5/r5/m5 -- measured as exactly
+        % 0.000e+00 sensitivity, which would have let a fit run happily while the
+        % third DOF sat inert.
+        %
+        % NOTE THIS IS THE m==2 BRANCH, and it serves pa.m=1 as well: mxfill sets
+        % m=length(pa.chsz) (fdm26.m:895, and fdm24.m:552 before it), and
+        % modpar26(1) ships chsz=[1 1]. The m==1 branch above requires
+        % numel(chsz)==1 and is DEAD for every standard parameter set. That is
+        % also why m=1 == m=2 holds exactly -- it is the same model twice.
+        %
+        % zk3 is the m==4 3-DOF form. It is built separately rather than into zk
+        % because zk(m,:)=1 below overwrites row m for volume conservation, which
+        % at m=2 is row 2 -- one of the rows the condensation needs.
+        use3 = isfield(pa,'dof') && pa.dof>=3 && ~isempty(z5);
+        if (use3)
+            zact3 = gh(k)*zh(k)-zg(k);
+            zk3 = [ z1(k)+z5(k)  -zact3        -z5(k)
+                   -z2(k)         z2(k)+zh(k)   0
+                   -z5(k)         zact3         z5(k)];
+            v3 = zk3 \ [1;0;0];   % partition response to unit BM-row pressure
+        end
     elseif (m==3)
         % pa.m3form MIRRORS tdm26's switch of the same name (tdm26 m==3 branch).
         % Without this mirror the frequency domain SILENTLY IGNORED m3form, so a
@@ -976,10 +1000,28 @@ for k=1:n
         % LIMITATION: fdm26 has no ohcgain/ohcsgn, so this is the tdm26 default
         % (sgn=+1, fsp=1). A non-default pair will NOT be reproduced here.
         zact = gh(k)*zh(k)-zg(k);
+        % m=4 IS UNCHANGED FROM HEAD, DELIBERATELY (2026-07-29, SN: "split the
+        % change: keep the m<4 half, revert m=4"; "revert m=4 in fdm26 too").
+        %
+        % The relative-attachment form -- zk(1,1:3)=[z1+z5 -zact -z5],
+        % zk(3,1:3)=[-z5 zact z5] -- was applied here to mirror micro26, and the
+        % matching tdm26 change made m=4 DIVERGE in the time domain. Reverting
+        % tdm26 alone left fdm26 carrying it, so g4_maperr_m4 stayed at 601.5
+        % instead of returning to 525.2 -- the two solvers silently disagreeing,
+        % which is the failure mode arch_gate's new stability gate exists to stop.
+        %
+        % NOTE what the old form costs, so it is not mistaken for correct: the
+        % third column is [0;0;z5], so rows 1-2 close WITHOUT V3 and d3 is a
+        % driven observer with no back-action. That is the frequency-domain twin
+        % of the tdm26 inertness, and it is why k5/r5/m5 measure EXACTLY
+        % 0.000e+00 in any objective built on this response. m=4 is therefore
+        % reverted to a KNOWN-LIMITED form, not to a correct one; fixing it needs
+        % the fluid-coupled d3 question settled first (see micro26's m>=4 note).
         zk(1,1:3)=[ z1(k)  -zact        0    ];
         zk(2,1:3)=[-z2(k)   z2(k)+zh(k) 0    ];
         zk(3,1:3)=[ 0       zact        z5(k)];
     end
+    if (~exist('use3','var')), use3 = false; end   % only the m==2 branch sets it
     zk(m,:)=1; % conserve fluid volume
     if (m==3)
         T = [1, 0; 1, -1; -2, 1];
@@ -1009,8 +1051,16 @@ for k=1:n
         y(k,1,1)=1/zk(1,1);   % select Ybm
         y(k,2,:)=hh*y(k,1,:); % select Yhb
     elseif (m==2)
-        y(k,1,1)=1/zk(1,1);   % select Ybm
-        y(k,2,:)=hh*y(k,1,:); % select Yhb
+        if (use3)
+            % 3-DOF condensation: BM and hair-bundle admittances come from the
+            % full partition rather than the 2-DOF hh shortcut. Reduces to the
+            % 2-DOF form when the third DOF is absent, which arch_gate checks.
+            y(k,1,1)=v3(1);   % select Ybm
+            y(k,2,1)=v3(2);   % select Yhb
+        else
+            y(k,1,1)=1/zk(1,1);   % select Ybm
+            y(k,2,:)=hh*y(k,1,:); % select Yhb
+        end
     elseif (m==3)
         y(k,:,:)=inv(zk);     % select Ybm & Yhb
     elseif (m==4)

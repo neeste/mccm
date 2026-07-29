@@ -69,7 +69,39 @@ dref = false(ndof,1);
 % from the BM). m<3 with dof=2 keeps the legacy RELATIVE d2 untouched, which is
 % what preserves m=1 == m=2.
 use3 = (m>=3) || (isfield(pa,'dof') && pa.dof>=3);
-if (use3), dref(2) = true; if (has3), dref(3) = true; end, end
+if (use3), dref(2) = true; end
+% d3 FRAME IS SPLIT BY CHAMBER COUNT, and that is a KNOWN INCONSISTENCY carried
+% deliberately (2026-07-29, SN: "split the change: keep the m<4 half, revert
+% m=4"). It is exactly the "micromechanics property wearing a macromechanics
+% key" this refactor exists to remove, so it should not survive.
+%
+%   m<4  LAB frame (a3 = s3/m5).  The BM-accelerating frame needs a fictitious
+%        force -m5*a1 the force law never supplied. Harmless while d3 was inert;
+%        restoring the reaction made it a live unbalanced acceleration and the
+%        march diverged unconditionally (k5 x0.001 only delayed it 118 -> 1255;
+%        nimp 2->32 changed nothing). Lab frame measured STABLE with d3 live.
+%   m>=4 BM frame, unchanged from HEAD, because the same correction makes m=4
+%        diverge for a reason not yet identified (see the note in micro26's
+%        m>=4 branch). Reverted rather than left broken.
+if (numel(dref)>=3), dref(3) = (m>=4); end
+% d3 IS IN THE LAB FRAME (2026-07-29, adopted by SN after measurement).
+%
+% dref(3) used to be true, putting d3 in the BM-ACCELERATING frame
+% (a3 = a1 + s3/m5). That frame's equation of motion carries a fictitious force
+% -m5*a1, which the force law never supplied, so the frame and the force law
+% disagreed. While d3 had no reaction on d1 that cost nothing -- d3 was inert
+% and the error had no path to anything. Restoring the reaction (Newton's third
+% law) made it a live unbalanced acceleration, and the march diverged
+% UNCONDITIONALLY: shrinking k5 1000x only delayed the blowup (sample 118 ->
+% 1255), and nimp 2->32 changed nothing (divergence converged to sample 113,
+% so the fluid iteration converges -- to an unstable march).
+%
+% The lab frame is what m5*a3 = -k5*(d3-d1) - r5*(v3-v1) actually says, and it
+% measured STABLE with d3 finally live (rel-to-2DOF 9.698 vs 0.000e+00 before).
+%
+% dref(2) is UNCHANGED and carries the same open question. It is left alone
+% because changing it would break the m=1 == m=2 identity, which is a separate
+% physics decision rather than a consequence of this one.
 % dref(4) stays false: the vent state is a fluid FLOW, independent of BM motion.
 
 % ---- mass ratios, place-dependent --------------------------------------

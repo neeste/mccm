@@ -104,7 +104,54 @@ try
 catch e, R.err6 = e.message; end
 [R,npass,nfail] = gchk(R,B,'g6_vent_reduce',v,0,5e-3,'vent clvoct=10 rel d1','~0 converged',verbose,npass,nfail);
 
+% ---- 7. STABILITY: every configuration must stay finite ------------------
+% ADDED 2026-07-29 after m=4 diverged in tdm26 for a whole session while this
+% gate reported PASS. score26 'fast' runs FDM26, which is frequency-domain and
+% has NO stability limit, so a maperr can look healthy while the time march
+% blows up. Nothing here watched the march itself. Now something does.
+% Reported as max|d1| per config: NaN/Inf or a huge value both fail.
+STAB = {'m=1',1,{}; 'm=2',2,{}; 'm=3',3,{'d3int',0}; 'm=3b',3,{}; 'm=4',4,{}};
+ISV7 = [1136 1005 840 655 466 273 80];
+for k = 1:size(STAB,1)
+    v = NaN;
+    try
+        pk = modpar26(STAB{k,2}); ex = STAB{k,3};
+        for j = 1:2:numel(ex), pk.(ex{j}) = ex{j+1}; end
+        pk.isv = ISV7;
+        evalc('Sk = tdm26(0,pk,0,0);'); dk = Sk.d1(:);
+        if (all(isfinite(dk))), v = max(abs(dk)); else, v = Inf; end
+    catch e, R.(sprintf('err7_%d',k)) = e.message; end
+    % Pass band is generous: this catches DIVERGENCE, not drift. Anything above
+    % 1e-1 m of BM displacement is nonphysical by orders of magnitude.
+    ok = isfinite(v) && v < 1e-1;
+    R.(sprintf('g7_finite_%s', strrep(STAB{k,1},'=',''))) = v;
+    if (verbose)
+        st = 'FAIL'; if (ok), st = 'PASS'; end
+        fprintf('  %-29s | %15.6g | finite <1e-1  | %s (stab)\n', ...
+                sprintf('stability %s max|d1|',STAB{k,1}), v, st);
+    end
+    if (ok), npass = npass + 1; else, nfail = nfail + 1; end
+end
+
 % ---- summary / capture --------------------------------------------------
+% SURFACE CAPTURED EXCEPTIONS. Every gate above stores its error text in an
+% err* field and NOTHING ever printed them, so a thrown exception and a
+% divergent waveform both surfaced as a bare NaN. Distinguishing those two cost
+% most of 2026-07-29: I read NaN as divergence, then "corrected" myself to
+% exception, then back, with the answer sitting unprinted in R the whole time.
+if (verbose)
+    ef = fieldnames(R); ef = ef(strncmp(ef,'err',3));
+    if (~isempty(ef))
+        fprintf('\n  CAPTURED EXCEPTIONS (a NaN gate above is explained here):\n');
+        for k = 1:numel(ef)
+            msg = R.(ef{k}); msg = strrep(msg, sprintf('\n'), ' ');
+            fprintf('    %-8s %s\n', ef{k}, msg(1:min(100,end)));
+        end
+    else
+        fprintf('\n  no exceptions captured (any NaN above is DIVERGENCE, not a throw)\n');
+    end
+end
+
 if (~have)
     B = R; save(BASE,'B'); %#ok<NASGU>
     if (verbose), fprintf('\n  BASELINE CAPTURED -> %s. Re-run after each stage.\n', BASE); end
@@ -128,7 +175,17 @@ pa.isv = ISV; pb.isv = ISV;
 evalc('Sa = tdm26(0,pa,0,0);');
 evalc('Sb = tdm26(0,pb,0,0);');
 a = Sa.d1(:); b = Sb.d1(:);
-if (numel(a)~=numel(b) || ~all(isfinite(a)) || ~all(isfinite(b))), d = NaN; return; end
+% SAY WHY, do not just return NaN. A silent NaN here is indistinguishable from a
+% thrown exception in the caller's try/catch, which is exactly how m=4's
+% divergence hid behind "g3 failed" for a full session on 2026-07-29.
+if (numel(a)~=numel(b))
+    fprintf('    [wdiff] LENGTH MISMATCH %d vs %d\n', numel(a), numel(b)); d = NaN; return;
+end
+if (~all(isfinite(a)) || ~all(isfinite(b)))
+    ia = find(~isfinite(a),1); ib = find(~isfinite(b),1);
+    fprintf('    [wdiff] DIVERGED, not an exception: A first at %s, B first at %s\n', ...
+            num2str(ia), num2str(ib)); d = NaN; return;
+end
 sc = max(abs(a)); if (sc<=0), sc = 1; end
 d = max(abs(a-b)) / sc;
 end
