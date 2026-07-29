@@ -962,7 +962,12 @@ for k=1:n
             zk3 = [ z1(k)+z5(k)  -zact3        -z5(k)
                    -z2(k)         z2(k)+zh(k)   0
                    -z5(k)         zact3         z5(k)];
-            v3 = zk3 \ [1;0;0];   % partition response to unit BM-row pressure
+            % ypart, NOT v3. This is the 3-element PARTITION RESPONSE VECTOR,
+            % not the velocity of DOF 3 -- which is what "v3" reads as, and is
+            % the same naming collision that made the algebraic shear (now dh in
+            % micro26) confusable with the dynamical third DOF. Renamed
+            % 2026-07-29. ypart(1)=BM, ypart(2)=hair bundle, ypart(3)=DOF 3.
+            ypart = zk3 \ [1;0;0];   % partition response to unit BM-row pressure
         end
     elseif (m==3)
         % pa.m3form MIRRORS tdm26's switch of the same name (tdm26 m==3 branch).
@@ -1082,8 +1087,8 @@ for k=1:n
             % 3-DOF condensation: BM and hair-bundle admittances come from the
             % full partition rather than the 2-DOF hh shortcut. Reduces to the
             % 2-DOF form when the third DOF is absent, which arch_gate checks.
-            y(k,1,1)=v3(1);   % select Ybm
-            y(k,2,1)=v3(2);   % select Yhb
+            y(k,1,1)=ypart(1);   % select Ybm
+            y(k,2,1)=ypart(2);   % select Yhb
         else
             y(k,1,1)=1/zk(1,1);   % select Ybm
             y(k,2,:)=hh*y(k,1,:); % select Yhb

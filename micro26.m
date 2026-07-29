@@ -19,7 +19,7 @@ function [ss,ii,gam,ohcp,ohcbm] = micro26(pa, cp, st)
 % independent -- see macro_couple.m for the other side.
 %
 % KNOWN GAP (design-note decision 1): for m<3 the force law uses an ALGEBRAIC
-% shear d3=d1-d2 and defines no k_act/r_act, so it cannot drive a dynamical
+% shear dh=d1-d2 and defines no k_act/r_act, so it cannot drive a dynamical
 % third DOF. Requesting dof>=3 there raises tdm26:noMicro3 rather than failing
 % obscurely. That algebraic shear is precisely the variable the design note
 % wants promoted to its own mass.
@@ -40,9 +40,15 @@ if (has3), dc = st.d(i3); vc = st.v(i3); end   % DOF-3: OC height / cortilymph
 if (pa.dof>=4), dq = st.d(i4); vq = st.v(i4); end   % DOF-4: vent flow (integrated)
 
 if (pa.hbnl)
-    d3 = cp.hb(:,1) .* d1 + cp.hb(:,2) .* d2;
-    if (pa.mmeq == 1), hbt = max(abs(d3) / pa.hbmx,1); gam = cp.gm ./ (1 + pa.hbsc * log(hbt));
-    elseif (pa.mmeq == 9), dbt = abs(d3) / pa.hbmx; if (dbt > 1), gam = cp.gm / (1 + pa.hbsc * log(dbt)); end; end
+    % dh IS THE HAIR BUNDLE (xi_h), an ALGEBRAIC shear, renamed from d3 on
+    % 2026-07-29. It was called d3 while the DYNAMICAL third DOF was also called
+    % d3 in comments (its state is dc/vc), and that collision cost real
+    % confusion. dh matches cochlea_proc.docx's xi_h. See macro26.m:31 for what
+    % the shear IS: gh*d1 - d2 at m<3 (d2 = TM), and just d2 at m>=3 (d2 = the
+    % bundle itself, TM eliminated).
+    dh = cp.hb(:,1) .* d1 + cp.hb(:,2) .* d2;
+    if (pa.mmeq == 1), hbt = max(abs(dh) / pa.hbmx,1); gam = cp.gm ./ (1 + pa.hbsc * log(hbt));
+    elseif (pa.mmeq == 9), dbt = abs(dh) / pa.hbmx; if (dbt > 1), gam = cp.gm / (1 + pa.hbsc * log(dbt)); end; end
 end
 
 % MICROMECHANICS VARIANT (2026-07-28, SN): "when m<3 the micro-mechanics should
@@ -55,9 +61,9 @@ end
 % the refactor; m=1/m=2 with dof=2 are untouched and still take the legacy law.
 use3 = (pa.m==3) || (pa.m<3 && isfield(pa,'dof') && pa.dof>=3);
 if (pa.m<3 && ~use3)
-    d3 = d1 - d2; v3 = v1 - v2;
+    dh = d1 - d2; vh = v1 - v2;   % hair-bundle shear (was d3/v3; see the note above)
     s1tmp = cp.k1 .* d1 + cp.r1 .* v1; s2tmp = cp.k2 .* d2 + cp.r2 .* v2;
-    s3tmp = cp.k3 .* d3 + cp.r3 .* v3; s4tmp = cp.k4 .* d3 + cp.r4 .* v3;
+    s3tmp = cp.k3 .* dh + cp.r3 .* vh; s4tmp = cp.k4 .* dh + cp.r4 .* vh;
     s1 = -(s1tmp + s3tmp .* cp.gh - s4tmp .* gam); s2 = -(s2tmp - s3tmp);
 elseif (use3)
     % pa.m3form selects the MICROMECHANICS while leaving the 3-chamber
@@ -65,7 +71,7 @@ elseif (use3)
     % because that varied chamber count and parameter set together.
     %   0 (default): FDM-translation form; active force driven by d2 ALONE
     %   1          : m=2-style form; active force driven by the RELATIVE
-    %                displacement d3 = d1 - d2
+    %                displacement dh = d1 - d2
     % Energy injection is set by the PHASE of the active force against BM
     % velocity, so the driving coordinate is precisely what decides whether the
     % force amplifies or dissipates.  Note the "Removes the erroneous k_act*d1
@@ -271,7 +277,7 @@ if (need3)
         error('tdm26:noMicro3', ...
             ['A third DOF was requested (m=%d, d3int=%d) but no third-DOF force ' ...
              'law ran.\nThe d3int block lives inside the m==3 branch. For m<3 the ' ...
-             'force law uses an ALGEBRAIC shear d3=d1-d2 (line 797) and defines ' ...
+             'force law uses an ALGEBRAIC shear dh=d1-d2 and defines ' ...
              'no k_act/r_act, so there is nothing to drive a dynamical third DOF.' ...
              '\nThis is design-note DECISION 1, not a plumbing gap: is DOF3 the ' ...
              'OHC/cilia site promoted from that algebraic shear to its own mass, ' ...
