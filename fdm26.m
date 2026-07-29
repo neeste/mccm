@@ -891,7 +891,7 @@ dx=xl/(n-1);
 srd=s*rho*dx;
 % compute admittance for all x
 x=transpose(linspace(0,xl,n));
-[z1,z2,zh,za,ac,gh,bw,z5,zv]=imped(x,s,pa);   % z5 = OC-height, zv = CL vent shunt
+[z1,z2,zh,za,ac,gh,bw,z5,zv,z5c]=imped(x,s,pa); % z5 = OC-height, zv = CL vent shunt
 m=length(pa.chsz);
 A=zeros(n,m);
 Y=zeros(n,m,m);
@@ -987,8 +987,35 @@ for k=1:n
         al = 0; if (isfield(pa,'m3form')), al = pa.m3form; end
         zact = gh(k)*zh(k)-zg(k);
         zmix = (1-al)*z2(k) + al*zh(k);
-        zk(1,1:2)=[ z1(k)+al*zact   (1-2*al)*zact];
-        zk(2,1:2)=[-zmix             z2(k)+zh(k) ];
+        % THIRD DOF AT m=3b, CONDENSED (2026-07-29). tdm26's m<4 third DOF is
+        % INTERNAL -- no fluid compartment -- so it adds no pressure unknown and
+        % can be eliminated analytically instead of adding a row. That matters
+        % here because zk is m x m and row 3 is already the volume-conservation
+        % row, leaving only two partition rows.
+        %
+        % Partition rows, with z5c = k5/s + r5 the coupling (spring and damper,
+        % NO mass) and z5 = z5c + m5*s the full DOF-3 impedance:
+        %   row1: (z1 + al*zact + z5c)*V1 + (1-2al)*zact*V2 - z5c*V3 = F1
+        %   row3: -z5c*V1                                   + z5*V3  = 0
+        % Row 3 has no active term: at m<4 the OHC force reaches the BM only
+        % (micro26, and cochlea_proc.docx eq. 24). Solving row 3 for V3 gives
+        % V3 = (z5c/z5)*V1, and substituting leaves the BM impedance raised by
+        %   dz1 = z5c - z5c^2/z5 = z5c*(z5 - z5c)/z5 = z5c*(m5*s)/z5
+        % the SERIES combination of the spring-damper with d3's mass, which is
+        % what an attached mass presents as a load. Limits, all checked:
+        %   m5 -> 0    dz1 -> 0      a massless d3 loads nothing
+        %   m5 -> inf  dz1 -> z5c    d3 pinned in the lab, k5 a spring to ground
+        %                            (exactly what breaks arch_gate's g2 freeze)
+        %   z5 -> 0    dz1 has a POLE at d3's resonance: the abrupt change in
+        %                            effective BM stiffness
+        % Without this fdm26 had NO third DOF at m=3 at all, so g4_maperr_m3b
+        % scored a 2-DOF model while tdm26 ran a 3-DOF one and reported PASS.
+        dz1 = 0;
+        if (isfield(pa,'d3int') && pa.d3int && ~isempty(z5) && ~isempty(z5c))
+            dz1 = z5c(k) .* (z5(k) - z5c(k)) ./ z5(k);
+        end
+        zk(1,1:2)=[ z1(k)+al*zact+dz1   (1-2*al)*zact];
+        zk(2,1:2)=[-zmix                 z2(k)+zh(k) ];
     elseif (m==4)
         % Derived from tdm26's m>=4 force_cp. NOTE THE SIGN FLIP vs m==3: the
         % m==3 BM equation carries +k_act*d2, whereas m>=4 carries -act (the
@@ -1117,7 +1144,7 @@ q=zeros(m,n);
 q(:,1)=qst*B;
 end % return
 
-function [z1,z2,z3,z4,ac,gh,bw,z5,zv]=imped(x,s,pa)
+function [z1,z2,z3,z4,ac,gh,bw,z5,zv,z5c]=imped(x,s,pa)
 % z5 (8th output, 4-chamber only) is the OC-HEIGHT / cortilymph-pump impedance,
 % the frequency-domain counterpart of tdm26's cp.k5/cp.r5/cp.m5. Appended LAST so
 % the two existing 7-output callers (fdm26.m:617, :864) are unaffected.
@@ -1145,12 +1172,16 @@ z4=k4/s+r4;
 % OC-height (cortilymph pump) impedance -- 4-chamber only. Mirrors tdm26.m:475-477
 % cp.k5/cp.r5/cp.m5, and carries the MASS term (m5*s) as z1 does, because the
 % OC-height DOF has its own inertia (tdm26.m:630 a(i3)=a(i1)+s3./cp.m5).
-z5=[];
+z5=[]; z5c=[];
 if (isfield(pa,'k5o'))
     k5=pa.k5o*exp(pa.k5e*x+pa.k5q*q);
     r5=pa.r5o*exp(pa.r5e*x+pa.r5q*q);
     m5=pa.m5o*exp(pa.m5e*x+pa.m5q*q);
     z5=k5/s+r5+m5*s;
+    % z5c is the COUPLING impedance: spring and damper only, NO mass. The
+    % attachment transmits k5/r5 between BM and d3, while m5 belongs to d3
+    % alone. Needed to condense the internal third DOF at m<4 (see m==3).
+    z5c=k5/s+r5;
 end
 % VENT impedance -- the CL shunt, mirroring tdm26's resonant vent. The channel
 % inertance is mv = m5/clvent, which is NOT a free choice: tdm26's a2 stamp
