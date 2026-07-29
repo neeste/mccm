@@ -546,6 +546,11 @@ elseif (m>=4)
 end
 if (m==2), a2(:,(1:m)+(mm-m)) = 1; end
 cp.aa=xpnd_a(a1,a2,a3,m,n);
+% MACRO/MICRO INTERFACE, built once here and carried on cp because xpnd_q and
+% fold_p receive cp, not pa. Everything macro_couple reads (m1/m2/m5/clvm/clvk,
+% nested, clcouple, clvtgt) exists by this point: imped() ran at the top of
+% cochlea and the chamber stamps are complete.
+cp.mc = macro_couple(pa, cp);
 end
 
 function cp=imped(pa)
@@ -719,97 +724,44 @@ aa = spdiags(dd,-m:m,nm,nm);
 end
 
 function qx=xpnd_q(qst,ss,m,n,cp)
-s1 = ss(:,1); qst = [qst;zeros(n-1,1)]; qx = zeros(n*m,1);
-if (m==1), qx = s1 + qst;
-elseif (m==2), j2 = (1:n) * 2; j1 = j2 - 1; qx(j1) = s1 + qst;
-elseif (m==3), j3 = (1:n) * 3; j2 = j3 - 1; j1 = j2 - 1; 
-    mu = cp.m1 ./ max(cp.m2, 1e-12);
-    s2 = ss(:,2);
-    % Symmetric D^T Volume Injections
-    qx(j1) =  s1 + qst;
-    qx(j2) = -s2 .* mu;
-    qx(j3) = -s1 + s2 .* mu - qst;
-elseif (m>=4)
-    % chambers 1=ST 2=SS 3=SV 4=CL;  DOFs: d1 (ST<->CL), d2 (SV<->SS), d3 (CL<->SS).
-    % The stapes source qst still drives ST against SV (the two main scalae).
-    % These injections are the exact transpose of the fold_p pressure pickups.
-    j4=(1:n)*4; j3=j4-1; j2=j4-2; j1=j4-3;
-    mu2 = cp.m1 ./ max(cp.m2, 1e-12);
-    mu3 = cp.m1 ./ max(cp.m5, 1e-12);
-    s2 = ss(:,2); s3 = ss(:,3);
-    nest = 0; if (isfield(cp,'nested')), nest = cp.nested; end
-    if (nest)
-        % NESTED: d1 moves ST<->CL, so SV loses -s1 and CL gains it.
-        qx(j1) =  s1 + qst;                % ST : +d1, +stapes
-        qx(j2) = -s2 .* mu2 - s3 .* mu3;   % SS : -d2, -d3   (unchanged)
-        qx(j3) =        s2 .* mu2 - qst;   % SV : +d2, -stapes
-        qx(j4) = -s1 + s3 .* mu3;          % CL : -d1, +d3
-        if (size(ss,2) >= 4)
-            % RESONANT VENT. Driven by (P_CL - P_tgt), so it injects +s4 into CL
-            % and -s4 into the target, with coefficient muv = m1/clvm = the same
-            % G the a2 stamp already carries. Transpose of the fold_p pickup.
-            s4 = ss(:,4); muv = cp.m1 ./ max(cp.clvm, 1e-12);
-            vt = 3; if (isfield(cp,'clvtgt')), vt = cp.clvtgt; end
-            jt = j1; if (vt==2), jt = j2; elseif (vt==3), jt = j3; end
-            qx(j4) = qx(j4) + s4 .* muv;
-            qx(jt) = qx(jt) - s4 .* muv;
-        end
-    else
-    ccq = 1; if (isfield(cp,'clcouple')), ccq = cp.clcouple; end
-    m3q = ccq .* mu3;                      % d3 fluid coupling (reduction knob)
-    qx(j1) =  s1 + qst;                    % ST : +d1, +stapes
-    qx(j2) = -s2 .* mu2 - s3 .* m3q;       % SS : -d2, -d3
-    qx(j3) = -s1 + s2 .* mu2 - qst;        % SV : -d1, +d2, -stapes
-    qx(j4) =  s3 .* m3q;                   % CL : +d3 only (side compartment)
-    end
+% MACRO/MICRO INTERFACE (Stage 2). This was ~45 lines of hand-written
+% per-chamber volume injections branching on m; it is one matrix operation with
+% the topology supplied by macro_couple:
+%
+%     q(:,c) = sum_k Dq(c,k) * mu(:,k) .* s(:,k)  +  qst*B(c)
+%
+% mu is place-dependent (mass ratios m1/m2, m1/m5 vary along the cochlea), which
+% is why it multiplies elementwise rather than being folded into Dq.
+% Equivalence with the old branches verified on 11 configurations by
+% macro_shadow.m -- errors 0 to 6.8e-17, including every nested/clcouple/vent
+% combination and the deliberately asymmetric m=2 case.
+C = cp.mc;
+nd = min(size(ss,2), C.ndof);
+Q  = (C.mu(:,1:nd) .* ss(:,1:nd)) * C.Dq(:,1:nd).';   % (n x nch)
+Q(1,:) = Q(1,:) + qst * C.B.';        % stapes drives the basal boundary only
+qx = reshape(Q.', n*C.nch, 1);        % back to place-major interleaving
 end
-end
-
 function a=fold_p(pp,m,n,a,ss,ii,cp)
-s1=ss(:,1); s2=ss(:,2); i1=ii(:,1); i2=ii(:,2);
-if (m==1)
-    a(i1) = (s1 - pp) ./ cp.m1; a(i2) = s2 ./ cp.m2;
-elseif (m==2)
-    j2=(1:n)*2; j1=j2-1; 
-    s1 = s1 - (pp(j1) - pp(j2)) / 2;
-    a(i1) = s1 ./ cp.m1; a(i2) = s2 ./ cp.m2;
-elseif (m==3)
-            j3=(1:n)*3; j2=j3-1; j1=j2-1;
-            s1 = s1 - (pp(j1) - pp(j3)); % P_ST - P_SV
-            s2 = s2 - (pp(j3) - pp(j2)); % P_SV - P_SS
-            a(i1) = s1 ./ cp.m1;
-            a(i2) = a(i1) + s2 ./ cp.m2; % Add BM accel to HB
-            if (size(ss,2) >= 3 && size(ii,2) >= 3)
-                % m=3b: d3 is INTERNAL, so it gets NO pressure pickup (it has no
-                % fluid compartment). It only receives the OHC reaction via s3.
-                a(ii(:,3)) = a(i1) + ss(:,3) ./ cp.m5;
-            end
-elseif (m>=4)
-            % transpose of the xpnd_q injections above
-            j4=(1:n)*4; j3=j4-1; j2=j4-2; j1=j4-3;
-            i3=ii(:,3); s3=ss(:,3);
-            nest = 0; if (isfield(cp,'nested')), nest = cp.nested; end
-            if (nest)
-                s1 = s1 - (pp(j1) - pp(j4)); % d1: P_ST - P_CL  (NESTED)
-            else
-                s1 = s1 - (pp(j1) - pp(j3)); % d1: P_ST - P_SV  (main drive path)
-            end
-            s2 = s2 - (pp(j3) - pp(j2)); % d2: P_SV - P_SS
-            ccf = 1; if (isfield(cp,'clcouple')), ccf = cp.clcouple; end
-            s3 = s3 - ccf*(pp(j4) - pp(j2)); % d3: P_CL - P_SS (reduction knob)
-            a(i1) = s1 ./ cp.m1;
-            a(i2) = a(i1) + s2 ./ cp.m2; % Add BM accel to HB
-            a(i3) = a(i1) + s3 ./ cp.m5; % Add BM accel to OC-height DOF
-            if (size(ss,2) >= 4 && size(ii,2) >= 4)
-                % RESONANT VENT, transpose of the xpnd_q injection. NOTE it does
-                % NOT add a(i1): d2 and d3 are ABSOLUTE displacements measured
-                % from the BM, but the vent state is a fluid FLOW and is
-                % independent of BM motion, so it takes no a(i1) term.
-                vt = 3; if (isfield(cp,'clvtgt')), vt = cp.clvtgt; end
-                jt = j1; if (vt==2), jt = j2; elseif (vt==3), jt = j3; end
-                s4 = ss(:,4) - (pp(j4) - pp(jt));   % vent drive: P_CL - P_tgt
-                a(ii(:,4)) = s4 ./ max(cp.clvm, 1e-12);
-            end
+% MACRO/MICRO INTERFACE (Stage 2). Was ~45 lines of per-chamber pressure pickups
+% branching on m; it is the transpose partner of xpnd_q:
+%
+%     s = s_internal - Df*p
+%
+% then each DOF's acceleration is s_k/M_k, plus a(i1) when that DOF is measured
+% ABSOLUTELY (referenced to the BM). C.dref carries that per DOF -- it used to be
+% keyed on chamber count, which is a micromechanics property wearing a
+% macromechanics key and precisely what this refactor exists to separate.
+% d2/d3 are absolute at m>=3 and RELATIVE at m<=2; the vent state is a fluid flow
+% and takes no a(i1) term. Preserved exactly: changing it would break m=1==m=2.
+C = cp.mc; i1 = ii(:,1);
+nd = min([size(ss,2), C.ndof, size(ii,2)]);
+P  = reshape(pp, C.nch, n).';                      % (n x nch), place-major
+fs = ss(:,1:nd) - P * C.Df(1:nd,:).';              % pressure differences
+a(i1) = fs(:,1) ./ cp.m1;
+for k = 2:nd
+    if (C.dref(k)), a(ii(:,k)) = a(i1) + fs(:,k) ./ dof_mass(cp,k);
+    else,           a(ii(:,k)) =         fs(:,k) ./ dof_mass(cp,k);
+    end
 end
 % pa.bmrigid = KINEMATIC clamp of the whole basilar membrane, the correct way
 % to express d1 -> 0. Stiffening k1o instead raises the BM resonance and breaks
@@ -826,6 +778,17 @@ a(i1(1)) = 0; a(i1(n)) = 0;
 end
 end
 
+function M = dof_mass(cp, k)
+% Mass for DOF k: 1 BM, 2 TM-RL shear, 3 OC height, 4 vent flow. The max() on
+% clvm and its absence on m2/m5 reproduce the old code exactly -- do not
+% "tidy" that into consistency, it would change results where a mass is tiny.
+switch k
+    case 2, M = cp.m2;
+    case 3, M = cp.m5;
+    case 4, M = max(cp.clvm, 1e-12);
+    otherwise, M = cp.m1;
+end
+end
 function [ss,ii,gam,ohcp,ohcbm]=force_cp(pa,cp,st)
 n = pa.n; i1 = 1:n; i2 = (n+1):(2*n); gam = cp.gm; ohcp = 0; ohcbm = 0;
 if (pa.m>=4 || (isfield(pa,'d3int') && pa.d3int)), i3=(2*n+1):(3*n); ii=[i1(:) i2(:) i3(:)]; else, ii=[i1(:) i2(:)]; end
