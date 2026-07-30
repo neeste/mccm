@@ -192,6 +192,25 @@ switch true
         Dq(2,2) = -1;
         Dq(3,1) = -1;  Dq(3,2) = 1;
         B = [1;0;-1];
+        % ROW DECOMPOSITION, measured 2026-07-29 and recorded rather than kept as
+        % a flag. Applying rlsplit's three Df row changes ONE AT A TIME, at
+        % m3row=0 where the micromechanics is the default:
+        %     default (none)   +101.67 dB
+        %     BM row only        +4.58        -97 dB
+        %     d2 row zeroed      -7.50       -109 dB
+        %     d3 row only      DIVERGED
+        %     BM+d2              -3.19
+        %     BM+d3             +15.28
+        %     d2+d3              -8.90
+        %     all three         +22.39        -79 dB   (= rlsplit)
+        % THE EFFECTS DO NOT SUM -- every subset costs MORE than the whole. The
+        % two-membrane topology is NOT DECOMPOSABLE: the three rows describe one
+        % coherent geometry (SV|RL|CL|BM|ST) and any subset leaves an incoherent
+        % one. "d3 row only" diverging is that in its sharpest form -- giving the
+        % RL a pressure difference while the BM still spans ST-SV is not a model.
+        % So the 79 dB is not a defect to localise. Every parameter was tuned for
+        % the single-membrane arrangement; rlsplit needs FITTING, not diagnosis.
+
       end
     otherwise                                    % m>=4
         if (nest), Df(1,:) = [1 0 0 -1];         % d1: P_ST - P_CL
