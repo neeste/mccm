@@ -231,6 +231,14 @@ elseif (m>=4)
     a1(n,16)=-1; a2(n,16)=1;
 end
 if (m==2), a2(:,(1:m)+(mm-m)) = 1; end
+% RAW FLUID BLOCKS, exposed 2026-07-29 so macro_shadow can check them.
+% a2's off-diagonal part is a SECOND copy of the chamber-coupling topology that
+% macro_couple already holds as Dq/mu/Df -- verified at m=3 that
+%     a2(k) == diag(L_p + L_c) + Dq*diag(mu(k,:))*Df
+% Two sources of truth for one topology is why pa.rlsplit is ill-posed: it
+% changes Df/Dq and this block does not follow. Exposing them is the first step
+% to deriving the block instead of writing it out.
+cp.a1 = a1; cp.a2 = a2; cp.a3 = a3;
 cp.aa=xpnd_a(a1,a2,a3,m,n);
 % MACRO/MICRO INTERFACE, built once here and carried on cp because xpnd_q and
 % fold_p receive cp, not pa. Everything macro_couple reads (m1/m2/m5/clvm/clvk,

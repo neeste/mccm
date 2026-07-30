@@ -62,8 +62,59 @@ for i = 1:numel(cfg)
     R(end+1).name = c.name; R(end).dfold = df; R(end).dxpnd = dq; R(end).recip = C.reciprocal; %#ok<AGROW>
 end
 
+% ---- FLUID BLOCK: is a2 a SECOND copy of the same topology? --------------
+% ADDED 2026-07-29. The test above checks the partition<->fluid TRANSFER
+% (fold_p / xpnd_q). It never checked the fluid operator's own chamber-to-chamber
+% block, which macro26 writes out BY HAND. That block is redundant with
+% macro_couple:
+%
+%     a2(k) == diag(L_p + L_c) + Dq*diag(mu(k,:))*Df
+%
+% Two sources of truth for one topology is why pa.rlsplit is ill-posed: it
+% changes Df/Dq and the hand-written block does not follow, over-determining the
+% system (diverges at sample 26, invariant under a 40x change in CL area).
+%
+% This uses the REAL macro26 cp, not fake_cp, because only macro26 builds a2.
+[npf, nff] = deal(0);
 if (verbose)
-    fprintf('\n  %d passed, %d FAILED\n', np, nf);
+    fprintf('\n  FLUID BLOCK -- does a2 equal diag(L) + Dq*diag(mu)*Df?\n');
+    fprintf('  config          | max abs err | verdict\n');
+    fprintf('  %s\n', repmat('-',1,52));
+end
+for mm = [3 4]
+    lbl = sprintf('modpar26(%d)', mm); e = NaN;
+    try
+        pa = modpar26(mm); cp = macro26(pa); C = cp.mc;
+        nn = pa.n; nc = C.nch; dx = pa.xl/(nn-1);
+        af = 1; if (isfield(pa,'aflom_fac')), af = pa.aflom_fac; end
+        afl = cp.ac / (af * pa.rho * dx);
+        e = 0;
+        for k = round(0.3*nn):round(0.1*nn):round(0.7*nn)   % interior places only
+            L = zeros(1,nc);
+            for c = 1:nc, L(c) = (afl(k-1)+afl(k))*pa.chsz(c)./cp.abmom(k); end
+            A = reshape(cp.a2(k,:), nc, nc) - diag(L);
+            P = C.Dq * diag(C.mu(k,:)) * C.Df;
+            e = max(e, max(abs(A(:)-P(:))));
+        end
+    catch ex
+        e = NaN;
+    end
+    ok = isfinite(e) && e < 1e-12;
+    if (ok), npf = npf+1; else, nff = nff+1; end
+    if (verbose)
+        v = 'DIFFERS'; if (ok), v = 'identical'; end
+        fprintf('  %-15s | %11.3e | %s\n', lbl, e, v);
+    end
+end
+if (verbose)
+    fprintf('\n  identical => the hand-written block can be REPLACED by the product,\n');
+    fprintf('  which is what would make pa.rlsplit well-posed. DIFFERS at m=4 would\n');
+    fprintf('  localise the known nested+clcouple non-reciprocity.\n');
+end
+
+if (verbose)
+    fprintf('\n  %d passed, %d FAILED  (transfer)\n', np, nf);
+    fprintf('  %d passed, %d FAILED  (fluid block)\n', npf, nff);
     if (nf==0)
         fprintf('  Stage 1 GATE HOLDS -- the matrix form reproduces every branch.\n');
         fprintf('  Safe to proceed to Stage 2 (switch xpnd_q/fold_p over).\n');
