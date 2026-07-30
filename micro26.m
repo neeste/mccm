@@ -133,7 +133,30 @@ elseif (use3)
     % MEASURED TRADE the interpolation is meant to exploit: alpha=0 gives better
     % tuning (maperr 499 vs 1869) while alpha=1 gives a sharper tip (contrast
     % 11.1 vs 9.2) and pushes the apical degeneracy an octave higher.
+    % m3form SPLIT INTO TWO INDEPENDENT CHOICES (2026-07-29, SN). One alpha used
+    % to control two unrelated things, which is why "substitute the TM law" and
+    % "drive from the bundle" pulled opposite directions on one knob:
+    %
+    %   m3row  WHICH COORDINATE IS SLAVED -- the s2 row coupling.
+    %          0 -> kmix = k2   d2 behaves as the BUNDLE   (current m>=3)
+    %          1 -> kmix = k3   d2 behaves as the TM       (the m<3 law)
+    %
+    %   m3drv  WHICH COORDINATE DRIVES the active force.
+    %          0 -> k_act*dhb          the bundle ITSELF   (what pa.hbrl needs)
+    %          1 -> k_act*(d1 - dhb)   a difference from d1 (the m<3 form)
+    %
+    % SN's framing makes these orthogonal: the two 2-DOF models are the two ways
+    % of slaving one coordinate of a 3-DOF system (d3 = gh*d1, or d2 = eps*d3),
+    % while the drive coordinate is a separate question about where MET reads.
+    % The 2010 target is m3row=1 (d2 as TM) WITH m3drv=0 (bundle drive) -- a
+    % combination the single knob could not express.
+    %
+    % BACKWARD COMPATIBLE: both default to m3form, so setting m3form alone
+    % reproduces the old coupled behaviour exactly, including m3form=1 being the
+    % m<3 law to roundoff.
     al = 0; if (isfield(pa,'m3form')), al = pa.m3form; end
+    ar = al; if (isfield(pa,'m3row')), ar = pa.m3row; end   % slaving / s2 row
+    ad = al; if (isfield(pa,'m3drv')), ad = pa.m3drv; end   % drive coordinate
     k_act = cp.gh .* cp.k3 - gam .* cp.k4;
     % ACTIVE RESISTANCE.  fdm26 builds za = z4 = k4/s + r4 (fdm26.m:960) and
     % subtracts zg = gam*za from the row-1 coefficient of V2 (fdm26.m:869,890),
@@ -152,13 +175,13 @@ elseif (use3)
     % At alpha=0 this is the exact d2-only form: row 1 carries NO k_act*d1 term
     % (what the older comment called "the erroneous k_act*d1 stiffening"); that
     % term is legitimate only in the alpha>0 relative-displacement law.
-    kmix = (1-al) .* cp.k2 + al .* cp.k3;
-    rmix = (1-al) .* cp.r2 + al .* cp.r3;
+    kmix = (1-ar) .* cp.k2 + ar .* cp.k3;
+    rmix = (1-ar) .* cp.r2 + ar .* cp.r3;
 
     % Row 1: [z1 + alpha*z_act]*V1 + [(1-2*alpha)*z_act]*V2
     s1 = -(cp.k1 .* d1 + cp.r1 .* v1 ...
-           + al .* (k_act .* d1 + r_act .* v1) ...
-           + (1-2*al) .* (k_act .* dhb + r_act .* vhb));
+           + ad .* (k_act .* d1 + r_act .* v1) ...
+           + (1-2*ad) .* (k_act .* dhb + r_act .* vhb));
 
     % Row 2: -[(1-alpha)*z2 + alpha*zh]*V1 + (z2+zh)*V2
     s2 = -(-kmix .* d1 - rmix .* v1 + (cp.k2 + cp.k3) .* d2 + (cp.r2 + cp.r3) .* v2);
