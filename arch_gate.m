@@ -50,27 +50,60 @@ try
 catch e, R.err1 = e.message; end
 [R,npass,nfail] = gchk(R,B,'g1_m1eq_m2',v,0,1e-12,'m=1==m2 |dmaperr|','0 exact',verbose,npass,nfail);
 
-% ---- 2. m=3 -> m=3b, third DOF frozen ----------------------------------
+% ---- 2. third DOF made INERT must reproduce the 2-DOF model -------------
+% REDEFINED 2026-07-29 for the lab frame. The old form froze the third DOF with
+% m5o*1e6 and that is no longer the inert limit: with dref(3)=false, a3 = s3/m5,
+% so m5 -> inf pins d3 IN THE LAB (d3 -> 0) and k5 becomes a spring to GROUND,
+% which stiffens the BM instead of decoupling. Measured: the old form returns
+% 1.00038, a 100% difference, and it is not a regression -- the test was wrong.
+%
+% The lab-frame inert limit is to REMOVE THE ATTACHMENT: k5 -> 0 and r5 -> 0.
+% Then spas = 0, its reaction on d1 vanishes, d3 is driven by nothing and stays
+% at zero, so the model must reproduce plain 2-DOF m=3 exactly.
+% Expected value is still ~0, so the stored baseline stays valid.
 v = NaN;
 try
     p3  = modpar26(3); p3.d3int = 0;              % legacy 2-DOF
-    p3b = modpar26(3); p3b.m5o = p3b.m5o * 1e6;   % 3-DOF, third frozen
+    p3b = modpar26(3);                            % 3-DOF, attachment removed
+    p3b.k5o = 0; p3b.r5o = 0;
     v = wdiff(p3, p3b);
 catch e, R.err2 = e.message; end
-[R,npass,nfail] = gchk(R,B,'g2_m3_m3b',v,0,1e-9,'m=3->m3b rel d1','~0 identity',verbose,npass,nfail);
+[R,npass,nfail] = gchk(R,B,'g2_m3_m3b',v,0,1e-9,'k5=r5=0 -> 2DOF','~0 identity',verbose,npass,nfail);
 
-% ---- 3. m=3b -> m=4 at clcouple=0 --------------------------------------
+% ---- 3. third DOF LIVE must actually change the model -------------------
+% REPLACED 2026-07-29. The old g3 tested m=3b -> m=4 at clcouple=0, an
+% equivalence that NO LONGER EXISTS BY DESIGN: the m<4 correction (lab frame +
+% reaction) was kept while m=4 was reverted, so the two force laws now differ on
+% purpose. Its construction was also unsound -- clcouple=0 zeroes d3's pressure
+% pickup while chamber 4 still exists, leaving an UNCOUPLED fluid compartment
+% that diverges at sample 3. Repairing it would mean asserting something false.
+%
+% Replaced by the INVERSE of g2, and by the check whose absence cost this whole
+% project. For its entire history the third DOF at m<4 was EXACTLY INERT: d3 live
+% and unfrozen gave rel-to-2DOF = 0.000e+00, bit-identical, so every m=3b result
+% ever recorded was a 2-DOF result and the old g2 "passed" because there was
+% nothing to freeze. Nothing watched for that.
+%
+% g2 and g3 are now a proper pair: INERT when it should be (k5=r5=0 -> identity),
+% LIVE when it should be (default k5/r5 -> a real difference). One alone is not
+% enough; the old suite had only the first kind.
+% NEW KEY NAME on purpose: comparing to the old g3_m3b_m4 baseline (3.5784e-10)
+% would be a false comparison, since the quantity means the opposite now.
 v = NaN;
 try
-    p3b = modpar26(3); p3b.chsz = [0.95 0.05 1.00];
-    p4  = modpar26(4); p4.chsz = [0.95 0.05 1.00 0.05];
-    p4.nested = 0; p4.clcouple = 0;
-    for f = {'clvent','clvoct','clvtgt','clvk','clvr'}
-        if (isfield(p4,f{1})), p4 = rmfield(p4,f{1}); end
-    end
-    v = wdiff(p3b, p4);
+    p3  = modpar26(3); p3.d3int = 0;              % 2-DOF reference
+    p3b = modpar26(3);                            % 3-DOF, attachment LIVE
+    v = wdiff(p3, p3b);
 catch e, R.err3 = e.message; end
-[R,npass,nfail] = gchk(R,B,'g3_m3b_m4',v,0,1e-8,'m3b->m4 rel d1','~3.6e-10',verbose,npass,nfail);
+R.g3_dof3_live = v;
+LIVEFLOOR = 1e-3;                                  % below this, d3 does nothing
+ok3 = isfinite(v) && v > LIVEFLOOR;
+if (verbose)
+    st = 'FAIL'; if (ok3), st = 'PASS'; end
+    fprintf('  %-29s | %15.6g | %-13s | %s (live)\n', ...
+            'DOF3 live rel-to-2DOF', v, sprintf('>%.0e', LIVEFLOOR), st);
+end
+if (ok3), npass = npass + 1; else, nfail = nfail + 1; end
 
 % ---- 4. scored champions -----------------------------------------------
 exp4 = [104.6 499.3 525.2];
