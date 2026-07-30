@@ -121,6 +121,60 @@ switch true
         Dq(1,1) = 1;                             % chamber 2 carries a constraint
         B(1) = 1;
     case (m==3)
+      if (isfield(pa,'rlsplit') && pa.rlsplit)
+        % ---- RL-SPLIT TOPOLOGY (2026-07-29, SN) ---------------------------
+        % Chambers are [ST, CL, SV] -- SS IS GONE, replaced by CL. The
+        % partition becomes TWO membranes with a fluid space between them:
+        %
+        %     SV  |  RL (d3)  |  CL  |  BM (d1)  |  ST
+        %
+        %   d3 (RL) driven by  P_SV - P_CL
+        %   d1 (BM) driven by  P_CL - P_ST
+        %
+        % Sign convention matches the legacy row below, (below - above), so
+        % d1's ST term stays +1 exactly as in [1 0 -1].
+        %
+        % WHY SS IS DROPPED RATHER THAN FROZEN: d2 is SS's ONLY partition
+        % coupling (the legacy Df(2,:) = [0 -1 1]). Clamp the TM and SS retains
+        % nothing, leaving an UNCOUPLED fluid compartment -- the measured
+        % clcouple=0 arm at m=4 diverged at sample 3 exactly that way, the
+        % fastest failure of anything tested this session.
+        %
+        % WHY THIS IS THE PREREQUISITE FOR pa.hbrl: without its own fluid
+        % loading the RL is only spring-coupled to the BM through k5/r5, so it
+        % FOLLOWS it -- measured max|d3-d1|/max|d1| = 0.1457. A drive
+        % proportional to d3 is then nearly IN PHASE with d1, a stiffness change
+        % rather than energy injection. micro26's own note says exactly this:
+        % "Energy injection is set by the PHASE of the active force against BM
+        % velocity". Giving the RL its own pressure difference is what lets it
+        % move out of phase.
+        %
+        % Liu & Neely (2010) is the 1-chamber limit of this: continuity is
+        % driven from the RL (eq 9, d_x U = w*xi_r_dot) while pressure acts on
+        % the BM (eq 10). That asymmetry is an artifact of collapsing CL; with
+        % CL present each membrane carries its own difference and the operator
+        % is reciprocal.
+        % *** DOES NOT RUN. DEFAULT OFF. *** Diverges at sample 26 for EVERY CL
+        % area tested (chsz(2) = 0.05 to 2.00, a 40x span, moved the divergence
+        % point by ONE sample). So it is not CL thickness and not a stiffness or
+        % CFL limit -- those scale with the parameter. Compare: the reaction
+        % instabilities blew up at samples 113-1255 and scaled with coupling
+        % strength; an uncoupled chamber (clcouple=0) went at sample 3. A blowup
+        % at 26 that is invariant under a large parameter change is the signature
+        % of an ILL-POSED system.
+        % RULED OUT: CL area; volume conservation (every Dq column sums to zero,
+        % as does B); reciprocity (Dq == Df' by construction here).
+        % NOT RULED OUT: m=3-specific structure elsewhere that still assumes the
+        % old ST/SS/SV roles -- macro26 builds the fluid operator from
+        % chsz(1..3) presuming what each chamber adjoins, and there may be
+        % boundary or constraint handling keyed to that arrangement beyond
+        % Df/Dq. That is where to look next.
+        Df(1,:) = [ 1 -1  0];                    % d1 (BM): P_ST - P_CL
+        Df(2,:) = [ 0  0  0];                    % d2 (TM): clamped, no coupling
+        Df(3,:) = [ 0  1 -1];                    % d3 (RL): P_CL - P_SV
+        Dq = Df.';                               % RECIPROCAL BY CONSTRUCTION
+        B = [1;0;-1];                            % stapes still drives SV vs ST
+      else
         Df(1,:) = [ 1  0 -1];                    % d1: P_ST - P_SV
         Df(2,:) = [ 0 -1  1];                    % d2: P_SV - P_SS
         % d3 (m=3b) is INTERNAL: no fluid compartment, so Df(3,:) stays zero.
@@ -128,6 +182,7 @@ switch true
         Dq(2,2) = -1;
         Dq(3,1) = -1;  Dq(3,2) = 1;
         B = [1;0;-1];
+      end
     otherwise                                    % m>=4
         if (nest), Df(1,:) = [1 0 0 -1];         % d1: P_ST - P_CL
         else,      Df(1,:) = [1 0 -1 0];         % d1: P_ST - P_SV
