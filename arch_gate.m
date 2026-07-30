@@ -106,7 +106,13 @@ end
 if (ok3), npass = npass + 1; else, nfail = nfail + 1; end
 
 % ---- 4. scored champions -----------------------------------------------
-exp4 = [104.6 499.3 525.2];
+% exp4 is the FALLBACK used only when no baseline file exists; gchk prefers the
+% baseline whenever it is present. m3b was 499.3 until 2026-07-29, when fdm26
+% gained the third DOF at m=3 -- before that fdm26 scored a 2-DOF model while
+% tdm26 ran a 3-DOF one, so 499.3 measured a model nobody was running. Updated so
+% a capture-from-scratch does not report a spurious failure, and so the printed
+% "expected" column stops disagreeing with the value actually compared against.
+exp4 = [104.6 1263.95 525.2];
 lbl4 = {'g4_maperr_m1','g4_maperr_m3b','g4_maperr_m4'};
 lbl8 = {'g8_amp_m1','g8_amp_m3b','g8_amp_m4'};
 ampv = NaN(1,3);
