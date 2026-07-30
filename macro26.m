@@ -27,6 +27,13 @@ cp = imped26(pa);
 % honoured for EVERY m. Setting it inside the m>=4 branch would leave
 % m=1/2/3 silently running FREE and make the comparison meaningless.
 cp.bmrigid = 0; if (isfield(pa,'bmrigid')), cp.bmrigid = pa.bmrigid; end
+% pa.tmrigid: KINEMATIC CLAMP of d2 to the LAB frame. Toward Liu & Neely (2010),
+% which does not represent the TM at all ("tectorial-membrane motion is not
+% considered explicitly"). Clamping is the correct way to express d2 -> 0:
+% stiffening k2 instead would create an unresolvable mode, exactly as the
+% bmrigid note above records for k1o. Set here, outside the chamber branches, so
+% it is honoured for every m.
+cp.tmrigid = 0; if (isfield(pa,'tmrigid')), cp.tmrigid = pa.tmrigid; end
 cp.clcouple = 1; if (isfield(pa,'clcouple')), cp.clcouple = pa.clcouple; end
 % cp.hb IS THREE COLUMNS as of 2026-07-29, over [d1 d2 d3]. The third column is
 % ZERO in both legacy forms, so this is behaviour-preserving. Always read it via

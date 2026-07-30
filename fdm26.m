@@ -1,6 +1,21 @@
 % fdm26 - multi-chamber frequency-domain model of cochleamodpar26
 function R=fdm26(nch)
 if (nargin<1), nch=0; end % number of cochlear fluid chambers
+% pa.tmrigid IS NOT IMPLEMENTED HERE YET. tdm26 clamps d2 kinematically
+% (a(i2) = 0 in fold_p); the frequency-domain equivalent is to eliminate V2 from
+% zk, which is a real restructuring of every m branch, not a flag.
+% REFUSE rather than silently score an UNCLAMPED model while tdm26 clamps. That
+% exact fdm/tdm divergence cost a full session on 2026-07-29: fdm26 had no third
+% DOF at m=3 while tdm26 had one, and g4_maperr_m3b reported PASS on the
+% disagreement for months.
+if (isstruct(nch) && isfield(nch,'pa') && isstruct(nch.pa) ...
+        && isfield(nch.pa,'tmrigid') && nch.pa.tmrigid)
+    error('fdm26:tmrigid', ...
+        ['pa.tmrigid (TM clamped) is not implemented in fdm26. tdm26 clamps d2 ' ...
+         'but fdm26 would score it FREE, so the two solvers would disagree ' ...
+         'silently.\nEliminate V2 from zk in the relevant m branch first, or ' ...
+         'measure tmrigid in the time domain only.']);
+end
 if (isstruct(nch))                                        % struct arg => analysis mode
     if (isfield(nch,'xprofile')),    R=xprofile(nch);
     elseif (isfield(nch,'xreflect')),R=xreflect(nch);

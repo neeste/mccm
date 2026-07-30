@@ -39,6 +39,25 @@ d1 = st.d(i1); v1 = st.v(i1); d2 = st.d(i2); v2 = st.v(i2);
 if (has3), dc = st.d(i3); vc = st.v(i3); end   % DOF-3: OC height / cortilymph
 if (pa.dof>=4), dq = st.d(i4); vq = st.v(i4); end   % DOF-4: vent flow (integrated)
 
+% BUNDLE COORDINATE, DEFINED ONCE for every branch below (2026-07-29).
+% dhb/vhb are the hair bundle xi_h and its velocity, via cp.hb -- see hbmix.m.
+% Defined here rather than inside each branch because the has3 predicate taught
+% what duplicated definitions cost: it lived at four sites, one was updated, and
+% the result was "Unrecognized function or variable 'dc'".
+%
+% THE ACTIVE DRIVE IS NOW THE BUNDLE, not d2. At m>=3 the default hb = [0 1 0]
+% makes dhb == d2 exactly, so this is BIT-IDENTICAL by default at every chamber
+% count. It differs ONLY under pa.hbrl, where hb = [0 -1 gh] gives
+% dhb = gh*d3 - d2; with the TM clamped (pa.tmrigid) that becomes gh*d3, the
+% RL-driven MET of Liu & Neely (2010), i_r = I(alpha_v*xi_r_dot + alpha_d*xi_r).
+%
+% WHY THIS WAS BLOCKING: with the drive on d2, clamping the TM sets act == 0 and
+% the amplifier vanishes -- measured, max|d1| fell from 8.03e-03 to 1.13e-08.
+% The clamp is only usable once the drive no longer depends on the clamped DOF.
+if (has3), dhb = hbmix(cp.hb, d1, d2, dc); vhb = hbmix(cp.hb, v1, v2, vc);
+else,      dhb = hbmix(cp.hb, d1, d2);     vhb = hbmix(cp.hb, v1, v2);
+end
+
 if (pa.hbnl)
     % dh IS THE HAIR BUNDLE (xi_h), an ALGEBRAIC shear, renamed from d3 on
     % 2026-07-29. It was called d3 while the DYNAMICAL third DOF was also called
@@ -46,7 +65,7 @@ if (pa.hbnl)
     % confusion. dh matches cochlea_proc.docx's xi_h. See macro26.m:31 for what
     % the shear IS: gh*d1 - d2 at m<3 (d2 = TM), and just d2 at m>=3 (d2 = the
     % bundle itself, TM eliminated).
-    if (has3), dh = hbmix(cp.hb, d1, d2, dc); else, dh = hbmix(cp.hb, d1, d2); end
+    dh = dhb;   % same bundle coordinate; computed once above
     if (pa.mmeq == 1), hbt = max(abs(dh) / pa.hbmx,1); gam = cp.gm ./ (1 + pa.hbsc * log(hbt));
     elseif (pa.mmeq == 9), dbt = abs(dh) / pa.hbmx; if (dbt > 1), gam = cp.gm / (1 + pa.hbsc * log(dbt)); end; end
 end
@@ -118,7 +137,7 @@ elseif (use3)
     % Row 1: [z1 + alpha*z_act]*V1 + [(1-2*alpha)*z_act]*V2
     s1 = -(cp.k1 .* d1 + cp.r1 .* v1 ...
            + al .* (k_act .* d1 + r_act .* v1) ...
-           + (1-2*al) .* (k_act .* d2 + r_act .* v2));
+           + (1-2*al) .* (k_act .* dhb + r_act .* vhb));
 
     % Row 2: -[(1-alpha)*z2 + alpha*zh]*V1 + (z2+zh)*V2
     s2 = -(-kmix .* d1 - rmix .* v1 + (cp.k2 + cp.k3) .* d2 + (cp.r2 + cp.r3) .* v2);
@@ -132,7 +151,7 @@ elseif (use3)
         % exactly; the BM therefore keeps -act and d3 takes the opposite +act.
         % The existing m=4 has this pair INVERTED (+act on BM), which is the
         % leading candidate for its dead amplifier.
-        act3 = k_act .* d2 + r_act .* v2;
+        act3 = k_act .* dhb + r_act .* vhb;
         f3 = 1; if (isfield(pa,'ohcgain')), f3 = pa.ohcgain; end
         g3 = 1; if (isfield(pa,'ohcsgn')),  g3 = pa.ohcsgn;  end
         act3 = g3 * f3 .* act3;
@@ -202,7 +221,9 @@ elseif (pa.m>=4)
     r_act = cp.gh .* cp.r3 - r4a .* gam .* cp.r4;   % ACTIVE RESISTANCE: see the
                              % m==3 branch -- -gam*r4 is what lets the OHC force
                              % do net work (fdm26.m:960 za=k4/s+r4).
-    act   = k_act .* d2 + r_act .* v2;      % somatic force from bundle deflection
+    act   = k_act .* dhb + r_act .* vhb;    % somatic force from bundle deflection
+                                            % (dhb == d2 at default hb, so m=4 is
+                                            % unchanged; the comment finally matches)
     fsp = 1;  if (isfield(pa,'ohcgain')), fsp = pa.ohcgain; end
     sgn = 1;  if (isfield(pa,'ohcsgn')),  sgn = pa.ohcsgn;  end
     act = sgn * fsp .* act;

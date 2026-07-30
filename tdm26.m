@@ -447,6 +447,18 @@ end
 if (isfield(cp,'bmrigid') && cp.bmrigid), a(i1) = 0; else
 a(i1(1)) = 0; a(i1(n)) = 0;
 end
+% TM CLAMP (pa.tmrigid). Zeroing d2's acceleration holds it wherever it is; since
+% tdm26 starts every state at zero with zero velocity, d2 stays identically zero,
+% which is "rigidly attached to the lab frame". NOTE it clamps ACCELERATION, so it
+% would NOT arrest a d2 that already had velocity -- fine from a zero initial
+% state, wrong if ever warm-started. Applied AFTER the dref loop above so it wins
+% over a(i2) = a(i1) + s2/m2 at m>=3.
+% With d2 == 0 the bundle becomes gh*d1 (or gh*d3 under pa.hbrl), which is the
+% 2010 MET drive; and SS loses its only partition coupling, since d2 is what
+% couples SV<->SS (macro26). An SS chamber left in place with nothing coupled to
+% it is a SINGULAR compartment -- the measured clcouple=0 arm diverged at sample 3
+% that way -- so tmrigid at m>=3 must be paired with dropping SS.
+if (isfield(cp,'tmrigid') && cp.tmrigid && size(ii,2) >= 2), a(ii(:,2)) = 0; end
 end
 
 function M = dof_mass(cp, k)
