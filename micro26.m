@@ -80,10 +80,31 @@ end
 % the refactor; m=1/m=2 with dof=2 are untouched and still take the legacy law.
 use3 = (pa.m==3) || (pa.m<3 && isfield(pa,'dof') && pa.dof>=3);
 if (pa.m<3 && ~use3)
-    dh = d1 - d2; vh = v1 - v2;   % hair-bundle shear (was d3/v3; see the note above)
+    % pa.ghlever: gh IS A LEVER (SN, 2026-07-29), so it belongs on BOTH the
+    % displacement and the force. The legacy law applies it inconsistently --
+    % THREE different treatments of gh in this one branch:
+    %   cp.hb      gh*d1 - d2      lever on DISPLACEMENT   (used by the MET gain
+    %                              and, since today, the active drive)
+    %   passive    d1 - d2, with gh on the FORCE (s3tmp.*cp.gh)
+    %   active     d1 - d2, with NO gh at all (-s4tmp.*gam)
+    % A lever ratio means displacement gh*d1 at the bundle and force gh*F back at
+    % the BM, so the correct law carries gh in both places for BOTH terms. That
+    % makes the force law agree with cp.hb, which has had it right all along.
+    %
+    % ADOPTED UNCONDITIONALLY, and it is FREE TODAY: cp.gh is EXACTLY 1 at m<3
+    % (measured, max|gh-1| = 0), so m=1 and m=2 are bit-identical -- max|d1|
+    % 1.9757e-07, maperr 104.629, amp +39.11, unchanged.
+    %
+    % But gh is NOT 1 at m>=3 (max|gh-1| = 4.4e-03, from gpo*exp(gpe*x+gpq*q)).
+    % So the inconsistency was invisible ONLY because this branch never ran where
+    % gh departs from unity. Substituting this law into m=3 -- the stated next
+    % step -- makes gh vary, at which point the three treatments give three
+    % different force laws. Fixing it now costs nothing and removes that trap.
+    dh = cp.gh .* d1 - d2;  vh = cp.gh .* v1 - v2;     % lever on DISPLACEMENT
     s1tmp = cp.k1 .* d1 + cp.r1 .* v1; s2tmp = cp.k2 .* d2 + cp.r2 .* v2;
     s3tmp = cp.k3 .* dh + cp.r3 .* vh; s4tmp = cp.k4 .* dh + cp.r4 .* vh;
-    s1 = -(s1tmp + s3tmp .* cp.gh - s4tmp .* gam); s2 = -(s2tmp - s3tmp);
+    s1 = -(s1tmp + cp.gh .* (s3tmp - gam .* s4tmp));   % lever on FORCE, both terms
+    s2 = -(s2tmp - s3tmp);   % TM sits at the bundle end: no lever here
 elseif (use3)
     % pa.m3form selects the MICROMECHANICS while leaving the 3-chamber
     % HYDRODYNAMICS untouched -- the separation the swap test could not make,
