@@ -53,12 +53,30 @@ end
 % k_act*d2 + r_act*v2), NOT routed through hb, so referencing the bundle to d3
 % does NOT by itself move the active drive. That is a separate change.
 if (isfield(pa,'hbrl') && pa.hbrl)
-    cp.hb=[zeros(n,1) -ones(n,1) cp.gh];   % bundle = gh*d3 - d2
+    % COEFFICIENT ON d3 IS 1, NOT gh (corrected 2026-07-29, SN's framing).
+    % The bundle is d3 - d2. gh belongs to the SLAVING RELATION d3 = gh*d1, not
+    % to the bundle definition: it appears in the m<3 row [gh -1 0] only because
+    % substituting gh*d1 for d3 carries it along. Once d3 is an explicit
+    % coordinate the lever is no longer implicit, so keeping gh here would
+    % DOUBLE-COUNT it -- easy to miss, since gh also multiplies k3 inside k_act.
+    %
+    % The two 2-DOF models are the two ways to slave one coordinate:
+    %   d3 = gh*d1   RL slaved to BM  -> bundle = gh*d1 - d2   (the m<3 row)
+    %   d2 = eps*d3  TM slaved to RL  -> bundle = (1-eps)*d3   (2010, eps=0)
+    % Neither is the current m>=3 row [0 1 0], which instead REDEFINES d2 to be
+    % the bundle. That change of variable, not a slaving, is why d2 means
+    % different things above and below m=3.
+    cp.hb=[zeros(n,1) -ones(n,1) ones(n,1)];   % bundle = d3 - d2
 end
 dx = pa.xl / (n - 1);
 if (m < 1), cp.abmom=0; cp.alfx = me.mst / (2 * pa.rho * dx); return; end
 cp.abmom = (cp.bw * dx) ./ cp.m1;
 cp.alfx = (pa.ast / pa.mst) / cp.abmom(1);
+% macro_couple is built HERE, before the fluid operator, because the operator's
+% chamber-coupling block is now DERIVED from it rather than written out. All it
+% reads (m1/m2/m5/clvm/clvk) comes from imped26 above, so this is safe; the m<1
+% early return above still exits without cp.mc, exactly as before.
+cp.mc = macro_couple(pa, cp);
 aflom = cp.ac / (pa.aflom_fac * pa.rho * dx);
 % CHAMBER-SIZE NORMALIZATION. The legacy form rescaled chsz to a FIXED SUM of
 % 2, which meant ADDING A CHAMBER RESIZED THE EXISTING ONES: m=4's raw
@@ -83,20 +101,27 @@ if (m<3)
     a1(kk,1) = -aflom(kk-1) ./ cp.abmom(kk); a3(kk,1) = -aflom(kk) ./ cp.abmom(kk);
     a2(kk,1) = 1 - a1(kk) - a3(kk); a1(n,1) = -1; a2(n,1) = 1;
 elseif m==3
-    mu = cp.m1 ./ max(cp.m2, 1e-12);
+    % CHAMBER COUPLING IS NOW DERIVED, not written out (2026-07-29):
+    %     a2(k) = diag(L_p + L_c) + Dq*diag(mu(k,:))*Df
+    % macro_shadow verifies the identity (2.842e-14 at m=3 AND m=4). The old
+    % hand-written form -- off-diagonals -1 for ST<->SV via d1, -mu for SS<->SV
+    % via d2 -- was a SECOND copy of the topology macro_couple already held, and
+    % the two could disagree. pa.rlsplit changed Df/Dq and this block did not
+    % follow, over-determining the system: divergence at sample 26, INVARIANT
+    % under a 40x change in CL area. Deriving it means any topology expressed in
+    % Df/Dq is automatically consistent here.
+    % mu now enters by DOF INDEX, so each chamber pair carries whichever DOF
+    % actually mediates it. The old form froze m1/m2 into chamber 2 because SS
+    % happened to be mediated by d2.
+    C3 = cp.mc; nc3 = C3.nch;
+    dgi = ((1:nc3)-1)*nc3 + (1:nc3);          % column-major diagonal indices
     for k=2:(n-1)
-        L1_p = aflom(k-1)*pa.chsz(1)./cp.abmom(k); L1_c = aflom(k)*pa.chsz(1)./cp.abmom(k);
-        L2_p = aflom(k-1)*pa.chsz(2)./cp.abmom(k); L2_c = aflom(k)*pa.chsz(2)./cp.abmom(k);
-        L3_p = aflom(k-1)*pa.chsz(3)./cp.abmom(k); L3_c = aflom(k)*pa.chsz(3)./cp.abmom(k);
-        % Chamber 1 (ST): Symmetric Coupling
-        a1(k,1) = -L1_p; a3(k,1) = -L1_c;
-        a2(k,1) = L1_p + L1_c + 1; a2(k,2) = 0; a2(k,3) = -1;
-        % Chamber 2 (SS): Symmetric Coupling
-        a1(k,5) = -L2_p; a3(k,5) = -L2_c;
-        a2(k,4) = 0; a2(k,5) = L2_p + L2_c + mu(k); a2(k,6) = -mu(k);
-        % Chamber 3 (SV): Symmetric Coupling
-        a1(k,9) = -L3_p; a3(k,9) = -L3_c;
-        a2(k,7) = -1; a2(k,8) = -mu(k); a2(k,9) = L3_p + L3_c + 1 + mu(k);
+        Lp = aflom(k-1)*pa.chsz(1:nc3)./cp.abmom(k);
+        Lc = aflom(k)  *pa.chsz(1:nc3)./cp.abmom(k);
+        A2 = diag(Lp(:).' + Lc(:).') + C3.Dq * diag(C3.mu(k,:)) * C3.Df;
+        a2(k,:)   = A2(:).';
+        a1(k,dgi) = -Lp(:).';
+        a3(k,dgi) = -Lc(:).';
     end
     % Basal Boundary Condition (Restores absolute ground)
     L1_c = aflom(1)*pa.chsz(1)./cp.abmom(1);
@@ -106,9 +131,13 @@ elseif m==3
     % Apply 2*cp.alfx to compensate for ST and SV being in series.
     % The off-diagonals remain -1 to preserve the ambient pressure ground.
     bcx=1; if (isfield(pa,'bcx')), bcx=pa.bcx; end  % DIAGNOSTIC: scale stapes boundary admittance only (drive @L174 untouched); matched ~ 2*alfx=L1_c
-    a2(1,1) = L1_c + 1 + 2*cp.alfx*bcx; a2(1,2) = 0;      a2(1,3) = -1;
-    a2(1,4) = 0;                    a2(1,5) = L2_c + mu(1); a2(1,6) = -mu(1);
-    a2(1,7) = -1;                   a2(1,8) = -mu(1); a2(1,9) = L3_c + 1 + mu(1) + 2*cp.alfx*bcx;
+    % Same derived block, plus the stapes admittance on the chambers facing the
+    % stapes and round window (first and last). That placement is unchanged and
+    % remains correct under rlsplit, where the chambers are [ST, CL, SV].
+    Lc1 = aflom(1)*pa.chsz(1:nc3)./cp.abmom(1);
+    A2b = diag(Lc1(:).') + C3.Dq * diag(C3.mu(1,:)) * C3.Df;
+    sa = zeros(1,nc3); sa(1) = 2*cp.alfx*bcx; sa(nc3) = sa(nc3) + 2*cp.alfx*bcx;
+    a2(1,:) = reshape(A2b + diag(sa), 1, []);
     % Apical Boundary Condition
     a2(n,:) = 0;
     a1(n,1) = -1; a2(n,1) = 1;
@@ -244,7 +273,7 @@ cp.aa=xpnd_a(a1,a2,a3,m,n);
 % fold_p receive cp, not pa. Everything macro_couple reads (m1/m2/m5/clvm/clvk,
 % nested, clcouple, clvtgt) exists by this point: imped() ran at the top of
 % cochlea and the chamber stamps are complete.
-cp.mc = macro_couple(pa, cp);
+% (moved earlier -- see the macro_couple call above the fluid operator)
 end
 
 % xpnd_a MOVED here from tdm26 (Stage 4): it assembles the block-tridiagonal
