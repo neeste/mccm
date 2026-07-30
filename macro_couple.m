@@ -172,6 +172,16 @@ switch true
         Df(1,:) = [ 1 -1  0];                    % d1 (BM): P_ST - P_CL
         Df(2,:) = [ 0  0  0];                    % d2 (TM): clamped, no coupling
         Df(3,:) = [ 0  1 -1];                    % d3 (RL): P_CL - P_SV
+        % ROW SIGNS VERIFIED 2026-07-29 by flipping each independently:
+        %   none / both      +22.39 dB   (identical, as they must be -- negating
+        %                                 all pressures is a gauge change)
+        %   BM row only       +0.99 dB   amplifier destroyed
+        %   RL row only       +0.99 dB   amplifier destroyed
+        % So these signs are correct and correctly PAIRED. rlsplit ALONE is a
+        % working amplifier at +22.39 dB.
+        % The -11.23 dB inversion appears only in COMBINATION with
+        % m3row=1/m3drv=0 (which alone gives +38.40 dB). It is an interaction
+        % between the topology and the micromechanics variant, not a row sign.
         Dq = Df.';                               % RECIPROCAL BY CONSTRUCTION
         B = [1;0;-1];                            % stapes still drives SV vs ST
       else
