@@ -75,13 +75,55 @@ catch e, R.err3 = e.message; end
 % ---- 4. scored champions -----------------------------------------------
 exp4 = [104.6 499.3 525.2];
 lbl4 = {'g4_maperr_m1','g4_maperr_m3b','g4_maperr_m4'};
+lbl8 = {'g8_amp_m1','g8_amp_m3b','g8_amp_m4'};
+ampv = NaN(1,3);
 for k = 1:3
     v = NaN;
     try
         if (k==1), pk = modpar26(1); elseif (k==2), pk = modpar26(3); else, pk = modpar26(4); end
         S = score26(pk, 'fast', false); v = S.maperr;
+        % AMPLIFIER GAIN, captured from the SAME score26 call -- it was already
+        % being computed and thrown away, so this costs nothing.
+        if (isfield(S,'amp_gain') && isnumeric(S.amp_gain) && ~isempty(S.amp_gain))
+            ampv(k) = double(S.amp_gain(1));
+        end
     catch e, R.(sprintf('err4_%d',k)) = e.message; end
     [R,npass,nfail] = gchk(R,B,lbl4{k},v,exp4(k),0.15,lbl4{k},sprintf('%.1f',exp4(k)),verbose,npass,nfail);
+end
+
+% ---- 8. AMPLIFIER MUST EXIST -------------------------------------------
+% ADDED 2026-07-29. This gate exists because of a specific failure: the m=4
+% "nested, no vent" configuration scores maperr 353.5 (the BEST unfitted number
+% in the project) with a healthy 4.14-octave map and maxRe 0.0 (perfectly
+% sub-critical) -- and amp_gain = -0.01 dB. It has NO COCHLEAR AMPLIFIER. Active
+% and passive responses are identical.
+%
+% Every other column rewards that. maperr improves 33%, stability looks perfect,
+% and tip-tail contrast goes UP (16.07 vs 6.41). Deleting the mechanism the model
+% exists to study is invisible to, and rewarded by, every gate above. The same
+% signature is on record for the clvoct=0.5 prescription ("leaves no amplifier at
+% all, amp +0.05"). A near-zero amp_gain with excellent stability is this
+% model's characteristic failure, and it reads as success.
+%
+% So: an ABSOLUTE FLOOR, not just a baseline comparison. A baseline captured on a
+% broken configuration would enshrine amp_gain ~ 0 as correct; the floor cannot.
+% Measured references: m=4 default +56.59, m=3b fitted +81.15.
+AMPFLOOR = 1.0;                        % dB; below this there is no amplifier
+for k = 1:3
+    a = ampv(k);
+    R.(lbl8{k}) = a;
+    ok = isfinite(a) && a > AMPFLOOR;
+    ref = NaN; if (isfield(B,lbl8{k}) && isfinite(B.(lbl8{k}))), ref = B.(lbl8{k}); end
+    % also fail a >20% drift from a baseline that itself cleared the floor
+    if (ok && isfinite(ref) && ref > AMPFLOOR && abs(a-ref) > 0.2*abs(ref)), ok = false; end
+    if (verbose)
+        st = 'FAIL'; if (ok), st = 'PASS'; end
+        note = sprintf('>%.1f dB', AMPFLOOR);
+        if (isfinite(ref)), note = sprintf('%s, ~%.2f', note, ref); end
+        fprintf('  %-29s | %15.4f | %-13s | %s (amp)\n', ...
+                sprintf('amplifier %s', strrep(lbl8{k},'g8_amp_','')), a, note, st);
+    end
+    if (ok), npass = npass + 1; else, nfail = nfail + 1; end
 end
 
 % ---- 5. fitted m=4 ------------------------------------------------------
