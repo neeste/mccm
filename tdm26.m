@@ -926,7 +926,20 @@ if (dsp1 || dsp2)                 % figures suppressed when both display args ar
     ylabel('latency (ms)')
     axis([0.4 5 1 20])
 end
-write_data('tbabr.txt',[f lev lat]);
+% WRITE ONLY WHEN FIGURES ARE REQUESTED (2026-07-29). This used to fire on EVERY
+% tbabr call, including every parfit26 objective evaluation, overwriting the
+% TRACKED tbabr.txt. It clobbered it three times in one session -- twice from
+% runs that were killed mid-computation, leaving PARTIAL results in place of good
+% ones with nothing to flag it. In an unattended sweep that silently destroys
+% output. dsp1/dsp2 are tdm26's args 3&4 and mark interactive/figure use, which
+% is exactly when the file is wanted; generate_figs.m passes them nonzero, so its
+% behaviour is unchanged. Fits now leave the file alone.
+% Set pa.tbfile to write somewhere explicit without requesting figures.
+if (dsp1 || dsp2)
+    write_data('tbabr.txt',[f lev lat]);
+elseif (isfield(pr,'tbfile') && ~isempty(pr.tbfile))
+    write_data(pr.tbfile,[f lev lat]);
+end
 S.f=f;S.slv=slv;S.lev=lev;S.lat=lat;S.abr=abr;S.sho=sho;S.oae=oael;S.oam=oamg;
 end % return
 
