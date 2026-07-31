@@ -42,6 +42,26 @@ gv=@(f,d) subsref_default(opts,f,d);
 fitidx = gv('fitidx', [1 2 3 4 5 7 8 9 10 11 13 20 21 31 32 33]);
 maxfe  = gv('maxfe', 150);
 wslope = gv('wslope', 1);  wmap = gv('wmap', 0.001);  wcrit = gv('wcrit', 0.005);
+% AMPLIFIER GUARD (2026-07-29). Without it the objective REWARDS deleting the
+% cochlear amplifier: m=4 nested-no-vent scores the project's best maperr
+% (353.5) with a 4.14-octave map and maxRe 0.0 -- and amp_gain = -0.01 dB. Every
+% other term prefers it, so an optimizer will find it reliably.
+% wgain*max(0, gainmin - amp_gain) penalises SHORTFALL only, so it cannot reward
+% runaway gain (the full 2010 stack hit +1868 dB).
+% COST: amp_gain needs a real active-vs-passive comparison, so this calls
+% score26('fast') and roughly DOUBLES the per-evaluation cost. wgain=0 disables
+% it, but read the next note first.
+% fdm26's tipgain was TESTED AS A FREE PROXY AND REJECTED -- it is already
+% computed every evaluation, but it ANTI-CORRELATES with gain where it matters:
+%     m=1        tipgain 38.56   amp_gain +39.11
+%     m=3b       tipgain 50.35   amp_gain +103.02
+%     m=4        tipgain 37.87   amp_gain +56.59
+%     m=4 no-amp tipgain 62.70   amp_gain -0.01   <-- HIGHEST tipgain of all four
+% It tracks tuning SHARPNESS, not active gain, and a passive model can be sharp
+% (that config also had the highest tip-tail contrast, 16.07 vs 6.41). Using it
+% would have made the objective PREFER the amplifier-free model.
+wgain   = gv('wgain', 0.01);  % weight on amplifier shortfall
+gainmin = gv('gainmin', 40);  % dB; SN: "OHC forces amplify BM by 40 dB or more"
 wlevel = gv('wlevel', 0);    % weight on |level %/dB - 1.62|, %/dB=100*(level_c^(1/100)-1); 0=band only
 wanchor= gv('wanchor', 0);   % weight on the ABSOLUTE-latency anchor |WNR(anchor)-target(anchor)| in ms
 anchor = gv('anchor', [1 20]);% [freq_kHz level_dB] at which to anchor the WNR latency (target = 1988 formula)
@@ -141,7 +161,7 @@ wstat  = gv('wstat', wcrit); % weight on the STATIC-divergence guard,
                              % shared weight cannot size both. See the note at
                              % the J assembly.
 P.chszderive=chszderive;
-P.wslope=wslope; P.wmap=wmap; P.wcrit=wcrit; P.wstat=wstat; P.maptol=maptol; P.lclo=lc(1); P.lchi=lc(2); P.wlevel=wlevel;
+P.wgain=wgain; P.gainmin=gainmin; P.wslope=wslope; P.wmap=wmap; P.wcrit=wcrit; P.wstat=wstat; P.maptol=maptol; P.lclo=lc(1); P.lchi=lc(2); P.wlevel=wlevel;
 P.wanchor=wanchor; P.anchor=anchor; P.wshoulder=wshoulder;
 P.hbmode=hbm; P.tiptail=tiptail; P.dtarget=dtarget; P.wd=wd;
 P.surface=surface; P.wsurf=wsurf; P.dlo=dband(1); P.dhi=dband(2); P.wlcb=wlcb;
@@ -227,7 +247,29 @@ try
     else
         evalc('S=tdm26(''coupeig'',struct(''pa'',pa));');   % sub-criticality
     end
-    Rf=fdm26(struct('pa',pa));               % fd tuning/MAP error (delegated)
+    % CONSOLIDATED (2026-07-29). score26('fast') ALREADY runs fdm26 and coupeig
+    % internally, so calling it for amp_gain on top of the separate calls above
+    % paid for each TWICE. Measured consequence: a 20-evaluation m=4 fit had not
+    % cleared setup after 2h49m. One call now supplies maperr, maxRe, maxRe_osc
+    % AND amp_gain, so the amplifier guard costs only the click block (two extra
+    % tdm26 runs) rather than doubling the whole evaluation.
+    agn = NaN;
+    if (P.wgain ~= 0)
+        Sg = [];
+        try, Sg = score26(pa,'fast',false); catch, end
+        if (isstruct(Sg) && isfield(Sg,'maperr'))
+            Rf = struct('maperr', Sg.maperr);
+            if (isfield(Sg,'maxRe') && isfinite(Sg.maxRe)), S.maxRe = Sg.maxRe; end
+            if (isfield(Sg,'maxRe_osc') && isfinite(Sg.maxRe_osc)), S.maxRe_osc = Sg.maxRe_osc; end
+            if (isfield(Sg,'amp_gain') && isnumeric(Sg.amp_gain) && ~isempty(Sg.amp_gain))
+                agn = double(Sg.amp_gain(1));
+            end
+        else
+            J = 1e6; return;                 % score26 failed: reject this point
+        end
+    else
+        Rf=fdm26(struct('pa',pa));           % fd tuning/MAP error (delegated)
+    end
     Jm=0;                                    % all ABR-dependent terms
     if (P.tiptail)
         Jm = P.wd*abs(tt.d - P.dtarget) ...
@@ -272,10 +314,18 @@ try
         Jm = Jm + P.wshape * Js;
     end
     end
+    % AMPLIFIER SHORTFALL -- see the note at the top. Skipped entirely when
+    % wgain==0, so callers who opt out do not pay for the extra score26 call.
+    Jg = 0;
+    if (P.wgain ~= 0)
+        if (~isfinite(agn)), J = 1e6; return; end  % no measurable amplifier
+        Jg = P.wgain * max(0, P.gainmin - agn);
+    end
     J = Jm ...
       + P.wcrit *max(0, S.maxRe_osc + 40) ...
       + P.wstat *max(0, S.maxRe - P.statol) ...
-      + P.wmap  *max(0, Rf.maperr - P.maptol);
+      + P.wmap  *max(0, Rf.maperr - P.maptol) ...
+      + Jg;
     % SEPARATE WEIGHTS (2026-07-28). These two guards previously SHARED wcrit,
     % and that sharing forced a bad trade. The osc term is nonzero whenever
     % maxRe_osc > -40, so at a typical osc of -2.5 it contributes wcrit*37.5 --
