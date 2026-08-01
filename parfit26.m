@@ -80,7 +80,20 @@ wlevel = gv('wlevel', 0);    % weight on |level %/dB - 1.62|, %/dB=100*(level_c^
 wanchor= gv('wanchor', 0);   % weight on the ABSOLUTE-latency anchor |WNR(anchor)-target(anchor)| in ms
 anchor = gv('anchor', [1 20]);% [freq_kHz level_dB] at which to anchor the WNR latency (target = 1988 formula)
 wshoulder = gv('wshoulder', 0); % weight on the WNR shoulder ratio (0=single-peaked CAP, ->1=2nd peak)
-maptol = gv('maptol', 167);  lc = gv('lc', [3.5 6.5]);
+% MAPTOL IS PER-CHAMBER-COUNT (2026-08-01). It is a HINGE -- anything below it
+% costs nothing -- and the single value 167 was set for 3-chamber models. At
+% nch=1, whose best-ever maperr is 104.63, that left the map ENTIRELY
+% unconstrained: the 150-eval sweep spent 25 points of map accuracy (104.6 ->
+% 129.96) buying slope, for free, because the map term was 0.0000 throughout.
+% Defaults now sit at each configuration's best known maperr, so the term is
+% live at the current frontier and any degradation is paid for:
+%     nch<=2  105   (best 104.63, refit_m1_n2801)
+%     nch=3   150   (best 147.05, parfit26_nch3, 2-DOF)
+%     nch=4   330   (best 329.32, refit_m4_full)
+% These are ACCEPTANCE levels, not targets -- raise one deliberately if a
+% configuration should be allowed to trade map for something else.
+if (nch<=2), maptol_d = 105; elseif (nch==3), maptol_d = 150; else, maptol_d = 330; end
+maptol = gv('maptol', maptol_d);  lc = gv('lc', [3.5 6.5]);
 wshape = gv('wshape', 0);     % weight on abr_surface_obj's J = SHAPE-rms + b/c/d
                              % band hinges. DISTINCT from opts.surface, which uses the
                              % local surf_term (band violation in ms with a free Delta).

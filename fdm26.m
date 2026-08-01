@@ -927,7 +927,22 @@ elseif (m==2)
     D=[1 -1;0 0];                   % select PD
     B=[-1;1];                       % basal BC
 elseif (m==3)
-    D=[1 0 -1;0 -1 1; 0 0 0];       % select PD
+    if (isfield(pa,'rlsplit') && pa.rlsplit)
+        % RL-SPLIT (2026-08-01), mirroring macro_couple's m==3 branch so the two
+        % solvers describe the SAME topology. Chambers [ST, CL, SV]; SS is gone.
+        %     SV | RL (d3) | CL | BM (d1) | ST
+        %   d1 (BM): P_ST - P_CL      d3 (RL): P_CL - P_SV      d2: uncoupled
+        % Until this existed fdm26 was BLIND to pa.rlsplit -- maperr came back
+        % bit-identical with the flag on or off -- so score26 and parfit26 could
+        % not see the topology and it could not be FITTED at all, which is what
+        % the tdm26 measurements said it needs.
+        % NOTE B keeps fdm26's own sign convention, which is the NEGATIVE of
+        % macro_couple's ([-1;0;1] here vs [1;0;-1] there). Do not "reconcile"
+        % that here; it is a whole-file convention.
+        D=[1 -1 0; 0 0 0; 0 1 -1];  % select PD
+    else
+        D=[1 0 -1;0 -1 1; 0 0 0];   % select PD
+    end
     B=[-1;0;1];                     % basal BC
 elseif (m==4)
     % 4-chamber [ST SS SV CL], 3 DOFs, matching tdm26's topology:
@@ -1353,7 +1368,12 @@ if (m==1)
 elseif (m==2)
     D=[1 -1;0 0];             B=[-1;1];
 elseif (m==3)
-    D=[1 0 -1;0 -1 1; 0 0 0]; B=[-1;0;1];
+    if (isfield(pa,'rlsplit') && pa.rlsplit)
+        D=[1 -1 0; 0 0 0; 0 1 -1];        % RL-split; see the main branch
+    else
+        D=[1 0 -1;0 -1 1; 0 0 0];
+    end
+    B=[-1;0;1];
 else
     D=[1 0 -1 0; 0 -1 1 0; 0 -1 0 1; 0 0 0 0];
     if (isfield(pa,'nested') && pa.nested), D(1,:)=[1 0 0 -1]; end
