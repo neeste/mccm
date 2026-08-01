@@ -112,8 +112,64 @@ if (verbose)
     fprintf('  localise the known nested+clcouple non-reciprocity.\n');
 end
 
+% ---- fdm26's D vs macro_couple's Df ------------------------------------
+% ADDED 2026-08-01, closing a duplication I REINTRODUCED. fdm26 carries its own
+% D construction rather than consuming macro_couple, so the topology lives in
+% TWO places. That is exactly the pattern that made pa.rlsplit diverge at sample
+% 26: macro26's hand-written a2 was a second copy that stopped agreeing when
+% Df/Dq changed. Deriving a2 (4ad7e08) removed that pair; porting rlsplit into
+% fdm26 (1addd4e) created a new one. This checks it instead of trusting it.
+%
+% B IS NOT COMPARED. fdm26 uses [-1;0;1] where macro_couple uses [1;0;-1] -- a
+% whole-file sign convention, not a discrepancy. Only D vs Df is meaningful.
+[npd, nfd] = deal(0);
+if (verbose)
+    fprintf('\n  fdm26 D vs macro_couple Df\n');
+    fprintf('  config                    | max abs diff | verdict\n');
+    fprintf('  %s\n', repmat('-',1,58));
+end
+DCFG = {'nch=1',1,{}; 'nch=2',2,{}; 'nch=3',3,{}; 'nch=3 rlsplit',3,{'rlsplit',1}; ...
+        'nch=4',4,{}; 'nch=4 nested=0',4,{'nested',0}};
+for k = 1:size(DCFG,1)
+    e = NaN;
+    try
+        pa = modpar26(DCFG{k,2}); ex = DCFG{k,3};
+        for j = 1:2:numel(ex), pa.(ex{j}) = ex{j+1}; end
+        cp = macro26(pa); Cf = cp.mc.Df;
+        Rd = fdm26(struct('macroD',1,'pa',pa));
+        Dd = Rd.D;
+        % PARTITION ROWS ONLY (1..3). Row 4 is the VENT, and fdm26 represents
+        % the vent OUTSIDE D entirely (its row 4 is all zeros while
+        % macro_couple carries [0 -1 0 1]). That is a structural difference in
+        % how the vent is expressed, not a disagreement about topology --
+        % verified 2026-08-01 that m=4 rows 1-3 agree EXACTLY.
+        nr = min([size(Cf,1), size(Dd,1), 3]);
+        ncl = min(size(Cf,2), size(Dd,2));
+        Ca = Cf(1:nr,1:ncl); Da = Dd(1:nr,1:ncl);
+        % m<=2 IS DELIBERATELY ASYMMETRIC and the two solvers differ by design:
+        % macro_couple folds HALF the pressure difference ([0.5 -0.5]) while
+        % xpnd injects into chamber 1 only -- see note (1) at the top of
+        % macro_couple. fdm26 uses the full difference ([1 -1]). Compare the
+        % SHAPE there (which chambers each DOF spans) rather than the scale.
+        if (pa.m <= 2)
+            nz = @(A) double(A~=0) .* sign(A);
+            Ca = nz(Ca); Da = nz(Da);
+        end
+        e = max(max(abs(Ca - Da)));
+    catch
+        e = NaN;
+    end
+    ok = isfinite(e) && e < 1e-12;
+    if (ok), npd = npd+1; else, nfd = nfd+1; end
+    if (verbose)
+        v = 'DIFFERS'; if (ok), v = 'agree'; end
+        fprintf('  %-25s | %12.3e | %s\n', DCFG{k,1}, e, v);
+    end
+end
+
 if (verbose)
     fprintf('\n  %d passed, %d FAILED  (transfer)\n', np, nf);
+    fprintf('  %d passed, %d FAILED  (fdm26 D vs Df)\n', npd, nfd);
     fprintf('  %d passed, %d FAILED  (fluid block)\n', npf, nff);
     if (nf==0)
         fprintf('  Stage 1 GATE HOLDS -- the matrix form reproduces every branch.\n');
