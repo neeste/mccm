@@ -40,6 +40,20 @@ if (nargin<1 || isempty(nch)), nch=3; end
 if (nargin<2), opts=struct(); end
 gv=@(f,d) subsref_default(opts,f,d);
 fitidx = gv('fitidx', [1 2 3 4 5 7 8 9 10 11 13 20 21 31 32 33]);
+% CHAMBER-COUNT AWARE (2026-07-29). pv is [30 impedance, numel(chsz) chamber
+% sizes], so indices 31+ address chsz. The default list reaches 33, which is
+% valid only for nch>=3: modpar26(1) and modpar26(2) ship chsz=[1 1], giving 32
+% entries, so index 33 threw "Index exceeds the number of array elements" and
+% nch=1/2 could not be fitted through this path AT ALL with default settings.
+% Clip rather than error -- a caller asking for chamber sizes that do not exist
+% wants the ones that do.
+nc_ = numel(modpar26(nch).chsz);
+bad_ = fitidx > (30 + nc_);
+if (any(bad_))
+    fprintf('  fitidx: dropping %s (nch=%d has only %d chsz entries)\n', ...
+            mat2str(fitidx(bad_)), nch, nc_);
+    fitidx = fitidx(~bad_);
+end
 maxfe  = gv('maxfe', 150);
 wslope = gv('wslope', 1);  wmap = gv('wmap', 0.001);  wcrit = gv('wcrit', 0.005);
 % AMPLIFIER GUARD (2026-07-29). Without it the objective REWARDS deleting the
