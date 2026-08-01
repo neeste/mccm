@@ -16,7 +16,11 @@ function R = parfit26(nch, opts)
 %
 %   R = PARFIT26(NCH, OPTS).  OPTS fields (all optional):
 %     .fitidx  params to fit, getpar order 1..30 = impedance, 31..(30+#chsz) =
-%              chamber sizes  (default: CF-map + tip + chsz set that closed the fit)
+%              chamber sizes, 31+#chsz = gampro grade
+%              (default: CF-map + tip + chsz set that closed the fit)
+%     .fitgampro  append the gampro-grade index to fitidx (default false). Its
+%              position depends on the chamber count, so ask for it by name
+%              rather than computing 30+#chsz+1 at the call site.
 %     .maxfe   fminsearch budget            (default 150)
 %     .wslope .wmap .wcrit                  (default 1, 0.001, 0.005)
 %     .wstat   weight on the STATIC-divergence guard, max(0, maxRe - statol)
@@ -36,6 +40,15 @@ function R = parfit26(nch, opts)
 %              if present, else modpar26(nch) baseline)
 %     .out     .mat to save R into          (default parfit26_nch<n>.mat)
 
+% TEST HOOK. parfit26('handles') returns the parameter-mapping local functions
+% so they can be tested from outside. Added with the gampro grade because the
+% alternative -- a test that re-implements getpar/setpar -- is a SECOND COPY of
+% the parameter mapping, which is this project's documented dominant failure
+% mode (two places holding the same fact, agreeing until the moment one changes).
+% A test must exercise the shipped mapping, not a paraphrase of it.
+if (nargin>=1 && ischar(nch) && strcmp(nch,'handles'))
+    R = struct('getpar',@getpar_l,'setpar',@setpar_l,'parnames',@parnames); return;
+end
 if (nargin<1 || isempty(nch)), nch=3; end
 if (nargin<2), opts=struct(); end
 gv=@(f,d) subsref_default(opts,f,d);
@@ -48,11 +61,33 @@ fitidx = gv('fitidx', [1 2 3 4 5 7 8 9 10 11 13 20 21 31 32 33]);
 % Clip rather than error -- a caller asking for chamber sizes that do not exist
 % wants the ones that do.
 nc_ = numel(modpar26(nch).chsz);
-bad_ = fitidx > (30 + nc_);
+% GAMPRO GRADE (2026-08-01), pv index 30+nc+1. pa.gampro is the place-dependent
+% CA gain, ones(n,1) in every parameter set and NEVER fitted -- it is not in
+% parnames(), so it has never been in the fit vector at any chamber count. It is
+% added because the nch=1 rerun ended with J made up ENTIRELY of the slope term
+% (map/gain/osc all exactly 0.0000) after 150 evaluations moved the slope only
+% 0.663 -> 0.606 against a 0.413 target: the existing vector is spent on the one
+% quantity that still costs anything, and gampro is the lever the 2026-07-22
+% sweep measured moving the slope 0.064 -> 0.905 at EXACTLY constant maperr.
+%
+% Parameterised as the scalar grade g in gampro = exp(g*(xf-0.5)) rather than as
+% the n-length array, for three reasons: the array is not a fittable object,
+% setn() resamples the array but a scalar grade is grid-independent, and a
+% scalar keeps ONE source of truth for the profile. That last point is the
+% project's dominant failure mode -- and this parameter walked straight into it:
+% jointobj rebuilds pa from base=modpar26(nch) plus pv, so a gampro carried on a
+% warm start is SILENTLY RESET to ones(n,1) on every evaluation. Fitting it via
+% the pv vector is what makes it survive; warm-starting it does not.
+gpi_ = 30 + nc_ + 1;
+bad_ = fitidx > gpi_;
 if (any(bad_))
     fprintf('  fitidx: dropping %s (nch=%d has only %d chsz entries)\n', ...
             mat2str(fitidx(bad_)), nch, nc_);
     fitidx = fitidx(~bad_);
+end
+if (gv('fitgampro', false) && ~any(fitidx == gpi_))
+    fitidx = [fitidx gpi_];
+    fprintf('  fitting gampro grade (pv index %d)\n', gpi_);
 end
 maxfe  = gv('maxfe', 150);
 wslope = gv('wslope', 1);  wmap = gv('wmap', 0.001);  wcrit = gv('wcrit', 0.005);
@@ -74,6 +109,7 @@ wslope = gv('wslope', 1);  wmap = gv('wmap', 0.001);  wcrit = gv('wcrit', 0.005)
 % It tracks tuning SHARPNESS, not active gain, and a passive model can be sharp
 % (that config also had the highest tip-tail contrast, 16.07 vs 6.41). Using it
 % would have made the objective PREFER the amplifier-free model.
+verbterm = gv('verbterm', false); % print the J term breakdown each evaluation
 wgain   = gv('wgain', 0.01);  % weight on amplifier shortfall
 gainmin = gv('gainmin', 40);  % dB; SN: "OHC forces amplify BM by 40 dB or more"
 wlevel = gv('wlevel', 0);    % weight on |level %/dB - 1.62|, %/dB=100*(level_c^(1/100)-1); 0=band only
@@ -188,7 +224,7 @@ wstat  = gv('wstat', wcrit); % weight on the STATIC-divergence guard,
                              % shared weight cannot size both. See the note at
                              % the J assembly.
 P.chszderive=chszderive;
-P.wgain=wgain; P.gainmin=gainmin; P.wslope=wslope; P.wmap=wmap; P.wcrit=wcrit; P.wstat=wstat; P.maptol=maptol; P.lclo=lc(1); P.lchi=lc(2); P.wlevel=wlevel;
+P.verbterm=verbterm; P.wgain=wgain; P.gainmin=gainmin; P.wslope=wslope; P.wmap=wmap; P.wcrit=wcrit; P.wstat=wstat; P.maptol=maptol; P.lclo=lc(1); P.lchi=lc(2); P.wlevel=wlevel;
 P.wanchor=wanchor; P.anchor=anchor; P.wshoulder=wshoulder;
 P.hbmode=hbm; P.tiptail=tiptail; P.dtarget=dtarget; P.wd=wd;
 P.surface=surface; P.wsurf=wsurf; P.dlo=dband(1); P.dhi=dband(2); P.wlcb=wlcb;
@@ -348,11 +384,24 @@ try
         if (~isfinite(agn)), J = 1e6; return; end  % no measurable amplifier
         Jg = P.wgain * max(0, P.gainmin - agn);
     end
-    J = Jm ...
-      + P.wcrit *max(0, S.maxRe_osc + 40) ...
-      + P.wstat *max(0, S.maxRe - P.statol) ...
-      + P.wmap  *max(0, Rf.maperr - P.maptol) ...
-      + Jg;
+    Josc  = P.wcrit *max(0, S.maxRe_osc + 40);
+    Jstat = P.wstat *max(0, S.maxRe - P.statol);
+    Jmap  = P.wmap  *max(0, Rf.maperr - P.maptol);
+    J = Jm + Josc + Jstat + Jmap + Jg;
+    % TERM BREAKDOWN (2026-08-01). parfit26 printed only J, which made it
+    % impossible to see WHICH term a search was actually chasing. That cost real
+    % time: the nch=3 sweep traded 4x the map error for something, and
+    % reconstructing why afterwards -- from J alone, working backwards -- produced
+    % a CONFIDENT WRONG ANSWER (an "oscillatory-supercritical warm start at
+    % maxRe_osc ~ +240"; measured, it is -210.7 and the osc term was exactly
+    % ZERO). ~1.45 of that start J is still unaccounted for by every term
+    % measurable after the fact. Print it during the run instead.
+    % Jm is the ABR/tiptail/surface bundle; it stays aggregated because its
+    % sub-terms are already optional and mostly off by default.
+    if (P.verbterm)
+        fprintf('      terms: Jm %.4f  osc %.4f  stat %.4f  map %.4f  gain %.4f  = %.4f\n', ...
+                Jm, Josc, Jstat, Jmap, Jg, J);
+    end
     % SEPARATE WEIGHTS (2026-07-28). These two guards previously SHARED wcrit,
     % and that sharing forced a bad trade. The osc term is nonzero whenever
     % maxRe_osc > -40, so at a typical osc of -2.5 it contributes wcrit*37.5 --
@@ -432,10 +481,11 @@ nm={'k1o','r1o','m1o','k2o','r2o','m2o','k3o','r3o','k4o','aco', ...
     'k1q','r1q','m1q','k2q','r2q','m2q','k3q','r3q','k4q','acq'};
 end
 function pv=getpar_l(pa)
-nm=parnames(); nc=numel(pa.chsz); pv=zeros(1,30+nc);
+nm=parnames(); nc=numel(pa.chsz); pv=zeros(1,30+nc+1);
 for i=1:30, pv(i)=pa.(nm{i}); end
 pv(31:30+nc)=pa.chsz(:)';
-end
+pv(30+nc+1)=subsref_default(pa,'gpgrade',0);  % gampro grade; 0 = uniform gain,
+end                                           % which is every pre-2026-08-01 fit
 function pa=setpar_l(pa,pv,dvi)
 % dvi = index of the chsz element DERIVED from the others so that
 % sum(chsz) == 2 identically. Empty or absent leaves chsz free (prior
@@ -455,6 +505,17 @@ pa.chsz=pv(31:30+nc);
 if (nargin>=3 && ~isempty(dvi) && dvi>=1 && dvi<=nc)
     o = true(1,nc); o(dvi) = false;
     pa.chsz(dvi) = 2 - sum(pa.chsz(o));
+end
+% GAMPRO GRADE. Guarded on length so a pv saved before 2026-08-01 (which is
+% 30+nc long) still loads and still means uniform gain -- getpar_l supplies 0
+% for a pa with no gpgrade field, and exp(0*...) is ones(n,1) identically, so
+% the whole mechanism is a no-op until something sets the grade. Rebuilt from
+% the scalar EVERY time rather than copied, so pa.gampro cannot drift out of
+% agreement with pa.gpgrade.
+if (numel(pv) >= 30+nc+1)
+    pa.gpgrade = pv(30+nc+1);
+    xf = ((0:pa.n-1)')/(pa.n-1);
+    pa.gampro = exp(pa.gpgrade*(xf-0.5));
 end
 end
 function v=subsref_default(s,f,d), if (isfield(s,f)), v=s.(f); else, v=d; end, end
