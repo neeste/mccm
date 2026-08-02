@@ -1,0 +1,108 @@
+% C3FIT -- the Banff-window run. nch=3, 17 params, hbsc free for the first time.
+%
+% ============================ WHY THIS SHAPE ============================
+%
+% THE nch=1 LEVERS DO NOT TRANSFER, measured 2026-08-02 (c3probe). Transplanting
+% ace and hbsc from the nch=1 optimum onto the best nch=3 fit makes every version
+% WORSE, and the signs INVERT:
+%
+%   config              slope   lvl_c   maperr    amp     osc   |    J
+%   nch=3 as-is        0.5023   4.796   147.05  +37.42  -220.3  | 0.1152
+%   + hbsc only        0.5961  13.865   147.05  +37.42  -220.3  | 0.9454
+%   + ace only         0.6253   2.411   199.18  +28.82  -253.0  | 0.4822
+%   + both             0.6062   1.665   199.18  +28.82  -253.0  | 0.5377
+%
+% At nch=1, ace LOWERED the slope and hbsc raised level_c into band. At nch=3 ace
+% RAISES the slope and hbsc overshoots level_c to 13.9. So this run does NOT
+% carry the nch=1 answer over -- it starts from the untouched nch=3 optimum and
+% lets the fit find nch=3's own values.
+%
+% WHAT IS ACTUALLY WRONG WITH nch=3, from that anchor row: it is ALREADY closer
+% to the objective than nch=1 ever was (J 0.1152 vs 0.1928), with level_c 4.796
+% already IN the [3.5 6.5] band and maperr 147.05 inside its 150 tolerance. The
+% whole deficit is two terms:
+%     slope 0.5023 -> 0.413    Jslp  0.0893   (78% of J)
+%     amp   +37.42 -> >= 40    Jgain 0.0258   (22% of J)
+% So maptol stays at the nch=3 default of 150. Unlike the nch=1 run, the ABR here
+% is NOT solved, and the map is not the thing to chase -- tightening maptol would
+% just pull the search away from the two terms that actually cost something.
+%
+% 17 PARAMETERS: the default nch=3 fitidx (16, including chsz(3) which nch=1/2 do
+% not have, and ace at index 20) plus hbsc via opts.fithbsc. hbsc has never been
+% a fitted parameter at ANY chamber count -- it is not in parnames(). gampro
+% excluded: CF-map-free but stability-bankrupt at nch=1, and nothing suggests
+% more chambers rescue it.
+%
+% WARM START parfit26_nch3.mat, the best nch=3 fit on record and verified
+% sub-critical (maxRe_osc -220.3; all six nch=3 starts on disk were checked
+% 2026-08-01 and every one is sub-critical, correcting an earlier claim that this
+% one was oscillatory-supercritical at +240).
+%
+% COST. nch=3 is 184.7 s/eval, 2.6x nch=1. 3 segments x 128 = 384 evals ~ 19.7 h.
+% Three segments rather than four because 16-17 parameters need enough
+% evaluations per simplex to move at all; two restarts is still enough to tell
+% convergence from collapse. That distinction earned its keep on the nch=1 run --
+% segment 2 there bought 0.06 of maperr from a FRESH simplex, which is what
+% proved segment 1 had genuinely converged rather than stalled.
+%
+% OUTPUT LOCAL, NOT ONEDRIVE. ~380 checkpoint writes; under OneDrive that is 380
+% upload cycles from a conference connection with a sync conflict able to land on
+% the live file.
+%
+% SLEEP. The laptop sleeps in transit Aug 3-9. macOS suspends and resumes MATLAB
+% cleanly so the run survives, but the hours printed are WALL clock and read long
+% by however long the lid was shut. Judge progress by EVALUATIONS, not hours.
+%
+% =======================================================================
+RUNDIR = '/Users/neely/mccm_runs';
+if (~exist(RUNDIR,'dir')), mkdir(RUNDIR); end
+NSEG = 3; FE = 128;
+
+L=load('parfit26_nch3.mat'); pa=L.R.pa;
+fprintf('\n===== C3FIT nch=3: %d segments x %d evals (~%.1f h) =====\n', ...
+        NSEG, FE, NSEG*FE*184.7/3600);
+fprintf('  warm: parfit26_nch3.mat  ace %+.4f  hbsc %.4f  (J 0.1152)\n', pa.ace, pa.hbsc);
+fprintf('  targets: slope 0.5023 -> 0.413 | amp +37.42 -> >=40 | hold lvl_c in band, maperr <=150\n');
+fprintf('  17 params: default nch=3 fitidx + hbsc (never fitted at any chamber count)\n');
+fprintf('  output: %s\n\n', RUNDIR);
+
+hist=struct('seg',{},'J',{},'slope',{},'lvlc',{},'maperr',{},'amp',{},'osc',{},'ace',{},'hbsc',{},'hrs',{});
+bestJ=Inf; bestpa=pa; T0=tic;
+for s=1:NSEG
+    t0=tic; out=fullfile(RUNDIR,sprintf('c3fit_seg%d.mat',s));
+    fprintf('----- segment %d/%d -----\n', s, NSEG);
+    try
+        R = parfit26(3, struct('maxfe',FE, 'wgain',0.01, 'fithbsc',true, ...
+                               'warm',pa, 'verbterm',true, 'out',out));
+    catch e
+        fprintf('  SEGMENT %d FAILED: %s\n', s, e.message(1:min(150,end)));
+        break;
+    end
+    pa = R.pa;
+    S = score26(pa,'fast',false); m = abr_metric(pa,false);
+    Js=abs(m.slope-0.413);
+    Jl=0.10*(max(0,3.5-m.level_c)+max(0,m.level_c-6.5));
+    Jp=0.001*max(0,S.maperr-150); Jg=0.01*max(0,40-S.amp_gain);
+    Jo=0.005*max(0,S.maxRe_osc+40);
+    J=Js+Jl+Jp+Jg+Jo; hrs=toc(t0)/3600;
+    if (J<bestJ), bestJ=J; bestpa=pa; end
+    hist(end+1)=struct('seg',s,'J',J,'slope',m.slope,'lvlc',m.level_c, ...
+        'maperr',S.maperr,'amp',S.amp_gain,'osc',S.maxRe_osc, ...
+        'ace',pa.ace,'hbsc',pa.hbsc,'hrs',hrs); %#ok<SAGROW>
+    fprintf('\n  SEG %d | J %.4f | slope %.4f | lvl_c %.3f | maperr %.2f | amp %+.2f | osc %.1f\n', ...
+            s, J, m.slope, m.level_c, S.maperr, S.amp_gain, S.maxRe_osc);
+    fprintf('        | ace %+.4f | hbsc %.4f | %.1f h\n', pa.ace, pa.hbsc, hrs);
+    fprintf('    terms: slope %.4f  lcb %.4f  map %.4f  gain %.4f  osc %.4f\n\n', Js, Jl, Jp, Jg, Jo);
+    save(fullfile(RUNDIR,'c3fit_hist.mat'),'hist','bestJ','bestpa');
+end
+
+fprintf('\n===== DONE, %.1f h total =====\n', toc(T0)/3600);
+fprintf('  seg |      J | slope  | lvl_c | maperr |   amp  |    osc |    ace |  hbsc  | hrs\n');
+for i=1:numel(hist)
+    h=hist(i);
+    fprintf('  %3d | %6.4f | %6.4f | %5.3f | %6.2f | %+6.2f | %6.1f | %+6.4f | %6.4f | %4.1f\n', ...
+            h.seg, h.J, h.slope, h.lvlc, h.maperr, h.amp, h.osc, h.ace, h.hbsc, h.hrs);
+end
+fprintf('\n  best J %.4f    start 0.1152    (nch=1 reached 0.0065, but its levers do NOT transfer)\n', bestJ);
+fprintf('  saved: %s\n', fullfile(RUNDIR,'c3fit_hist.mat'));
+disp('C3FIT_DONE');
