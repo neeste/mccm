@@ -78,16 +78,49 @@ nc_ = numel(modpar26(nch).chsz);
 % jointobj rebuilds pa from base=modpar26(nch) plus pv, so a gampro carried on a
 % warm start is SILENTLY RESET to ones(n,1) on every evaluation. Fitting it via
 % the pv vector is what makes it survive; warm-starting it does not.
+% The grade is reachable ONLY through opts.fitgampro, never by writing its index
+% into fitidx, and the clip below still drops everything past the chsz block
+% FIRST. That ordering is not cosmetic: at nch=1/2 the grade sits at index 33,
+% which is exactly the index the default fitidx already carries as a chsz(3)
+% that those models do not have. Widening the clip to admit the grade would have
+% made every default nch=1/2 call start fitting gampro silently, changing what
+% the 90.97 result means. Clip first, append by name second.
+% COMPRESSION STRENGTH hbsc (2026-08-01), pv index 30+nc+2. The MET compression
+% slope: gam = cp.gm ./ (1 + pa.hbsc*log(max(|dh|/pa.hbmx,1))) (micro26.m:69).
+% Not in parnames(), so never fitted at any chamber count -- yet it is the only
+% lever measured that improves the ABR slope and level_c TOGETHER instead of
+% trading them. At ace=+0.40, raising it 0.04 -> 0.64 gives slope 0.4160 (target
+% 0.413) and level_c 3.732, IN the [3.5 6.5] band for the first time in this
+% project, for J 0.0030 against 0.1928 at the 150-eval optimum.
+%
+% It is fittable only because the ABR path is ALREADY compressive: tbabr_condition
+% forces pa.hbnl=1 (tdm26.m:1536) regardless of the parameter set, so the long-
+% standing "hbnl=0 everywhere, the model is linear" belief was false and hbsc has
+% real authority over ABR observables. Verified NOT overridden anywhere in the
+% live path (unlike hbnl), and invisible to fdm26 -- maperr held at exactly 90.52
+% across every sweep row, which is the control that says it is not leaking.
+%
+% NOTE hbsc does not move score26's amp_gain, and that is correct rather than a
+% blind guard: score26's click runs with pa.hbnl from the struct (tdm26.m:503),
+% i.e. LINEAR, and below hbmx the compression term is identically zero, so the
+% small-signal amplifier is untouched at +44.62 dB. Measured with hbnl forced on,
+% gain falls to +20.75 dB at hbsc=0.64 with tip-tail contrast unchanged (8.77 ->
+% 8.79), so the amplifier compresses rather than disappears.
 gpi_ = 30 + nc_ + 1;
-bad_ = fitidx > gpi_;
+hbi_ = 30 + nc_ + 2;
+bad_ = fitidx > (30 + nc_);
 if (any(bad_))
     fprintf('  fitidx: dropping %s (nch=%d has only %d chsz entries)\n', ...
             mat2str(fitidx(bad_)), nch, nc_);
     fitidx = fitidx(~bad_);
 end
-if (gv('fitgampro', false) && ~any(fitidx == gpi_))
+if (gv('fitgampro', false))
     fitidx = [fitidx gpi_];
     fprintf('  fitting gampro grade (pv index %d)\n', gpi_);
+end
+if (gv('fithbsc', false))
+    fitidx = [fitidx hbi_];
+    fprintf('  fitting hbsc, MET compression slope (pv index %d)\n', hbi_);
 end
 maxfe  = gv('maxfe', 150);
 wslope = gv('wslope', 1);  wmap = gv('wmap', 0.001);  wcrit = gv('wcrit', 0.005);
@@ -481,11 +514,13 @@ nm={'k1o','r1o','m1o','k2o','r2o','m2o','k3o','r3o','k4o','aco', ...
     'k1q','r1q','m1q','k2q','r2q','m2q','k3q','r3q','k4q','acq'};
 end
 function pv=getpar_l(pa)
-nm=parnames(); nc=numel(pa.chsz); pv=zeros(1,30+nc+1);
+nm=parnames(); nc=numel(pa.chsz); pv=zeros(1,30+nc+2);
 for i=1:30, pv(i)=pa.(nm{i}); end
 pv(31:30+nc)=pa.chsz(:)';
 pv(30+nc+1)=subsref_default(pa,'gpgrade',0);  % gampro grade; 0 = uniform gain,
-end                                           % which is every pre-2026-08-01 fit
+                                              % which is every pre-2026-08-01 fit
+pv(30+nc+2)=subsref_default(pa,'hbsc',0.04);  % MET compression slope
+end
 function pa=setpar_l(pa,pv,dvi)
 % dvi = index of the chsz element DERIVED from the others so that
 % sum(chsz) == 2 identically. Empty or absent leaves chsz free (prior
@@ -516,6 +551,14 @@ if (numel(pv) >= 30+nc+1)
     pa.gpgrade = pv(30+nc+1);
     xf = ((0:pa.n-1)')/(pa.n-1);
     pa.gampro = exp(pa.gpgrade*(xf-0.5));
+end
+% COMPRESSION SLOPE. Same length guard, same reason: a pv saved before these
+% parameters existed still loads and still means what it meant. Clamped at 0
+% because a negative hbsc would make gain GROW with level -- an expansive
+% amplifier, not a compressive one -- and fminsearch is unconstrained, so
+% nothing else stops it wandering there.
+if (numel(pv) >= 30+nc+2)
+    pa.hbsc = max(0, pv(30+nc+2));
 end
 end
 function v=subsref_default(s,f,d), if (isfield(s,f)), v=s.(f); else, v=d; end, end
