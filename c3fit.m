@@ -54,11 +54,56 @@
 % by however long the lid was shut. Judge progress by EVALUATIONS, not hours.
 %
 % =======================================================================
+% ============ WHY THIS PINS d3int, AND WHY IT PRE-FLIGHTS ============
+%
+% THE FIRST LAUNCH OF THIS SCRIPT WAS INVALID AND BURNED 7.3 h. parfit26 REPORTS
+% its start from pa0 but EVALUATES setpar_l(base,pv) with base=modpar26(nch), so
+% any tuned field outside the 30 parnames entries + chsz is replaced by a
+% modpar26 default on EVERY evaluation while the printed start line still shows
+% the good model. The log said `start: slope=0.502 maperr=147.1` and the very
+% first evaluation scored map 0.7843, i.e. maperr ~934.
+%
+% CAUSE (warmdiff.m): parfit26_nch3.mat is from 2026-07-22 and has NO d3int,
+% k5*, r5*, m5* fields at all. Today's modpar26(3) ships d3int=1 plus the full
+% k5/r5/m5 set. So jointobj was fitting a 3-DOF model while the warm start -- and
+% the project's recorded best nch=3 fit, 147.05 -- is 2-DOF. A third DOF switched
+% on with parameters never tuned for it is exactly a 147 -> 934 sized error.
+%
+% pin d3int=0 forces the 2-DOF model onto BOTH base and the warm start, so the
+% fit matches its own starting point and the record. k5/r5/m5 go inert with it
+% (dof is 3 only when pa.m>=4 || d3int).
+%
+% The pre-flight below then REFUSES TO RUN if the warm start still does not
+% survive setpar_l. This class of defect -- a start report and an evaluation
+% disagreeing because they build the model two different ways -- is this
+% project's documented dominant failure mode, and it is cheap to assert against.
+% =====================================================================
 RUNDIR = '/Users/neely/mccm_runs';
 if (~exist(RUNDIR,'dir')), mkdir(RUNDIR); end
 NSEG = 3; FE = 128;
+PIN = struct('d3int',0);
 
 L=load('parfit26_nch3.mat'); pa=L.R.pa;
+pf=fieldnames(PIN); for i=1:numel(pf), pa.(pf{i})=PIN.(pf{i}); end
+
+% ---- PRE-FLIGHT: does the warm start survive the parameter mapping? ----
+H=parfit26('handles'); b0=modpar26(3);
+for i=1:numel(pf), b0.(pf{i})=PIN.(pf{i}); end
+pa_eval = H.setpar(b0, H.getpar(pa), []);       % exactly what jointobj builds
+try
+    e_warm = fdm26(struct('pa',pa));      e_warm = e_warm.maperr;
+    e_eval = fdm26(struct('pa',pa_eval)); e_eval = e_eval.maperr;
+catch e
+    error('c3fit pre-flight could not score: %s', e.message);
+end
+fprintf('\n  PRE-FLIGHT  warm-start maperr %.2f | as jointobj builds it %.2f | delta %.2f\n', ...
+        e_warm, e_eval, abs(e_warm-e_eval));
+if (abs(e_warm - e_eval) > 1)
+    error(['c3fit ABORTED: the warm start does not survive setpar_l ' ...
+           '(maperr %.2f vs %.2f). parfit26 would report one model and fit ' ...
+           'another. Pin the missing fields before running.'], e_warm, e_eval);
+end
+fprintf('  PRE-FLIGHT PASSED -- the model parfit26 fits is the model reported.\n');
 fprintf('\n===== C3FIT nch=3: %d segments x %d evals (~%.1f h) =====\n', ...
         NSEG, FE, NSEG*FE*184.7/3600);
 fprintf('  warm: parfit26_nch3.mat  ace %+.4f  hbsc %.4f  (J 0.1152)\n', pa.ace, pa.hbsc);
@@ -73,7 +118,7 @@ for s=1:NSEG
     fprintf('----- segment %d/%d -----\n', s, NSEG);
     try
         R = parfit26(3, struct('maxfe',FE, 'wgain',0.01, 'fithbsc',true, ...
-                               'warm',pa, 'verbterm',true, 'out',out));
+                               'pin',PIN, 'warm',pa, 'verbterm',true, 'out',out));
     catch e
         fprintf('  SEGMENT %d FAILED: %s\n', s, e.message(1:min(150,end)));
         break;
