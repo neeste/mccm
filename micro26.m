@@ -234,6 +234,28 @@ elseif (use3)
                + (1-2*ad) .* (k_act .* dhb + r_act .* vhb));
     end
 
+    % ---- OHC WORK ON THE BM, for the m>=3 2-DOF branch ----
+    % PURELY DIAGNOSTIC: it reads the force already assembled above and does not
+    % enter s1, so it cannot perturb any result.
+    %
+    % IT WAS MISSING FOR THE CONFIGURATION THE PROJECT ACTUALLY FITS. ohcp and
+    % ohcbm are computed only in the has3 and m>=4 branches, so at m=3 with
+    % d3int=0 -- every nch=3 fit on record -- both stayed identically 0 and the
+    % standing advice to "use the energy diagnostics rather than WNR magnitude"
+    % could not be followed at all.
+    %
+    % SIGN, STATED EXPLICITLY because the two existing sites disagree with each
+    % other (line ~290 negates the sum, line ~341 does not): s1 = -(... - gam*a),
+    % so the active force's contribution to the BM row is +gam*a, and its power
+    % is that force times BM velocity. POSITIVE = energy delivered TO the BM.
+    % ANCHOR: this model amplifies +41 dB with the pole off, so its cycle-average
+    % must come out POSITIVE. If it does not, this derivation is wrong and
+    % nothing computed from it means anything.
+    aeff_bm = adrv;
+    if (rcon && isfield(st,'vohc') && ~isempty(st.vohc)), aeff_bm = st.vohc; end
+    bpow = (gam .* aeff_bm) .* v1;
+    ohcbm = sum(bpow(isfinite(bpow)));
+
     % Row 2: -[(1-alpha)*z2 + alpha*zh]*V1 + (z2+zh)*V2
     s2 = -(-kmix .* d1 - rmix .* v1 + (cp.k2 + cp.k3) .* d2 + (cp.r2 + cp.r3) .* v2);
     % d3int, or an explicit third DOF at m<3 (which implies the internal form:

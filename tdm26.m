@@ -1678,6 +1678,10 @@ dgn.pkplace=ipk; dgn.pkfrac=ipk/pa.n;
 w=enr/max(sum(enr),eps); dgn.pkcen=sum((1:pa.n).*w)/pa.n;   % normalized place centroid
 dgn.ohcNaN=sum(~isfinite(sav.ohcp)); dgn.ohcN=numel(sav.ohcp);
 dgn.ohcP=mean(sav.ohcp(isfinite(sav.ohcp)));                 % >0 = energy injected
+% BM-specific OHC work. ohcP is 0 at m=3 with d3int=0 (micro26 computes it only
+% in the has3 / m>=4 branches), which is every nch=3 fit on record -- so ohcBM
+% is the only energy diagnostic that exists for that configuration.
+dgn.ohcBM=mean(sav.ohcbm(isfinite(sav.ohcbm)));              % >0 = energy INTO the BM
 dgn.ohcBM=mean(sav.ohcbm(isfinite(sav.ohcbm)));              % >0 = BM amplified
 dgn.ohcBMW=sum(sav.ohcbm(isfinite(sav.ohcbm)))*dtms/1000;    % integrated BM work
 dgn.ohcW=sum(sav.ohcp(isfinite(sav.ohcp)))*dtms/1000;
