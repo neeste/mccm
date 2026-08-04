@@ -80,13 +80,31 @@ NSEG = 3; FE = 128;
 PIN  = struct('d3int',0);
 
 % ---- THE THREE DELIBERATE CHOICES ----
-HBMODE    = 'bm';   % '' = shear drive (physiological, but shoulder 0.6195 at the
-                    % warm start); 'bm' = BM-peak only (parfit26.m:183 says SET
-                    % THIS for valid fits). Chosen 'bm' so the run does not start
-                    % inside the switching region; wshoulder then keeps it out.
-WSHOULDER = 2.0;    % weight on the WNR shoulder ratio. Calibrated so the term is
-                    % commensurate with surf_term's band-violation RMS in ms --
-                    % see the START BREAKDOWN this script prints before segment 1.
+HBMODE    = '';     % SHEAR drive, v1-v2 (SN's call, 2026-08-03). This is what
+                    % actually deflects the hair bundle, and it is the drive the
+                    % multi-chamber model exists to represent -- 'bm' (v1 alone)
+                    % is labelled a DIAGNOSTIC in tdm26 and throws away the
+                    % second-DOF contribution. parfit26.m:183 recommends 'bm',
+                    % but that recommendation was a workaround for the detector
+                    % defect fixed in b340548; with a continuous detector the
+                    % reason for it is gone. COST: the warm start sits at
+                    % shoulder 0.6195 under shear vs 0.4036 under bm, so this
+                    % run STARTS inside the double-peaked region and WSHOULDER
+                    % has to pull it out rather than merely keep it out.
+                    %
+                    % NOTE parfit26 only assigns pa.hbmode when hbm is non-empty,
+                    % so '' means "leave the model's own default", which is the
+                    % shear branch in hc_step. Asserted below rather than assumed.
+WSHOULDER = 2.0;    % weight on the WNR shoulder ratio, DERIVED not guessed.
+                    % The exploit was worth ~0.09 of slope, which is roughly
+                    % 0.3-0.5 ms of band violation, i.e. 0.3-0.5 of Jsurf. For
+                    % double-peaking to be unprofitable the shoulder term must
+                    % cost more than that over the range it moves (~0.5), so
+                    % w > 1.0. 2.0 gives a 2x margin over the measured value of
+                    % the exploit. Start scale (calibration, shear drive):
+                    % surf_rms 0.609 ms, shoulder 0.6195 -> Jsurf 0.61 vs
+                    % Jsho 1.24, so the guard leads early and should recede as
+                    % the shoulder comes down.
 WSURF     = 1.0;
 
 WARM = fullfile(RUNDIR,'c3fit_seg3.mat');   % outputs live in RUNDIR, not the repo
@@ -107,6 +125,23 @@ if (abs(e_warm - e_eval) > 1)
 end
 fprintf('  PRE-FLIGHT PASSED.\n');
 
+% ---- DRIVE / DETECTOR ASSERTIONS ----
+% parfit26 leaves pa.hbmode alone when hbm is '', so a STALE hbmode carried on
+% the warm start would silently override the choice made above and the run would
+% report one drive while fitting another. That is this project's dominant
+% failure mode; assert instead of assuming.
+if (isempty(HBMODE) && isfield(pa,'hbmode') && ~isempty(pa.hbmode))
+    error('s3fit ABORTED: HBMODE is shear but the warm start carries hbmode="%s".', pa.hbmode);
+end
+% latsoft Inf would restore the gameable largest-peak detector, which is the
+% whole reason this run exists.
+if (isfield(pa,'latsoft') && isinf(pa.latsoft))
+    error('s3fit ABORTED: warm start sets latsoft=Inf (legacy gameable detector).');
+end
+fprintf('  DRIVE: %s | detector: soft-argmax softp=%g\n', ...
+        ternstr_l(isempty(HBMODE),'shear (v1-v2)',HBMODE), ...
+        subsref_default_l(pa,'latsoft',8));
+
 % ---- START BREAKDOWN, both drives, so the weights are set from measurement ----
 pd = pa; if (isfield(pd,'hbmode')), pd=rmfield(pd,'hbmode'); end
 pb = pa; pb.hbmode = 'bm';
@@ -122,7 +157,9 @@ fprintf('\n===== S3FIT nch=3: %d segments x %d evals (~%.1f h at 76 s/eval) ====
 fprintf('  objective: surface (16-cell band, free Delta) + shoulder guard + gain guard\n');
 fprintf('  hbmode "%s" | wsurf %.2f | wshoulder %.2f | maptol 150 | wgain 0.01\n', ...
         HBMODE, WSURF, WSHOULDER);
-fprintf('  warm: c3fit_seg3.mat  (slope 0.4118 DEFAULT-DRIVE, shoulder 0.6195)\n');
+fprintf('  warm: c3fit_seg3.mat  (shear drive, FIXED detector: slope 0.4409,\n');
+fprintf('        level_c 7.056 -- OUT of the old [3.5 6.5] band; it read 0.4118\n');
+fprintf('        and 6.399 through the gameable detector. shoulder 0.6195)\n');
 fprintf('  output: %s\n\n', RUNDIR);
 
 hist=struct('seg',{},'J',{},'slope',{},'lvlc',{},'sho',{},'maperr',{},'amp',{},'osc',{},'hrs',{});
@@ -167,3 +204,7 @@ fprintf('\n  READ THE SHOULDER COLUMN FIRST. If it rose across segments, the fit
 fprintf('  still buying latency with the second peak and the slope is not evidence.\n');
 fprintf('  saved: %s\n', fullfile(RUNDIR,'s3fit_hist.mat'));
 disp('S3FIT_DONE');
+
+% local helpers (script-local; MATLAB requires them at the end of the file)
+function s=ternstr_l(c,a,b), if c, s=a; else, s=b; end, end
+function v=subsref_default_l(s,f,d), if (isfield(s,f)), v=s.(f); else, v=d; end, end
