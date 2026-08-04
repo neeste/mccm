@@ -21,6 +21,11 @@ function R = parfit26(nch, opts)
 %     .fitgampro  append the gampro-grade index to fitidx (default false). Its
 %              position depends on the chamber count, so ask for it by name
 %              rather than computing 30+#chsz+1 at the call site.
+%     .fitd3   append the six third-DOF indices (k5o r5o m5o k5e r5e m5e) to
+%              fitidx (default false). Same reason as fitgampro: position depends
+%              on the chamber count, and the clip would drop them if written in
+%              by hand. Errors rather than no-ops where the model has no internal
+%              third DOF. Pair with pin.d3int=1, which turns the DOF on.
 %     .maxfe   fminsearch budget            (default 150)
 %     .wslope .wmap .wcrit                  (default 1, 0.001, 0.005)
 %     .wstat   weight on the STATIC-divergence guard, max(0, maxRe - statol)
@@ -106,6 +111,14 @@ nc_ = numel(modpar26(nch).chsz);
 % small-signal amplifier is untouched at +44.62 dB. Measured with hbnl forced on,
 % gain falls to +20.75 dB at hbsc=0.64 with tip-tail contrast unchanged (8.77 ->
 % 8.79), so the amplifier compresses rather than disappears.
+% THIRD-DOF BLOCK (2026-08-04), pv indices 30+nc+3 .. 30+nc+8 = k5o r5o m5o
+% k5e r5e m5e. Reachable ONLY through opts.fitd3, never by writing the indices
+% into fitidx, for the same reason the gampro grade is: the clip below drops
+% everything past the chsz block FIRST, so a caller who wrote [.. 36 37 38] into
+% fitidx would have them dropped with a printed warning and would fit a third DOF
+% pinned at its untuned defaults while believing it was free. That is exactly the
+% not-like-for-like comparison these parameters were added to prevent.
+d3i_ = 30 + nc_ + (3:8);
 gpi_ = 30 + nc_ + 1;
 hbi_ = 30 + nc_ + 2;
 bad_ = fitidx > (30 + nc_);
@@ -121,6 +134,23 @@ end
 if (gv('fithbsc', false))
     fitidx = [fitidx hbi_];
     fprintf('  fitting hbsc, MET compression slope (pv index %d)\n', hbi_);
+end
+% REFUSE rather than silently fit nothing: setpar_l writes these only when
+% pa.m < 4 and the field already exists, so asking for them at nch=1/2 (no
+% k5/r5/m5 at all) or m>=4 (where they are the CL chamber's impedance and carry
+% k5q/r5q/m5q terms pv does not transport) would hand fminsearch six coordinates
+% that change nothing. Six dead dimensions do not error; they just make the
+% simplex converge slower onto the same answer while the log claims 23 parameters.
+if (gv('fitd3', false))
+    b_ = modpar26(nch);
+    if (~isfield(b_,'k5o') || nch >= 4)
+        error(['parfit26: fitd3 requested but nch=%d has no INTERNAL third DOF ' ...
+               'to fit (setpar_l writes k5/r5/m5 only for m<4 models that ship ' ...
+               'them). Use nch=3 with pin.d3int=1.'], nch);
+    end
+    fitidx = [fitidx d3i_];
+    fprintf('  fitting third DOF k5o r5o m5o k5e r5e m5e (pv indices %s)\n', ...
+            mat2str(d3i_));
 end
 maxfe  = gv('maxfe', 150);
 wslope = gv('wslope', 1);  wmap = gv('wmap', 0.001);  wcrit = gv('wcrit', 0.005);
