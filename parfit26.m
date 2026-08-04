@@ -305,6 +305,14 @@ if (surface)
     fprintf('  Delta (pred): %.2f ms  =>  neural delay a = %.2f ms  (2013 assumed 5.00)\n', dbest, 5+dbest);
     R.delta=dbest; R.surf_rms=st; R.surf_nvalid=nv;
 end
+% RETURN THE FINAL J (2026-08-03). Jopt was computed, printed, and thrown away,
+% so every chained driver that wanted it had to REBUILD the objective by hand --
+% and c3fit duly did, reassembling slope+lcb+map+gain+osc in its own segment
+% loop. That is the exact duplication this project's standing rule forbids
+% ("never hand-roll this objective again; call jointobj or read verbterm"), and
+% it silently omits any term the caller forgets, which is how the wlcb band term
+% went missing from a reported result once already. One field removes the reason.
+R.J=Jopt;
 R.pa=pa; R.pv=pv; R.mf=mf; R.S=S; R.Rf=Rf; R.fitidx=fitidx; R.nch=nch; R.opts=opts;
 save(out,'R'); fprintf('saved %s\n', out);
 end

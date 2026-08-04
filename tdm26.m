@@ -1626,7 +1626,8 @@ pmn=min(ped);
 pmx=max(ped);
 mlv=20*log10((pmx-pmn)/(2*sqrt(2)*spl_ref));
 dtms=ts.dt*ts.nw;
-tpk=wnr_latency(sav.wnr,dtms);          % onset-peak latency (robust to late artifacts)
+lsp=8; if (isfield(pa,'latsoft')), lsp=pa.latsoft; end  % Inf = legacy largest-peak
+tpk=wnr_latency(sav.wnr,dtms,lsp);      % soft-argmax latency (continuous in the parameters)
 wnr=sav.wnr;                            % expose the WNR trace for diagnostics
 % diagnostic: peak partition displacements at the saved places. d2 is what the
 % OHC compression law tests against hbmx (hbt=max(|d2|/hbmx,1)), so if
@@ -1657,28 +1658,63 @@ end
 end % return
 
 % onset-peak latency of the whole-nerve response
-function tpk=wnr_latency(w,dtms)
-% Latency = time of the LARGEST whole-nerve-response peak (the Wave-I analog)
-% within a physiological window. The WNR is a modeled compound action potential
-% (~ABR Wave I); the measured data latency is the Wave-V peak minus a fixed 5 ms
-% neural (brainstem I->V) delay = cochlear travel time, which the nerve-level WNR
-% already excludes, so NO offset is applied to the model here. Taking the largest
-% LOCAL maximum (not the first threshold crossing) matches "peak of the response"
-% and is robust to (a) a smaller EARLY shoulder -- the failure mode of a first-
-% local-max rule, which a prior fit EXPLOITED by growing a spurious early bump to
-% report an artificially short latency -- and (b) a late slow numerical ramp in
-% near-critical configs, which has no interior local max. NaN when no peak exceeds
-% 3x the pre-onset baseline (sub-threshold). The model WNR carries no cochlear
-% microphonic, so a genuine WNR should be single-peaked (no physiological shoulder).
+function tpk=wnr_latency(w,dtms,softp)
+% Latency of the whole-nerve response (the Wave-I analog) within a physiological
+% window. The WNR is a modeled compound action potential; the measured data
+% latency is the Wave-V peak minus a fixed 5 ms neural (brainstem I->V) delay =
+% cochlear travel time, which the nerve-level WNR already excludes, so NO offset
+% is applied here. NaN when no peak exceeds 3x the pre-onset baseline.
+%
+% ============ WHY THIS IS A SOFT ARGMAX AND NOT "THE LARGEST PEAK" ============
+%
+% BOTH previous rules were gamed by the fit, in opposite directions:
+%
+%   first-local-max   the fit grew a spurious EARLY bump to report an
+%                     artificially short latency  (recorded in the old comment)
+%   largest-peak      the fit grew the SECOND peak until it OVERTOOK the first,
+%                     which does the same thing -- and discontinuously
+%
+% The second failure was measured 2026-08-03 (drvcheck.m). At c3fit's optimum
+% the shoulder ratio (2nd peak / main) averaged 0.6195 with 10/16 cells above
+% 0.5 and three cells at 0.999-1.000 -- two peaks of EQUAL height, so an argmax
+% is a coin flip and the reported latency JUMPS in the parameters. Consequences:
+%   - the ABR slope became drive-dependent: 0.4118 (shear) vs 0.5058 (bm),
+%     a 0.094 spread against the 0.0012 that c3fit spent 17 h closing
+%   - the latency surface acquired a "kink at 60 dB" that was recorded as a
+%     physical finding; the 60 dB column is where the switch happens
+%   - shoulder rose MONOTONICALLY with fitting effort (nch=1 0.0000 -> 0.3579,
+%     nch=3 0.3868 -> 0.6195), i.e. the optimizer was driving itself into the
+%     discontinuity because that is where the cheap latency was
+%
+% FIX: weight every local maximum by its baseline-subtracted height raised to
+% softp and take the weighted mean TIME. Continuous in the parameters by
+% construction -- as two peaks approach equal height the estimate slides
+% smoothly between them instead of snapping. Reduces to the old rule when one
+% peak dominates: at softp=8 a peak at half the main height carries 0.4% weight,
+% so a clean single-peaked WNR reproduces the previous latency. The normalized
+% (h/hm) form keeps the power from overflowing.
+%
+% THIS REMOVES THE DISCONTINUITY, NOT THE INCENTIVE. A fit can still shorten the
+% reported latency by growing the second peak, only smoothly now. The shoulder
+% ratio (wnr_shoulder / parfit26's wshoulder) is what removes the incentive, and
+% a double-peaked WNR is a MODEL defect in the first place: the model carries no
+% cochlear microphonic, so a genuine WNR should be single-peaked. Use both.
+%
+% pa.latsoft sets softp; Inf restores the legacy largest-peak rule exactly.
+if (nargin<3 || isempty(softp)), softp=8; end
 w=w(:); n=numel(w);
 b0=mean(w(1:max(1,round(0.02*n))));      % pre-onset baseline (first 2%)
 kmax=min(n-1, max(2,round(20/dtms)));    % physiological window (~20 ms; excl. late ramp)
 ii=(2:kmax)';
 lm=ii(w(ii)>w(ii-1) & w(ii)>=w(ii+1));   % interior local maxima
 if (isempty(lm)), tpk=NaN; return; end
-[pk,jj]=max(w(lm)); ix=lm(jj);           % the LARGEST peak = Wave-I peak
-if (~isfinite(pk) || pk<3*b0), tpk=NaN; return; end
-tpk=(ix-1)*dtms;
+[pk,jj]=max(w(lm));                      % sub-threshold test on the RAW height,
+if (~isfinite(pk) || pk<3*b0), tpk=NaN; return; end   % unchanged from the old rule
+if (isinf(softp)), tpk=(lm(jj)-1)*dtms; return; end   % legacy
+h=max(0, w(lm)-b0); hm=max(h);
+if (~(hm>0)), tpk=(lm(jj)-1)*dtms; return; end        % degenerate: fall back
+q=(h/hm).^softp;
+tpk=sum(q.*((lm-1)*dtms))/sum(q);
 end % return
 
 % COUPLED linearized stability of the partition+fluid operator (Month-2 scoping).
