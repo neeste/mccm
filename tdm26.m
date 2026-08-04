@@ -137,6 +137,34 @@ me=midear(pa);
 [cp,me]=macro26(pa,me);
 [cur,nf]=neural(pa,cur);
 
+% LOUDNESS IS DEAD WEIGHT UNLESS IT IS DISPLAYED (2026-08-03, profneural.log).
+% cur.ld / sav.ld are read ONLY by the two ts.dsp2==3 display branches (the
+% realtime plot and the summary spectrogram, ~line 712 and ~728). The wnr/tbabr
+% path never touches them, and the ldngrw consumers of sav.ldso/sav.ldcu are
+% already dead code -- ldngrw_condition (called at ~1252/~1371/~1405) does not
+% exist anywhere on the path. The phon printout at ~line 736 recomputes from
+% sav.nr independently and does not need cur.ld either.
+%
+% MEASURED SAVING: 7.5% of abr_metric at nch=3 (86.96 s -> 80.43 s; 87.25 s with
+% ldalways=1), bit-identical -- 0.000e+00 on slope, level_c, lat, rmse and lev
+% against BOTH the pre-edit code and the legacy flag. That is ~8.6 s per parfit26
+% evaluation, ~4.7% of one, or ~50 min off a 17 h c3fit-sized run.
+%
+% IT PROFILED AT 30% AND THAT WAS A PROFILER ARTIFACT -- do not trust the figure
+% in profneural.log. MATLAB's profiler charges per FUNCTION CALL, and the ldne=140
+% loop makes 280,280 mean() calls per condition, so loudness absorbed overhead far
+% out of proportion to its real ~7% share. I predicted 19% from that number and
+% was wrong by 2.5x. Never size an optimization from a profiled share alone;
+% confirm with a wall-clock A/B of the actual change.
+%
+% NOTE the double mean() inside loudness() is NOT redundant and was left alone:
+% line ~736 calls loudness(sav.nr,...) where sav.nr is a MATRIX, so the inner
+% mean returns a row vector and the outer one reduces it. It is a no-op only for
+% the column-vector cur.nr case.
+%
+% pa.ldalways=1 restores unconditional computation.
+nf.dold = (ts.dsp2==3) || (isfield(pa,'ldalways') && pa.ldalways);
+
 nxt = applst(pa,ts,cur);
 sav = savest(pa,sav,cur,ts);
 
@@ -380,8 +408,11 @@ vi = s * nf.sf; ss = cur.ss; nr = cur.nr;
 ss = ss + (nf.rr * (1 - ss) - nf.dr * nr) * dt; ss = max(0, min(ss, 1));
 nr = ss.^pa.ihcex .* vi;
 cur.ss = ss; cur.nr = nr; cur.wnr = sum(cur.nr) * pa.nrgn;
-ew = pa.ldew/(pa.xl*10); ne = pa.ldne; sc = pa.ldsc;
-cur.ld = soft_max(loudness(cur.nr,ew,ne,sc).^(1/3),10);
+if (nf.dold)          % see the nf.dold note in tdm_step -- ~7% of the march, and
+                      % nothing outside the ts.dsp2==3 displays reads the result
+    ew = pa.ldew/(pa.xl*10); ne = pa.ldne; sc = pa.ldsc;
+    cur.ld = soft_max(loudness(cur.nr,ew,ne,sc).^(1/3),10);
+end
 end
 
 function x=soft_max(x,m)
@@ -903,21 +934,63 @@ b=12.9;c=5;d=0.413; % ABR wave V paramters
 perform_calibration % calibrate, if necessary
 tic;                % start stopwatch
 % collect data
-for j=1:4
-    for k=1:4
-        fr=f(j);
-        lv=slv(k);
-        [mlv,tpk,nch,wnr,dtms,oae,oam] = tbabr_condition(fr,lv,pr,dsp1,dsp2);
-        lev(j,k)=mlv;
-        lat(j,k)=tpk;
-        if (isfinite(tpk)), sho(j,k)=wnr_shoulder(wnr,dtms); end   % 0 if sub-threshold
-        oael(j,k)=oae; oamg(j,k)=oam;                             % tone-burst OAE (NaN unless pr.oae)
-        fprintf('%5.2f %3.0f %5.1f %4.1f\n',fr,lv,mlv,tpk);
-        i=lv/100;
-        abr(j,k)=b*c^(-i)*fr^(-d);
+%
+% PARFOR OVER THE 16 CONDITIONS (2026-08-03). tbabr_condition is a pure function
+% of (fr,lv,pr) -- verified across its whole extent: no file IO, no globals, no
+% figures -- and each condition fills DISJOINT cells of lev/lat/sho/oael/oamg.
+% So the 4x4 grid is 16 independent simulations and the loop is embarrassingly
+% parallel. FLATTENED to a single 16-iteration loop rather than parallelising the
+% outer j=1:4, because 4-way would leave most of the 12 performance cores idle.
+%
+% SERIAL WHENEVER FIGURES ARE REQUESTED. Workers cannot drive the per-step
+% animation, and the interactive path must behave exactly as it did before.
+% pr.noparfor forces serial as well, for A/B checks and for anyone who wants the
+% old execution order back. With no PCT licence parfor degrades to a serial loop
+% on its own, so this is safe on a machine without it.
+%
+% PRINT ORDER IS PRESERVED: each cell RETURNS its console line and they are
+% emitted in grid order after the loop. parfor completion order is
+% nondeterministic, and the per-condition lines are read by humans.
+%
+% NOT ASSUMED TO BE BIT-IDENTICAL. MATLAB workers default to a single
+% computational thread while the client is multi-threaded, so a threaded BLAS
+% call inside the march can reduce in a different order. Measured rather than
+% asserted -- see the parcheck results recorded with this change.
+usepar = (dsp1==0) && (dsp2==0) && ...
+         ~(isstruct(pr) && isfield(pr,'noparfor') && ~isempty(pr.noparfor) && pr.noparfor);
+nc  = 16;
+jv  = 1 + floor((0:nc-1)'/4);      % frequency index per cell
+kv  = 1 + mod((0:nc-1)',4);        % level index per cell
+frv = f(jv);                       % sliced inputs, so the parfor body sees no
+lvv = slv(kv)';                    % indexing it cannot classify
+mlvv=zeros(nc,1); tpkv=zeros(nc,1); shov=zeros(nc,1);
+oaev=nan(nc,1);   oamv=nan(nc,1);  nchv=zeros(nc,1); txt=cell(nc,1);
+
+if (usepar)
+    parfor idx=1:nc
+        [mlvv(idx),tpkv(idx),nchv(idx),shov(idx),oaev(idx),oamv(idx),txt{idx}] = ...
+            tbabr_cell(frv(idx),lvv(idx),pr,0,0);
+    end
+else
+    for idx=1:nc
+        [mlvv(idx),tpkv(idx),nchv(idx),shov(idx),oaev(idx),oamv(idx),txt{idx}] = ...
+            tbabr_cell(frv(idx),lvv(idx),pr,dsp1,dsp2);
     end
 end
-fprintf('tbabr protocol: nch=%d wall_time=%.1f s\n',nch,toc)
+
+for idx=1:nc                       % unpack in grid order
+    j=jv(idx); k=kv(idx);
+    lev(j,k)=mlvv(idx);
+    lat(j,k)=tpkv(idx);
+    sho(j,k)=shov(idx);
+    oael(j,k)=oaev(idx); oamg(j,k)=oamv(idx);   % tone-burst OAE (NaN unless pr.oae)
+    fprintf('%s',txt{idx});
+    i=lvv(idx)/100;
+    abr(j,k)=b*c^(-i)*frv(idx)^(-d);
+end
+nch=nchv(1);                       % identical for every cell; it is pa.m
+fprintf('tbabr protocol: nch=%d wall_time=%.1f s%s\n',nch,toc, ...
+        ternstr(usepar,' (parfor)',''))
 % analyze data
 if (dsp1 || dsp2)                 % figures suppressed when both display args are 0
     figure(1);clf
@@ -1513,6 +1586,18 @@ end % return
 function S=wnr1_protocol(pr)
 [S.mlv,S.tpk,S.nch,S.wnr,S.dtms,S.oae,S.oam,S.od,S.dgn]=tbabr_condition(pr.fr,pr.lv,pr.pa,0,0);
 S.done=1;
+end
+
+% ONE TBABR GRID CELL, as a pure function so the parfor body and the serial body
+% are literally the same call and cannot drift apart. Returns the console line
+% instead of printing it, so parfor's nondeterministic completion order cannot
+% scramble the log. The sho default of 0 for a sub-threshold (non-finite) tpk is
+% the same rule the serial loop used.
+function [mlv,tpk,nch,sh,oae,oam,txt]=tbabr_cell(fr,lv,pr,dsp1,dsp2)
+[mlv,tpk,nch,wnr,dtms,oae,oam] = tbabr_condition(fr,lv,pr,dsp1,dsp2);
+sh = 0;
+if (isfinite(tpk)), sh = wnr_shoulder(wnr,dtms); end   % 0 if sub-threshold
+txt = sprintf('%5.2f %3.0f %5.1f %4.1f\n',fr,lv,mlv,tpk);
 end
 
 function [mlv,tpk,nch,wnr,dtms,oae,oam,od,dgn]=tbabr_condition(fr,lv,pr,dsp1,dsp2)
