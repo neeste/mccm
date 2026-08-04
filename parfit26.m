@@ -522,12 +522,25 @@ nm={'k1o','r1o','m1o','k2o','r2o','m2o','k3o','r3o','k4o','aco', ...
     'k1q','r1q','m1q','k2q','r2q','m2q','k3q','r3q','k4q','acq'};
 end
 function pv=getpar_l(pa)
-nm=parnames(); nc=numel(pa.chsz); pv=zeros(1,30+nc+2);
+nm=parnames(); nc=numel(pa.chsz); pv=zeros(1,30+nc+8);
 for i=1:30, pv(i)=pa.(nm{i}); end
 pv(31:30+nc)=pa.chsz(:)';
 pv(30+nc+1)=subsref_default(pa,'gpgrade',0);  % gampro grade; 0 = uniform gain,
                                               % which is every pre-2026-08-01 fit
 pv(30+nc+2)=subsref_default(pa,'hbsc',0.04);  % MET compression slope
+% THIRD-DOF PARAMETERS (2026-08-04). APPENDED, never inserted: every saved fit
+% is a shorter pv and must keep meaning exactly what it meant, which is why
+% gpgrade and hbsc went on the end too and why setpar_l guards on numel(pv).
+% Needed because d3int=1 is only fittable LIKE-FOR-LIKE with these free -- they
+% dominate: from fit_nch3_surface, k5o x2 moves maperr by +355, r5o x2 by +75,
+% m5o x2 by +81. Refitting the 30 impedance parameters around a third DOF pinned
+% at untuned defaults is the comparison the design note warns is not like-for-like.
+pv(30+nc+3)=subsref_default(pa,'k5o',0);      % OC-height / RL anchoring stiffness
+pv(30+nc+4)=subsref_default(pa,'r5o',0);
+pv(30+nc+5)=subsref_default(pa,'m5o',0);
+pv(30+nc+6)=subsref_default(pa,'k5e',0);      % their place exponents
+pv(30+nc+7)=subsref_default(pa,'r5e',0);
+pv(30+nc+8)=subsref_default(pa,'m5e',0);
 end
 function pa=setpar_l(pa,pv,dvi)
 % dvi = index of the chsz element DERIVED from the others so that
@@ -567,6 +580,29 @@ end
 % nothing else stops it wandering there.
 if (numel(pv) >= 30+nc+2)
     pa.hbsc = max(0, pv(30+nc+2));
+end
+% THIRD-DOF PARAMETERS. Same length guard, same reason. ADDITIONALLY guarded on
+% isfield: at nch=1/2 modpar26 ships no k5/r5/m5 at all, and creating them there
+% would fabricate a third DOF the model does not have. So a pv carrying zeros
+% for these (which is what getpar_l returns for a pa without them) cannot leak
+% a spurious DOF into a 2-DOF model.
+%
+% k5o/r5o/m5o are clamped positive: they are a stiffness, a damping and a mass,
+% fminsearch is unconstrained, and a negative mass makes a3 = s3/m5 change sign
+% -- the march would not error, it would quietly integrate the wrong physics.
+% m>=4 IS EXCLUDED, measured: applying these to refit_m4_full moved its maperr by
+% 136.5. At m=4 k5/r5/m5 are the CL CHAMBER's impedance, not the internal third
+% DOF, and they carry k5q/r5q/m5q place-quadratic terms this vector does not
+% transport -- so writing 6 of the 9 leaves an INCONSISTENT set, which is worse
+% than leaving all 9 at their base values as before. The internal third DOF
+% (pa.d3int, m=3) has no such companions and is the target here.
+if (numel(pv) >= 30+nc+8 && pa.m < 4)
+    if (isfield(pa,'k5o')), pa.k5o = max(0, pv(30+nc+3)); end
+    if (isfield(pa,'r5o')), pa.r5o = max(0, pv(30+nc+4)); end
+    if (isfield(pa,'m5o')), pa.m5o = max(realmin, pv(30+nc+5)); end
+    if (isfield(pa,'k5e')), pa.k5e = pv(30+nc+6); end
+    if (isfield(pa,'r5e')), pa.r5e = pv(30+nc+7); end
+    if (isfield(pa,'m5e')), pa.m5e = pv(30+nc+8); end
 end
 end
 function v=subsref_default(s,f,d), if (isfield(s,f)), v=s.(f); else, v=d; end, end
