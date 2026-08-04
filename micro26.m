@@ -1,4 +1,4 @@
-function [ss,ii,gam,ohcp,ohcbm] = micro26(pa, cp, st)
+function [ss,ii,gam,ohcp,ohcbm,adrv] = micro26(pa, cp, st)
 %MICRO26  Micromechanics: the partition DOF system.
 %
 % STAGE 4 of the macro/micro separation (capstone design note: "Micromechanics:
@@ -25,6 +25,17 @@ function [ss,ii,gam,ohcp,ohcbm] = micro26(pa, cp, st)
 % wants promoted to its own mass.
 
 n = pa.n; i1 = 1:n; i2 = (n+1):(2*n); gam = cp.gm; ohcp = 0; ohcbm = 0;
+adrv = zeros(n,1);   % instantaneous OHC active drive, for the RC pole (pa.ohctau)
+% THE RC POLE IS IMPLEMENTED FOR THE m>=3 FORCE LAW ONLY. The m<3 branch carries
+% a different active term -- cp.gh.*gam.*s4tmp, with gh multiplying the whole
+% active force rather than sitting inside k_act -- so filtering it correctly
+% needs its own drive definition. Refusing is better than silently applying the
+% pole to one branch and not the other, which would make m=1 and m=3 describe
+% different physics under the same flag.
+if (isfield(pa,'ohctau') && ~isempty(pa.ohctau) && pa.ohctau > 0 && pa.m < 3)
+    error('micro26:ohctau_m', ...
+          'pa.ohctau (OHC RC pole) is implemented for m>=3 only; got m=%d.', pa.m);
+end
 % THIRD-DOF PREDICATE, defined ONCE. This condition previously appeared at three
 % separate sites (the i3 index, the dc/vc extraction, and the ss assembly) and
 % adding the m<3 case to only one of them produced "Unrecognized function or
@@ -178,10 +189,50 @@ elseif (use3)
     kmix = (1-ar) .* cp.k2 + ar .* cp.k3;
     rmix = (1-ar) .* cp.r2 + ar .* cp.r3;
 
+    % ---- OHC RC POLE (pa.ohctau > 0; 0 = off = the legacy instantaneous law) ----
+    % Za = Ka/(i*omega) is PURE STIFFNESS (which is why r4o = 0 in every
+    % parameter set -- the formulation, not an omission), so the active element
+    % is negative STIFFNESS: 90 deg. One RC pole on the OHC lateral-wall voltage
+    % adds a second 90 deg above its corner, and 180 deg turns the element into
+    % frequency-dependent negative DAMPING -- the cochlear-amplifier mechanism
+    % (SN's tutorial, cochamp.htm third scene: below ~1 kHz the voltage follows
+    % the current and the contraction merely absorbs BM motion; above it the
+    % contraction lags 90 deg and pumps energy in, "rocking a boat").
+    %
+    % cur.vohc / cur.dvohc have been allocated since tdm24 and never read or
+    % written; this is what they are for. vohc holds the FILTERED active drive,
+    % so it carries the same units as adrv below and the gain gam still
+    % multiplies it. tdm26 advances it ONCE per step -- see ohc_rc_step there,
+    % and the note explaining why it cannot be advanced inside accel.
+    %
+    % fdm26 gets the SAME pole as z4 -> z4/(1+s*tau) inside its own imped, which
+    % is the single place both the 1-/2-chamber Yb and the multi-chamber zg read
+    % za from. Both solvers must carry it or maperr silently compares two
+    % different models.
+    uact = ad .* d1 + (1-2*ad) .* dhb;      % active drive coordinate
+    wact = ad .* v1 + (1-2*ad) .* vhb;
+    adrv = cp.k4 .* uact + r4a .* cp.r4 .* wact;   % instantaneous drive, pre-gain
+    rcon = isfield(pa,'ohctau') && ~isempty(pa.ohctau) && pa.ohctau > 0;
+
     % Row 1: [z1 + alpha*z_act]*V1 + [(1-2*alpha)*z_act]*V2
-    s1 = -(cp.k1 .* d1 + cp.r1 .* v1 ...
-           + ad .* (k_act .* d1 + r_act .* v1) ...
-           + (1-2*ad) .* (k_act .* dhb + r_act .* vhb));
+    if (rcon && isfield(st,'vohc') && ~isempty(st.vohc))
+        % Passive part instantaneous; ACTIVE part is the filtered OHC voltage.
+        % Algebraically identical to the legacy line when vohc == adrv:
+        %   k_act*uact + r_act*wact == gh*k3*uact + gh*r3*wact - gam*adrv
+        s1 = -(cp.k1 .* d1 + cp.r1 .* v1 ...
+               + cp.gh .* cp.k3 .* uact + cp.gh .* cp.r3 .* wact ...
+               - gam .* st.vohc);
+    else
+        % LEGACY EXPRESSION KEPT VERBATIM. The identity above holds in exact
+        % arithmetic but NOT bit-for-bit: k_act = gh*k3 - gam*k4 rounds once
+        % before multiplying by uact, while the split form rounds twice. Reusing
+        % the new expression here would shift the last bits of every result the
+        % project has banked, so the off path stays byte-identical by keeping
+        % the original line rather than by trusting the algebra.
+        s1 = -(cp.k1 .* d1 + cp.r1 .* v1 ...
+               + ad .* (k_act .* d1 + r_act .* v1) ...
+               + (1-2*ad) .* (k_act .* dhb + r_act .* vhb));
+    end
 
     % Row 2: -[(1-alpha)*z2 + alpha*zh]*V1 + (z2+zh)*V2
     s2 = -(-kmix .* d1 - rmix .* v1 + (cp.k2 + cp.k3) .* d2 + (cp.r2 + cp.r3) .* v2);

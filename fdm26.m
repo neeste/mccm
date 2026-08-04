@@ -1204,6 +1204,22 @@ z1=k1/s+r1+m1*s;
 z2=k2/s+r2+m2*s;
 z3=k3/s+r3;
 z4=k4/s+r4;
+% ---- OHC RC POLE (pa.ohctau > 0; 0 or absent = off, bit-identical) ----
+% Za = Ka/(i*omega) is pure stiffness, so the active element is negative
+% STIFFNESS (90 deg). One pole on the OHC lateral-wall voltage adds a second
+% 90 deg above its corner, and 180 deg makes it frequency-dependent negative
+% DAMPING -- the cochlear amplifier. See the matching note in micro26, which
+% carries the time-domain half as a filtered state (cur.vohc).
+%
+% APPLIED HERE, TO z4 ITSELF, ON PURPOSE. za is read at TWO sites -- the
+% 1-/2-chamber admittance Yb=1./(z1+(gh.*zh-gam.*za).*hh) and the multi-chamber
+% zg=g*za -- and imped is the single place both take it from. Putting the pole
+% on either call site instead would give one chamber count the pole and the
+% other not, under the same flag. Same reason micro26 defines the bundle
+% coordinate once.
+if (isfield(pa,'ohctau') && ~isempty(pa.ohctau) && pa.ohctau > 0)
+    z4 = z4 ./ (1 + s*pa.ohctau);
+end
 % OC-height (cortilymph pump) impedance -- 4-chamber only. Mirrors tdm26.m:475-477
 % cp.k5/cp.r5/cp.m5, and carries the MASS term (m5*s) as z1 does, because the
 % OC-height DOF has its own inertia (tdm26.m:630 a(i3)=a(i1)+s3./cp.m5).

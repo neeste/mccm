@@ -179,8 +179,35 @@ while (cur.cyc < pa.ncyc)
 		[cur,an] = accel(pa,cp,me,cur,nxt);
      	nxt = update(pa,cur,nxt,ac,an);
     end
+    nxt = ohc_rc_step(pa,cur,nxt);   % ONCE per step -- see the note in that function
 	cur=nxt;
 end
+end
+
+function nxt = ohc_rc_step(pa,cur,nxt)
+% Advance the OHC lateral-wall voltage one step: a one-pole low-pass of the
+% instantaneous active drive, exp-integrated exactly as the IHC filter is
+% (nf.kk = exp(-dt/pa.ihctc)), so it is stable for any dt/tau rather than only
+% for dt << tau.
+%
+% WHY THIS IS NOT INSIDE accel, WHICH IS WHERE IT LOOKS LIKE IT BELONGS.
+% accel runs 1 + pa.nimp times per step -- once as predictor and once per
+% corrector iteration (the march loop above). A filter advanced there would step
+% the pole 1+nimp times per dt, giving an effective tau smaller than requested by
+% exactly the corrector count, and it would CHANGE with nimp. The model would
+% still run, still look plausible, and quietly carry the wrong corner frequency;
+% nimp 2->32 has already been varied in this project for unrelated reasons. So
+% accel only READS cur.vohc, and the single advance happens here.
+%
+% cur.adrv is the drive from the LAST accel call of the step (the final
+% corrector, evaluated at nxt), combined with vohc at the START of the step --
+% a standard staggered update.
+nxt.vohc = cur.vohc; nxt.dvohc = cur.dvohc;      % carry forward when off
+if (~(isfield(pa,'ohctau') && ~isempty(pa.ohctau) && pa.ohctau > 0)), return; end
+if (~isfield(cur,'adrv') || isempty(cur.adrv)), return; end
+kk = exp(-pa.dt / pa.ohctau);
+nxt.vohc  = kk*cur.vohc + (1-kk)*cur.adrv;
+nxt.dvohc = (nxt.vohc - cur.vohc) / pa.dt;       % the allocated derivative, now real
 end
 
 function st=applst(pa,ts,st)
@@ -209,7 +236,14 @@ a = zeros(size(st.d)); stm = st.stm;
 nme = pa.nmev; ime = pa.ncp + (1:nme);
 d0 = st.d(ime); v0 = st.v(ime);
 ist = me.idx(2);
-[ss,ii,gam,ohcp,ohcbm]=micro26(pa,cp,st);
+% OHC RC state, READ-ONLY inside accel (see ohc_rc_step). GUARDED because accel
+% is also driven by coupeig_protocol, which builds its own minimal state structs
+% column-by-column against unit vectors and carries no vohc field -- an
+% unguarded read there threw "Unrecognized field name vohc" and took the whole
+% stability diagnostic down. micro26 guards the read symmetrically.
+if (isfield(cur,'vohc')), st.vohc = cur.vohc; end
+[ss,ii,gam,ohcp,ohcbm,adrv]=micro26(pa,cp,st);
+cur.adrv = adrv;         % instantaneous active drive, for the once-per-step filter
 
 s0 = stm * me.smes - (me.smek * d0 + me.smer * v0);
 prw = (pa.rrw * v0(ist) + pa.krw * d0(ist)) * pa.arw;
@@ -271,6 +305,8 @@ dt2 = pa.dt / 2;
 nxt.v = cur.v + (cur_a + nxt_a) * dt2;
 nxt.d = cur.d + (cur.v + nxt.v) * dt2;
 nxt.vi = cur.vi; nxt.ss = cur.ss; nxt.nr = cur.nr; nxt.ld = cur.ld;
+nxt.vohc = cur.vohc; nxt.dvohc = cur.dvohc;   % OHC RC state travels with the
+                                              % other per-step neural/OHC states
 end
 
 function sav=savest(pa,sav,cur,ts)
@@ -1730,6 +1766,29 @@ if (isfield(pr,'nch')),       nch=pr.nch; end
 if (isfield(pr,'boost')),     boost=pr.boost; end
 if (isfield(pr,'basalfrac')), bfrac=pr.basalfrac; end
 if (isfield(pr,'pa')), pa=pr.pa; nch=pa.m; else, pa=modpar26(nch); end % pr.pa: test a modified model
+% ---- coupeig CANNOT YET SEE THE OHC RC POLE. Refuse rather than mislead. ----
+% This protocol builds its operator column-by-column against unit vectors on the
+% state [d;v] only, and its state structs carry no vohc field. micro26's read is
+% guarded, so with pa.ohctau>0 it silently takes the LEGACY instantaneous branch
+% and this function returns the stability of a DIFFERENT MODEL -- measured
+% 2026-08-04, maxRe +22.07 and maxRe_osc -180.23 IDENTICAL at fc = Inf, 8000,
+% 4000 and 1000 Hz, i.e. completely blind to the pole.
+%
+% That is this project's dominant failure mode exactly: two places holding the
+% same fact, agreeing only because one of them is inert. It would be worst
+% inside a fit, where parfit26's osc guard would be scoring a model the search
+% is not running, so a pole-driven instability could not be seen.
+%
+% THE REAL FIX is to extend the operator to [d; v; vohc]: with the pole on,
+% vohc is a genuine dynamical state (tau*dvohc/dt = adrv - vohc) and belongs in
+% the linearization. Until then this errors.
+if (isfield(pa,'ohctau') && ~isempty(pa.ohctau) && pa.ohctau > 0)
+    error('tdm26:coupeig_ohctau', ...
+          ['coupeig does not yet model the OHC RC pole (pa.ohctau=%g): its ' ...
+           'operator spans [d;v] only, so it would report the stability of the ' ...
+           'pole-free model. Extend it to [d;v;vohc] before trusting or fitting ' ...
+           'this configuration.'], pa.ohctau);
+end
 if (~isfield(pa,'gampro')||isempty(pa.gampro)), pa.gampro=ones(pa.n,1); end
 xf=((0:pa.n-1)')/(pa.n-1);
 pa.gampro = pa.gampro .* (1 + boost*0.5.*(1+cos(pi*min(xf/bfrac,1))));   % basal boost (matches gampro sweep)
