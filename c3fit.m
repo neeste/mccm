@@ -1,6 +1,52 @@
 % C3FIT -- the Banff-window run. nch=3, 17 params, hbsc free for the first time.
 %
+% ####################################################################
+% ### CORRECTION 2026-08-03, AFTER THE RUN. THE PREMISE BELOW IS   ###
+% ### WRONG. THE LEVER SIGNS DO NOT INVERT.                        ###
+% ####################################################################
+%
+% lcprobe.m swept hbsc at nch=3 from the finished fit (anchor reproduced
+% seg2 exactly; maperr/osc/amp verified CONSTANT to 0.00e+00 across the
+% sweep, since neither hbsc nor hbmx reaches fdm26 or coupeig):
+%
+%     hbsc     slope   lvl_c        hbsc     slope   lvl_c
+%     0.005   0.6506   1.802        0.06    0.3665  12.499
+%     0.010   0.6380   2.403        0.10    0.4379  12.230
+%     0.020   0.5903   4.189        0.20    0.4452  14.907
+%     0.030   0.5107   5.632
+%     0.0406  0.4151   6.469  <- seg2
+%
+% Over 0.005 -> 0.06 hbsc LOWERS slope and RAISES level_c -- the SAME
+% directions as at nch=1. The axis is non-monotonic with a minimum near
+% hbsc 0.06 (slope 0.3665). c3probe sampled only 0.04 and 0.65, ONE ON
+% EACH SIDE of that minimum, saw slope rise, and read it as a sign flip.
+% It is a sampling artifact of a non-monotonic axis, not a structural
+% difference between chamber counts.
+%
+% Same failure class as the +240 maxRe_osc figure: a two-point reading
+% promoted to a mechanism claim without a sweep over the range the claim
+% needs. abr-tuning-levers already carries the rule -- "ALWAYS verify an
+% atlas row with a direct sweep over the range the claim requires."
+%
+% ALSO WRONG IN PRACTICE: this run was built to free hbsc, and hbsc never
+% moved. Across all three segments it went 0.0404 / 0.0406 / 0.0407 from
+% a 0.0400 default, and ace moved 0.83%. No parameter moved more than
+% 3.71% (r3o). J fell 0.1152 -> 0.0012 on a sub-4% collective nudge of
+% the ordinary impedance vector; the stated premise was never exercised.
+%
+% WHAT THE FIT ACTUALLY SPENT, none of it charged by J: level_c 4.796 ->
+% 6.399 (1.580 -> 1.869 %/dB against a 1.62 target) and oscillatory
+% margin -220.3 -> -53.7 dB. Both are threshold penalties sitting in
+% their dead zones, so J 0.0012 reads "solved" largely because three of
+% five terms are inside tolerance bands rather than good. seg2 at
+% level_c 6.469 sits just under a CLIFF -- level_c jumps to 12.499 by
+% hbsc 0.060.
+% ####################################################################
+%
 % ============================ WHY THIS SHAPE ============================
+%
+% [SUPERSEDED -- see the correction above. Kept because it is why the run
+% was shaped this way, not because it is true.]
 %
 % THE nch=1 LEVERS DO NOT TRANSFER, measured 2026-08-02 (c3probe). Transplanting
 % ace and hbsc from the nch=1 optimum onto the best nch=3 fit makes every version
@@ -148,6 +194,8 @@ for i=1:numel(hist)
     fprintf('  %3d | %6.4f | %6.4f | %5.3f | %6.2f | %+6.2f | %6.1f | %+6.4f | %6.4f | %4.1f\n', ...
             h.seg, h.J, h.slope, h.lvlc, h.maperr, h.amp, h.osc, h.ace, h.hbsc, h.hrs);
 end
-fprintf('\n  best J %.4f    start 0.1152    (nch=1 reached 0.0065, but its levers do NOT transfer)\n', bestJ);
+fprintf('\n  best J %.4f    start 0.1152    (nch=1 reached 0.0065)\n', bestJ);
+fprintf('  NOTE: the "levers invert at nch=3" premise this run was built on is WRONG.\n');
+fprintf('        See the correction block at the top of this file (lcprobe, 2026-08-03).\n');
 fprintf('  saved: %s\n', fullfile(RUNDIR,'c3fit_hist.mat'));
 disp('C3FIT_DONE');
