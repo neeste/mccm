@@ -1,73 +1,52 @@
-% GPSWEEP -- fine gampro-grade sweep from the NEW nch=1 best fit (sweep_nch1b).
+% GPSWEEP -- re-test gampro as a latency lever, at nch=3 with the margin s3fit built.
 %
-% WHY. The nch=1 rerun finished at J=0.1928 with map/gain/osc terms all EXACTLY
-% zero, so J is now 100% the slope term: |0.606 - 0.413|. 150 evaluations of 15
-% impedance/chsz parameters moved the slope only 0.663 -> 0.606. The fit vector
-% is exhausted on the one quantity that still costs anything.
+% WHY RE-OPEN IT. gampro was rejected 2026-08-01 as "stability-bankrupt": the
+% exchange rate was ~2600 dB of oscillatory margin per unit of slope, and the
+% nch=1 model had only 56.6 dB to spend, buying 0.021 against the 0.19 needed.
+% THAT VERDICT WAS MEASURED AT nch=1 WITH 56.6 dB OF MARGIN. s3fit's nch=3 model
+% sits at osc -180.2 dB -- 3.2x the margin -- and needs only 0.082 of slope
+% (0.4950 -> 0.413). At the old rate that is ~213 dB, so it is close rather than
+% hopeless, and the rate itself may differ at nch=3.
 %
-% pa.gampro (place-dependent CA gain) is ones(n,1) in every parameter set and
-% has NEVER been fitted -- it is not in parnames(), so it is not in the fit
-% vector at all. The 2026-07-22 lever sweep measured enormous slope leverage at
-% EXACTLY constant maperr (150.5 at every g), which is the one property the 15
-% fitted parameters do not have.
+% latatlas also ranks gpgrade as the best real lever on the board: dslope
+% +0.21428 with dlvlc only +0.6746 (S=0.32), against hbsc's S=0.48 at a
+% twentieth the slope movement. It is the only parameter with BOTH large dslope
+% and small level_c cost. Its cost is not level dependence, it is stability --
+% which is exactly the column latatlas did not measure. This measures it.
 %
-% THE CATCH, and the reason this is measured before anything is fitted: the
-% direction we need is the direction that went unstable. That sweep, from a
-% DIFFERENT baseline, read osc -15 at g=+0.4 and osc +16659 at g=-0.4, and we
-% need g<0 to LOWER the slope. The present baseline sits at osc -56.6, i.e.
-% only 16.6 dB of headroom before parfit26's own osc guard (maxRe_osc > -40)
-% starts charging. So the question is not "does gampro move the slope" -- that
-% is known -- but "does it reach 0.413 before the osc guard bites".
-%
-% Measured exactly as jointobj measures them (abr_metric for slope, score26
-% 'fast' for maperr/maxRe/maxRe_osc/amp_gain), so the columns are directly
-% comparable to a parfit26 run with wgain=0.01.
-%
-% NOTE for whoever fits this next: jointobj builds pa from base=modpar26(nch)
-% plus the pv vector, so a gampro carried on a warm start would be SILENTLY
-% RESET to ones(n,1) on every evaluation. Fitting it requires adding it to the
-% parameter vector (or pinning it, which holds it out of the fit). Do not
-% assume a warm start carries it.
-t0=tic;
-L=load('sweep_nch1b.mat'); pa0=L.R.pa;
-n=pa0.n; xf=((0:n-1)')/(n-1);
-% GRID REFINED after the first pass (coarse grid 0 / -0.05 / ... / -0.30 killed
-% once the second point answered the question). Measured leverage is ~6.7 slope
-% per unit g -- SIX TIMES the 2026-07-22 estimate of ~1.05 -- so g=-0.05 already
-% overshoots the 0.413 target down to 0.272, while maxRe_osc goes -56.6 -> +566.8.
-% maperr held at EXACTLY 90.97, so the CF-map-free property is confirmed and the
-% only live question is where the stability wall sits. Everything below -0.05 is
-% known-unstable and carries no information. Sample where the target is crossed.
-% Anchor row g=0 kept deliberately: a decomposition without a row whose answer is
-% already known is how a wrong Df/Dq conclusion got through on 2026-07-29.
-gg=[0 -0.010 -0.015 -0.020 -0.025 -0.030 -0.035 -0.040];
-fprintf('\n== gampro grade sweep, gampro=exp(g*(xf-0.5)), from sweep_nch1b (nch=1) ==\n');
-fprintf('   baseline g=0: slope 0.606  maperr 90.97  amp +54.54  osc -56.6\n\n');
-fprintf('     g     slope   maperr   amp_gain   maxRe   maxRe_osc |  Jslope   Jmap    Jgain   Josc   =  J\n');
-fprintf('   -----------------------------------------------------------------------------------------------\n');
-R=struct('g',num2cell(gg));
-for j=1:numel(gg)
-    g=gg(j); pa=pa0; pa.gampro=exp(g*(xf-0.5));
-    sl=NaN; mp=NaN; ag=NaN; mr=NaN; mo=NaN;
+% CF-MAP-FREE: maperr was EXACTLY constant across gampro grades at nch=1
+% (90.97 at every g). Asserted here rather than assumed.
+PROJ = '/Users/neely/Library/CloudStorage/OneDrive-FatherFlanagan''sBoysHome/STN/mod/mccm';
+addpath(PROJ); cd(PROJ);
+L=load('fit_nch3_surface.mat'); pa=L.R.pa;
+if (isfield(pa,'hbmode')), pa=rmfield(pa,'hbmode'); end
+H=parfit26('handles'); pv0=H.getpar(pa); ig=30+numel(pa.chsz)+1;
+fprintf('\n  gpgrade base = %.6f  (pv index %d)\n', pv0(ig), ig);
+gs=[0 -0.005 -0.010 -0.015 -0.020 -0.025 -0.030 -0.040];
+fprintf('\n  %8s %8s %8s %9s %9s %9s\n','gpgrade','slope','lvl_c','shoulder','maperr','osc');
+res=[];
+for i=1:numel(gs)
+    pvk=pv0; pvk(ig)=gs(i); p=H.setpar(pa,pvk,[]);
     try
-        m=abr_metric(pa,false);
-        if (m.ok), sl=m.slope; end
+        m=abr_metric(p,false);
+        Rf=fdm26(struct('pa',p));
+        evalc('C=tdm26(''coupeig'',struct(''pa'',p));');
+        fprintf('  %8.4f %8.4f %8.3f %9.4f %9.2f %9.1f\n', ...
+                gs(i), m.slope, m.level_c, m.shoulder, Rf.maperr, C.maxRe_osc);
+        res(end+1,:)=[gs(i) m.slope m.level_c m.shoulder Rf.maperr C.maxRe_osc]; %#ok<SAGROW>
     catch e
-        fprintf('   %+5.2f  abr_metric FAILED: %s\n', g, e.message(1:min(60,end)));
+        fprintf('  %8.4f  FAILED: %s\n', gs(i), e.message(1:min(50,end)));
     end
-    try
-        S=score26(pa,'fast',false);
-        mp=S.maperr; mr=S.maxRe; mo=S.maxRe_osc;
-        if (isfield(S,'amp_gain')&&~isempty(S.amp_gain)), ag=double(S.amp_gain(1)); end
-    catch e
-        fprintf('   %+5.2f  score26 FAILED: %s\n', g, e.message(1:min(60,end)));
-    end
-    Js=abs(sl-0.413); Jp=0.001*max(0,mp-105); Jg=0.01*max(0,40-ag);
-    Jo=0.005*max(0,mo+40); J=Js+Jp+Jg+Jo;
-    fprintf('   %+5.2f  %6.3f  %7.2f   %+7.2f  %7.1f    %7.1f  | %6.4f  %6.4f  %6.4f  %6.4f  = %6.4f\n', ...
-            g, sl, mp, ag, mr, mo, Js, Jp, Jg, Jo, J);
-    R(j).slope=sl; R(j).maperr=mp; R(j).amp=ag; R(j).maxRe=mr; R(j).osc=mo; R(j).J=J;
 end
-save('gpsweep.mat','R','gg');
-fprintf('\n   %.1f min.  Read: does slope reach 0.413 while maxRe_osc stays below -40?\n', toc(t0)/60);
+if (size(res,1)>1)
+    fprintf('\n  maperr spread across the sweep: %.4f  (CF-map-free if ~0)\n', ...
+            max(res(:,5))-min(res(:,5)));
+    ok=res(res(:,6)<-40,:);
+    if (~isempty(ok))
+        [~,j]=min(abs(ok(:,2)-0.413));
+        fprintf('  BEST SUB-CRITICAL: g %.4f -> slope %.4f (target 0.413), lvl_c %.3f, osc %.1f\n', ...
+                ok(j,1), ok(j,2), ok(j,3), ok(j,6));
+    end
+end
+save('/Users/neely/mccm_runs/gpsweep.mat','res','gs');
 disp('GPSWEEP_DONE');
