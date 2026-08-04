@@ -1,0 +1,609 @@
+
+  PRE-FLIGHT  warm-start maperr 136.86 | as jointobj builds it 136.86 | delta 0.00
+  PRE-FLIGHT PASSED.
+  DRIVE: shear (v1-v2) | detector: soft-argmax softp=8
+
+  START  drive      slope   lvl_c   shoulder   cells>0.5
+         default    0.4409   7.056     0.6195   10/16
+         bm         0.4864   7.769     0.4036    6/16
+
+===== S3FIT nch=3: 3 segments x 128 evals (~8.1 h at 76 s/eval) =====
+  objective: surface (16-cell band, free Delta) + shoulder guard + gain guard
+  hbmode "" | wsurf 1.00 | wshoulder 2.00 | maptol 150 | wgain 0.01
+  warm: c3fit_seg3.mat  (shear drive, FIXED detector: slope 0.4409,
+        level_c 7.056 -- OUT of the old [3.5 6.5] band; it read 0.4118
+        and 6.399 through the gameable detector. shoulder 0.6195)
+  output: /Users/neely/mccm_runs
+
+----- segment 1/3 -----
+  fitting hbsc, MET compression slope (pv index 35)
+  pinned: d3int
+parfit26 nch=3  start: slope=0.441  maperr=136.9  level_c=7.06  (fitting 17 params)
+      terms: Jm 2.0660  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 2.0660
+  iter  0: J=2.0660  (fevals 1)
+      terms: Jm 1.6308  osc 0.0000  stat 0.0000  map 0.0017  gain 0.0091  = 1.6416
+      terms: Jm 1.5530  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.5530
+      terms: Jm 4.2341  osc 0.7885  stat 0.0885  map 0.1266  gain 0.0000  = 5.2378
+      terms: Jm 1.7699  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.7699
+      terms: Jm 1.4672  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4672
+      terms: Jm 1.2808  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0579  = 1.3387
+      terms: Jm 1.9658  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.9658
+      terms: Jm 8.2844  osc 18.3162  stat 17.6162  map 1.7365  gain 0.0000  = 45.9533
+      terms: Jm 1.8399  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.8399
+      terms: Jm 10.8145  osc 4.3309  stat 3.6309  map 1.6933  gain 0.0000  = 20.4696
+      terms: Jm 1.8243  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.8243
+      terms: Jm 2.0365  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 2.0365
+      terms: Jm 2.0660  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 2.0660
+      terms: Jm 1.8905  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.8905
+      terms: Jm 2.0180  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 2.0180
+      terms: Jm 2.1075  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 2.1075
+      terms: Jm 2.4081  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 2.4081
+  iter  1: J=1.3387  (fevals 18)
+      terms: Jm 1.5275  osc 0.0000  stat 0.0000  map 0.0627  gain 0.1577  = 1.7479
+  iter  2: J=1.3387  (fevals 19)
+      terms: Jm 2.3154  osc 0.0000  stat 0.0000  map 0.0967  gain 0.2806  = 2.6927
+  iter  3: J=1.3387  (fevals 20)
+      terms: Jm 1.5667  osc 0.0000  stat 0.0000  map 0.0027  gain 0.0721  = 1.6415
+  iter  4: J=1.3387  (fevals 21)
+      terms: Jm 10.9021  osc 3.9084  stat 3.2084  map 1.6458  gain 0.0000  = 19.6647
+      terms: Jm 1.7027  osc 0.0000  stat 0.0000  map 0.0254  gain 0.1540  = 1.8821
+  iter  5: J=1.3387  (fevals 23)
+      terms: Jm 1.3759  osc 0.0000  stat 0.0000  map 0.0005  gain 0.0561  = 1.4326
+  iter  6: J=1.3387  (fevals 24)
+      terms: Jm 1.2722  osc 0.0000  stat 0.0000  map 0.0042  gain 0.0774  = 1.3538
+  iter  7: J=1.3387  (fevals 25)
+      terms: Jm 1.1660  osc 0.0000  stat 0.0000  map 0.0053  gain 0.0869  = 1.2583
+      terms: Jm 1.4858  osc 0.0000  stat 0.0000  map 0.0142  gain 0.1408  = 1.6408
+  iter  8: J=1.2583  (fevals 27)
+      terms: Jm 1.3054  osc 0.0000  stat 0.0000  map 0.0056  gain 0.1022  = 1.4132
+  iter  9: J=1.2583  (fevals 28)
+      terms: Jm 1.4268  osc 0.0000  stat 0.0000  map 0.0090  gain 0.1201  = 1.5560
+  iter 10: J=1.2583  (fevals 29)
+      terms: Jm 1.5060  osc 0.0000  stat 0.0000  map 0.0136  gain 0.1303  = 1.6498
+  iter 11: J=1.2583  (fevals 30)
+      terms: Jm 1.5404  osc 0.0000  stat 0.0000  map 0.0142  gain 0.1429  = 1.6975
+  iter 12: J=1.2583  (fevals 31)
+      terms: Jm 1.4941  osc 0.0000  stat 0.0000  map 0.0182  gain 0.1536  = 1.6659
+  iter 13: J=1.2583  (fevals 32)
+      terms: Jm 1.4785  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4785
+  iter 14: J=1.2583  (fevals 33)
+      terms: Jm 1.5440  osc 0.0000  stat 0.0000  map 0.0184  gain 0.1575  = 1.7198
+  iter 15: J=1.2583  (fevals 34)
+      terms: Jm 1.7096  osc 0.0000  stat 0.0000  map 0.0299  gain 0.1660  = 1.9055
+      terms: Jm 1.3576  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0075  = 1.3651
+  iter 16: J=1.2583  (fevals 36)
+      terms: Jm 1.6710  osc 0.0000  stat 0.0000  map 0.0463  gain 0.1724  = 1.8897
+      terms: Jm 1.2724  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0108  = 1.2833
+  iter 17: J=1.2583  (fevals 38)
+      terms: Jm 2.8436  osc 1.4656  stat 0.7656  map 0.2482  gain 0.0000  = 5.3231
+      terms: Jm 1.5171  osc 0.0000  stat 0.0000  map 0.0133  gain 0.1280  = 1.6585
+  iter 18: J=1.2583  (fevals 40)
+      terms: Jm 1.8186  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.8186
+      terms: Jm 1.4733  osc 0.0000  stat 0.0000  map 0.0081  gain 0.1236  = 1.6050
+  iter 19: J=1.2583  (fevals 42)
+      terms: Jm 1.7877  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.7877
+      terms: Jm 1.4360  osc 0.0000  stat 0.0000  map 0.0067  gain 0.1117  = 1.5544
+  iter 20: J=1.2583  (fevals 44)
+      terms: Jm 1.9147  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.9147
+      terms: Jm 1.3455  osc 0.0000  stat 0.0000  map 0.0070  gain 0.1171  = 1.4696
+  iter 21: J=1.2583  (fevals 46)
+      terms: Jm 1.7495  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.7495
+      terms: Jm 1.3530  osc 0.0000  stat 0.0000  map 0.0041  gain 0.1028  = 1.4598
+  iter 22: J=1.2583  (fevals 48)
+      terms: Jm 1.3325  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3325
+  iter 23: J=1.2583  (fevals 49)
+      terms: Jm 1.2825  osc 0.0000  stat 0.0000  map 0.0057  gain 0.0820  = 1.3703
+  iter 24: J=1.2583  (fevals 50)
+      terms: Jm 1.3457  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0288  = 1.3745
+  iter 25: J=1.2583  (fevals 51)
+      terms: Jm 1.3919  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3919
+  iter 26: J=1.2583  (fevals 52)
+      terms: Jm 1.4617  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4617
+  iter 27: J=1.2583  (fevals 53)
+      terms: Jm 1.3173  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3173
+  iter 28: J=1.2583  (fevals 54)
+      terms: Jm 1.4399  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0752  = 1.5151
+      terms: Jm 1.2225  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0581  = 1.2806
+  iter 29: J=1.2583  (fevals 56)
+      terms: Jm 1.1430  osc 0.0000  stat 0.0000  map 0.0140  gain 0.1157  = 1.2726
+  iter 30: J=1.2583  (fevals 57)
+      terms: Jm 1.5549  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.5549
+      terms: Jm 1.3177  osc 0.0000  stat 0.0000  map 0.0027  gain 0.0818  = 1.4022
+  iter 31: J=1.2583  (fevals 59)
+      terms: Jm 1.3053  osc 0.0000  stat 0.0000  map 0.0039  gain 0.0837  = 1.3929
+  iter 32: J=1.2583  (fevals 60)
+      terms: Jm 1.2194  osc 0.0000  stat 0.0000  map 0.0107  gain 0.1277  = 1.3578
+  iter 33: J=1.2583  (fevals 61)
+      terms: Jm 1.1052  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0078  = 1.1131
+      terms: Jm 1.2564  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2564
+  iter 34: J=1.1131  (fevals 63)
+      terms: Jm 1.2391  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0449  = 1.2840
+  iter 35: J=1.1131  (fevals 64)
+      terms: Jm 1.4177  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4177
+      terms: Jm 1.3040  osc 0.0000  stat 0.0000  map 0.0022  gain 0.0765  = 1.3827
+  iter 36: J=1.1131  (fevals 66)
+      terms: Jm 1.4062  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0141  = 1.4202
+      terms: Jm 1.1860  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0658  = 1.2518
+  iter 37: J=1.1131  (fevals 68)
+      terms: Jm 1.4884  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4884
+      terms: Jm 1.3403  osc 0.0000  stat 0.0000  map 0.0038  gain 0.0673  = 1.4113
+      terms: Jm 1.2703  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0372  = 1.3075
+      terms: Jm 1.2669  osc 0.0000  stat 0.0000  map 0.0009  gain 0.0480  = 1.3157
+      terms: Jm 1.1137  osc 0.0000  stat 0.0000  map 0.0052  gain 0.0657  = 1.1847
+      terms: Jm 1.2938  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0342  = 1.3280
+      terms: Jm 1.1052  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0100  = 1.1152
+      terms: Jm 1.2846  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0273  = 1.3119
+      terms: Jm 1.3693  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3693
+      terms: Jm 1.2365  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2365
+      terms: Jm 1.4278  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0357  = 1.4635
+      terms: Jm 1.1489  osc 0.0000  stat 0.0000  map 0.0010  gain 0.0425  = 1.1924
+      terms: Jm 1.1742  osc 0.0000  stat 0.0000  map 0.0059  gain 0.0735  = 1.2536
+      terms: Jm 1.3557  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0090  = 1.3646
+      terms: Jm 1.3012  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0436  = 1.3449
+      terms: Jm 1.2880  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0170  = 1.3050
+      terms: Jm 1.2696  osc 0.0000  stat 0.0000  map 0.0016  gain 0.0428  = 1.3140
+      terms: Jm 1.3476  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3476
+      terms: Jm 1.1927  osc 0.0000  stat 0.0000  map 0.0019  gain 0.0498  = 1.2444
+  iter 38: J=1.1131  (fevals 87)
+      terms: Jm 1.2281  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0144  = 1.2426
+  iter 39: J=1.1131  (fevals 88)
+      terms: Jm 1.2887  osc 0.0000  stat 0.0000  map 0.0054  gain 0.0793  = 1.3733
+      terms: Jm 1.4860  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0031  = 1.4892
+      terms: Jm 1.1017  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0090  = 1.1107
+      terms: Jm 1.3636  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0381  = 1.4016
+      terms: Jm 1.1280  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0251  = 1.1531
+      terms: Jm 1.4805  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4805
+      terms: Jm 1.0938  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0116  = 1.1054
+      terms: Jm 1.1554  osc 0.0000  stat 0.0000  map 0.0018  gain 0.0303  = 1.1875
+      terms: Jm 1.1402  osc 0.0000  stat 0.0000  map 0.0016  gain 0.0423  = 1.1842
+      terms: Jm 1.3810  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0123  = 1.3933
+      terms: Jm 1.1206  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0226  = 1.1431
+      terms: Jm 1.2635  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0179  = 1.2814
+      terms: Jm 1.1245  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0255  = 1.1500
+      terms: Jm 1.1263  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0281  = 1.1543
+      terms: Jm 1.2625  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0213  = 1.2838
+      terms: Jm 1.1441  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0255  = 1.1696
+      terms: Jm 1.3530  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3530
+      terms: Jm 1.2248  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0086  = 1.2334
+      terms: Jm 1.3576  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3576
+  iter 40: J=1.1054  (fevals 107)
+      terms: Jm 1.1352  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0374  = 1.1726
+  iter 41: J=1.1054  (fevals 108)
+      terms: Jm 1.2627  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2627
+  iter 42: J=1.1054  (fevals 109)
+      terms: Jm 1.1177  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0234  = 1.1410
+  iter 43: J=1.1054  (fevals 110)
+      terms: Jm 1.1435  osc 0.0000  stat 0.0000  map 0.0011  gain 0.0465  = 1.1912
+  iter 44: J=1.1054  (fevals 111)
+      terms: Jm 1.2806  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0455  = 1.3260
+      terms: Jm 1.2704  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0345  = 1.3049
+  iter 45: J=1.1054  (fevals 113)
+      terms: Jm 1.2328  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0107  = 1.2434
+  iter 46: J=1.1054  (fevals 114)
+      terms: Jm 1.2409  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0228  = 1.2638
+  iter 47: J=1.1054  (fevals 115)
+      terms: Jm 1.1113  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0266  = 1.1379
+  iter 48: J=1.1054  (fevals 116)
+      terms: Jm 1.2637  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0225  = 1.2861
+      terms: Jm 1.1195  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0228  = 1.1423
+  iter 49: J=1.1054  (fevals 118)
+      terms: Jm 1.3633  osc 0.0000  stat 0.0000  map 0.0014  gain 0.0476  = 1.4122
+      terms: Jm 1.2632  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0115  = 1.2747
+      terms: Jm 1.1014  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0103  = 1.1118
+      terms: Jm 1.2234  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0098  = 1.2332
+      terms: Jm 1.1039  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0192  = 1.1231
+      terms: Jm 1.1026  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0175  = 1.1202
+      terms: Jm 1.2280  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0174  = 1.2454
+      terms: Jm 1.3553  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0174  = 1.3727
+      terms: Jm 1.2289  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0189  = 1.2477
+      terms: Jm 1.1206  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0186  = 1.1393
+      terms: Jm 1.1046  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0201  = 1.1247
+      terms: Jm 1.1305  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0193  = 1.1498
+      terms: Jm 1.1196  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0254  = 1.1449
+      terms: Jm 1.2447  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0279  = 1.2726
+      terms: Jm 1.1270  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0221  = 1.1491
+      terms: Jm 1.2516  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0301  = 1.2817
+      terms: Jm 1.1004  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0101  = 1.1105
+      terms: Jm 1.2282  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0113  = 1.2394
+      terms: Jm 1.4847  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0053  = 1.4901
+  iter 50: J=1.1054  (fevals 137)
+
+=== parfit26 nch=3 result (8646 s, J final 1.1054) ===
+  ABR slope d : 0.505  (target 0.413)
+  maperr      : 145.8  (target <= 150)
+  level_c     : 5.40  (target 5)
+  maxRe       : +22.1 (healthy)  [osc -195.1], n_sub=0
+  SURFACE     : band-RMS 0.572 ms over 16/16 cells
+  Delta (pred): 0.63 ms  =>  neural delay a = 5.63 ms  (2013 assumed 5.00)
+saved /Users/neely/mccm_runs/s3fit_seg1.mat
+
+  SEG 1 | J 1.1054 | slope 0.5051 | lvl_c 5.403 | SHOULDER 0.2608
+        | maperr 145.78 | amp +38.84 | osc -195.1 | 2.4 h
+----- segment 2/3 -----
+  fitting hbsc, MET compression slope (pv index 35)
+  pinned: d3int
+parfit26 nch=3  start: slope=0.505  maperr=145.8  level_c=5.40  (fitting 17 params)
+      terms: Jm 1.0938  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0116  = 1.1054
+  iter  0: J=1.1054  (fevals 1)
+      terms: Jm 1.5650  osc 0.0000  stat 0.0000  map 0.0089  gain 0.1050  = 1.6790
+      terms: Jm 1.3573  osc 0.0000  stat 0.0000  map 0.0027  gain 0.0532  = 1.4132
+      terms: Jm 1.4548  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4548
+      terms: Jm 1.2358  osc 0.0000  stat 0.0000  map 0.0007  gain 0.0164  = 1.2529
+      terms: Jm 1.2551  osc 0.0000  stat 0.0000  map 0.0027  gain 0.0651  = 1.3228
+      terms: Jm 1.3728  osc 0.0000  stat 0.0000  map 0.0030  gain 0.1092  = 1.4850
+      terms: Jm 1.2216  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0122  = 1.2338
+      terms: Jm 8.6349  osc 13.6646  stat 12.9646  map 1.1434  gain 0.0000  = 36.4076
+      terms: Jm 1.1767  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0182  = 1.1949
+      terms: Jm 10.1053  osc 2.7779  stat 2.0779  map 1.6492  gain 0.0000  = 16.6103
+      terms: Jm 1.1061  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0175  = 1.1236
+      terms: Jm 1.2371  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0086  = 1.2457
+      terms: Jm 1.0938  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0116  = 1.1054
+      terms: Jm 1.1850  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0254  = 1.2103
+      terms: Jm 1.2527  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0107  = 1.2634
+      terms: Jm 1.2176  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0043  = 1.2219
+      terms: Jm 1.0969  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0116  = 1.1084
+  iter  1: J=1.1054  (fevals 18)
+      terms: Jm 1.5798  osc 0.0000  stat 0.0000  map 0.1844  gain 0.1909  = 1.9552
+  iter  2: J=1.1054  (fevals 19)
+      terms: Jm 2.2923  osc 0.0000  stat 0.0000  map 0.1141  gain 0.3088  = 2.7153
+      terms: Jm 1.6367  osc 0.0000  stat 0.0000  map 0.0404  gain 0.1999  = 1.8771
+  iter  3: J=1.1054  (fevals 21)
+      terms: Jm 9.1284  osc 13.1165  stat 12.4165  map 0.7847  gain 0.0000  = 35.4461
+      terms: Jm 1.4742  osc 0.0000  stat 0.0000  map 0.0176  gain 0.1332  = 1.6250
+  iter  4: J=1.1054  (fevals 23)
+      terms: Jm 6.4745  osc 0.8888  stat 0.1888  map 0.6950  gain 0.0000  = 8.2471
+      terms: Jm 1.1846  osc 0.0000  stat 0.0000  map 0.0136  gain 0.1289  = 1.3270
+  iter  5: J=1.1054  (fevals 25)
+      terms: Jm 1.3768  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3768
+  iter  6: J=1.1054  (fevals 26)
+      terms: Jm 7.5749  osc 2.8202  stat 2.1202  map 0.2808  gain 0.0000  = 12.7962
+      terms: Jm 1.3516  osc 0.0000  stat 0.0000  map 0.0062  gain 0.0892  = 1.4469
+  iter  7: J=1.1054  (fevals 28)
+      terms: Jm 7.0685  osc 3.3737  stat 2.6737  map 0.2715  gain 0.0000  = 13.3876
+      terms: Jm 1.2617  osc 0.0000  stat 0.0000  map 0.0047  gain 0.0735  = 1.3398
+  iter  8: J=1.1054  (fevals 30)
+      terms: Jm 1.3440  osc 0.0000  stat 0.0000  map 0.0039  gain 0.0772  = 1.4251
+  iter  9: J=1.1054  (fevals 31)
+      terms: Jm 1.3060  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3060
+  iter 10: J=1.1054  (fevals 32)
+      terms: Jm 1.5769  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.5769
+      terms: Jm 1.3701  osc 0.0000  stat 0.0000  map 0.0003  gain 0.0528  = 1.4231
+  iter 11: J=1.1054  (fevals 34)
+      terms: Jm 1.2091  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2091
+  iter 12: J=1.1054  (fevals 35)
+      terms: Jm 1.4634  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0002  = 1.4636
+      terms: Jm 1.2059  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0373  = 1.2432
+  iter 13: J=1.1054  (fevals 37)
+      terms: Jm 1.4970  osc 0.0000  stat 0.0000  map 0.0062  gain 0.0718  = 1.5750
+      terms: Jm 1.2204  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2204
+  iter 14: J=1.1054  (fevals 39)
+      terms: Jm 1.8498  osc 0.3473  stat 0.0000  map 0.0000  gain 0.0000  = 2.1971
+      terms: Jm 1.2904  osc 0.0000  stat 0.0000  map 0.0031  gain 0.0515  = 1.3450
+      terms: Jm 1.0938  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0116  = 1.1054
+      terms: Jm 1.1021  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0116  = 1.1137
+      terms: Jm 1.1036  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0146  = 1.1182
+      terms: Jm 1.3030  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0149  = 1.3179
+      terms: Jm 1.2171  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0046  = 1.2217
+      terms: Jm 1.1920  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0185  = 1.2105
+      terms: Jm 1.0981  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0049  = 1.1029
+      terms: Jm 1.0968  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0081  = 1.1049
+      terms: Jm 1.2222  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0119  = 1.2341
+      terms: Jm 1.1955  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0243  = 1.2198
+      terms: Jm 1.1052  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0101  = 1.1153
+      terms: Jm 1.1065  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0140  = 1.1206
+      terms: Jm 1.1052  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0113  = 1.1165
+      terms: Jm 1.5151  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.5151
+      terms: Jm 1.2855  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0388  = 1.3242
+      terms: Jm 1.1398  osc 0.0000  stat 0.0000  map 0.0061  gain 0.0765  = 1.2224
+      terms: Jm 1.2902  osc 0.0000  stat 0.0000  map 0.0036  gain 0.0475  = 1.3413
+  iter 15: J=1.1029  (fevals 58)
+      terms: Jm 1.1526  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0506  = 1.2032
+  iter 16: J=1.1029  (fevals 59)
+      terms: Jm 1.3369  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3369
+      terms: Jm 1.4626  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0021  = 1.4647
+      terms: Jm 1.0976  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0069  = 1.1045
+      terms: Jm 1.2251  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0083  = 1.2334
+      terms: Jm 1.2251  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0083  = 1.2334
+      terms: Jm 1.2184  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0083  = 1.2267
+      terms: Jm 1.3509  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0076  = 1.3585
+      terms: Jm 1.2303  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0081  = 1.2384
+      terms: Jm 1.3476  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0099  = 1.3574
+      terms: Jm 1.1009  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0095  = 1.1104
+      terms: Jm 1.3826  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0287  = 1.4113
+      terms: Jm 1.3446  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0116  = 1.3562
+      terms: Jm 1.2240  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0148  = 1.2388
+      terms: Jm 1.0930  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0047  = 1.0977
+      terms: Jm 1.2515  osc 0.0000  stat 0.0000  map 0.0010  gain 0.0426  = 1.2950
+      terms: Jm 1.2251  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0085  = 1.2336
+      terms: Jm 1.0931  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0100  = 1.1031
+      terms: Jm 1.1097  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0222  = 1.1319
+      terms: Jm 1.3848  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0277  = 1.4125
+  iter 17: J=1.0977  (fevals 78)
+      terms: Jm 1.4148  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4148
+      terms: Jm 1.1223  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0206  = 1.1429
+  iter 18: J=1.0977  (fevals 80)
+      terms: Jm 1.4556  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4556
+      terms: Jm 1.2468  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0207  = 1.2675
+  iter 19: J=1.0977  (fevals 82)
+      terms: Jm 1.0990  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0185  = 1.1175
+  iter 20: J=1.0977  (fevals 83)
+      terms: Jm 1.1038  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0173  = 1.1210
+  iter 21: J=1.0977  (fevals 84)
+      terms: Jm 1.1004  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0161  = 1.1165
+  iter 22: J=1.0977  (fevals 85)
+      terms: Jm 1.4713  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4713
+      terms: Jm 1.2420  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0278  = 1.2698
+  iter 23: J=1.0977  (fevals 87)
+      terms: Jm 1.2235  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2235
+  iter 24: J=1.0977  (fevals 88)
+      terms: Jm 1.0909  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0005  = 1.0914
+      terms: Jm 1.3343  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3343
+  iter 25: J=1.0914  (fevals 90)
+      terms: Jm 1.3439  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0053  = 1.3491
+      terms: Jm 1.2250  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0124  = 1.2374
+  iter 26: J=1.0914  (fevals 92)
+      terms: Jm 1.0958  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0125  = 1.1082
+  iter 27: J=1.0914  (fevals 93)
+      terms: Jm 1.3443  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0082  = 1.3524
+      terms: Jm 1.2249  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0113  = 1.2363
+  iter 28: J=1.0914  (fevals 95)
+      terms: Jm 1.3445  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0092  = 1.3537
+      terms: Jm 1.2232  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0108  = 1.2340
+  iter 29: J=1.0914  (fevals 97)
+      terms: Jm 1.2231  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0097  = 1.2329
+  iter 30: J=1.0914  (fevals 98)
+      terms: Jm 1.0963  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0122  = 1.1085
+  iter 31: J=1.0914  (fevals 99)
+      terms: Jm 1.0981  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0128  = 1.1108
+  iter 32: J=1.0914  (fevals 100)
+      terms: Jm 1.0982  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0133  = 1.1115
+  iter 33: J=1.0914  (fevals 101)
+      terms: Jm 1.0963  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0123  = 1.1086
+  iter 34: J=1.0914  (fevals 102)
+      terms: Jm 1.1040  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0141  = 1.1182
+  iter 35: J=1.0914  (fevals 103)
+      terms: Jm 1.2255  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0278  = 1.2533
+      terms: Jm 1.2207  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0042  = 1.2249
+      terms: Jm 1.2161  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0026  = 1.2188
+      terms: Jm 1.0932  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0027  = 1.0960
+      terms: Jm 1.0948  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0053  = 1.1001
+      terms: Jm 1.2128  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0037  = 1.2165
+      terms: Jm 1.3437  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0065  = 1.3502
+      terms: Jm 1.3423  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0064  = 1.3487
+      terms: Jm 1.3429  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0065  = 1.3493
+      terms: Jm 1.2238  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0051  = 1.2289
+      terms: Jm 1.2183  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0067  = 1.2250
+      terms: Jm 1.2238  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0070  = 1.2308
+      terms: Jm 1.2212  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0085  = 1.2297
+      terms: Jm 1.2205  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0096  = 1.2302
+      terms: Jm 1.2245  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0075  = 1.2320
+      terms: Jm 1.2202  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0090  = 1.2292
+      terms: Jm 1.0952  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0114  = 1.1067
+      terms: Jm 1.3476  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0109  = 1.3585
+      terms: Jm 1.2201  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2201
+  iter 36: J=1.0914  (fevals 122)
+      terms: Jm 1.0877  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0004  = 1.0882
+      terms: Jm 1.2047  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2047
+  iter 37: J=1.0882  (fevals 124)
+      terms: Jm 1.3446  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0043  = 1.3488
+  iter 38: J=1.0882  (fevals 125)
+      terms: Jm 1.0889  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0040  = 1.0929
+  iter 39: J=1.0882  (fevals 126)
+      terms: Jm 1.3412  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0062  = 1.3474
+  iter 40: J=1.0882  (fevals 127)
+      terms: Jm 1.0892  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0040  = 1.0932
+  iter 41: J=1.0882  (fevals 128)
+
+=== parfit26 nch=3 result (8055 s, J final 1.0882) ===
+  ABR slope d : 0.504  (target 0.413)
+  maperr      : 145.4  (target <= 150)
+  level_c     : 5.42  (target 5)
+  maxRe       : +22.1 (healthy)  [osc -187.7], n_sub=0
+  SURFACE     : band-RMS 0.567 ms over 16/16 cells
+  Delta (pred): 0.62 ms  =>  neural delay a = 5.62 ms  (2013 assumed 5.00)
+saved /Users/neely/mccm_runs/s3fit_seg2.mat
+
+  SEG 2 | J 1.0882 | slope 0.5038 | lvl_c 5.422 | SHOULDER 0.2605
+        | maperr 145.36 | amp +39.96 | osc -187.7 | 2.3 h
+----- segment 3/3 -----
+  fitting hbsc, MET compression slope (pv index 35)
+  pinned: d3int
+parfit26 nch=3  start: slope=0.504  maperr=145.4  level_c=5.42  (fitting 17 params)
+      terms: Jm 1.0877  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0004  = 1.0882
+  iter  0: J=1.0882  (fevals 1)
+      terms: Jm 1.3697  osc 0.0000  stat 0.0000  map 0.0087  gain 0.0970  = 1.4754
+      terms: Jm 1.4704  osc 0.0000  stat 0.0000  map 0.0013  gain 0.0448  = 1.5166
+      terms: Jm 1.3247  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3247
+      terms: Jm 1.1055  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0064  = 1.1118
+      terms: Jm 1.3585  osc 0.0000  stat 0.0000  map 0.0026  gain 0.0560  = 1.4170
+      terms: Jm 1.6832  osc 0.0000  stat 0.0000  map 0.0042  gain 0.1034  = 1.7908
+      terms: Jm 1.2117  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0010  = 1.2127
+      terms: Jm 8.5053  osc 14.0621  stat 13.3621  map 1.1483  gain 0.0000  = 37.0778
+      terms: Jm 1.2066  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0071  = 1.2137
+      terms: Jm 10.1337  osc 2.8305  stat 2.1305  map 1.6449  gain 0.0000  = 16.7397
+      terms: Jm 1.0961  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0066  = 1.1027
+      terms: Jm 1.2217  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2217
+      terms: Jm 1.0877  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0004  = 1.0882
+      terms: Jm 1.1699  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0135  = 1.1834
+      terms: Jm 1.2275  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2275
+      terms: Jm 1.2126  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2126
+      terms: Jm 1.0885  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0004  = 1.0889
+  iter  1: J=1.0882  (fevals 18)
+      terms: Jm 1.5277  osc 0.0000  stat 0.0000  map 0.2015  gain 0.1869  = 1.9161
+  iter  2: J=1.0882  (fevals 19)
+      terms: Jm 2.2558  osc 0.0000  stat 0.0000  map 0.1082  gain 0.2959  = 2.6599
+      terms: Jm 1.5912  osc 0.0000  stat 0.0000  map 0.0379  gain 0.1893  = 1.8184
+  iter  3: J=1.0882  (fevals 21)
+      terms: Jm 8.8963  osc 13.5169  stat 12.8169  map 0.7708  gain 0.0000  = 36.0010
+      terms: Jm 1.3318  osc 0.0000  stat 0.0000  map 0.0165  gain 0.1267  = 1.4750
+  iter  4: J=1.0882  (fevals 23)
+      terms: Jm 6.7317  osc 0.9631  stat 0.2631  map 0.6748  gain 0.0000  = 8.6327
+      terms: Jm 1.1697  osc 0.0000  stat 0.0000  map 0.0133  gain 0.1188  = 1.3018
+  iter  5: J=1.0882  (fevals 25)
+      terms: Jm 4.3178  osc 2.6072  stat 1.9072  map 0.2306  gain 0.0000  = 9.0628
+      terms: Jm 1.2620  osc 0.0000  stat 0.0000  map 0.0053  gain 0.0703  = 1.3376
+  iter  6: J=1.0882  (fevals 27)
+      terms: Jm 1.1246  osc 0.0000  stat 0.0000  map 0.0008  gain 0.0258  = 1.1513
+  iter  7: J=1.0882  (fevals 28)
+      terms: Jm 1.3719  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3719
+  iter  8: J=1.0882  (fevals 29)
+      terms: Jm 8.8845  osc 4.0345  stat 3.3345  map 0.2881  gain 0.0000  = 16.5417
+      terms: Jm 1.3345  osc 0.0000  stat 0.0000  map 0.0056  gain 0.0788  = 1.4189
+  iter  9: J=1.0882  (fevals 31)
+      terms: Jm 1.4538  osc 0.1952  stat 0.0000  map 0.0261  gain 0.0000  = 1.6752
+      terms: Jm 1.2839  osc 0.0000  stat 0.0000  map 0.0011  gain 0.0492  = 1.3342
+  iter 10: J=1.0882  (fevals 33)
+      terms: Jm 1.1977  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1977
+  iter 11: J=1.0882  (fevals 34)
+      terms: Jm 1.2491  osc 0.0000  stat 0.0000  map 0.0071  gain 0.0781  = 1.3342
+  iter 12: J=1.0882  (fevals 35)
+      terms: Jm 1.7241  osc 0.5947  stat 0.0000  map 0.0859  gain 0.0000  = 2.4047
+      terms: Jm 1.1578  osc 0.0000  stat 0.0000  map 0.0027  gain 0.0466  = 1.2070
+  iter 13: J=1.0882  (fevals 37)
+      terms: Jm 1.3668  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3668
+      terms: Jm 1.4602  osc 0.0000  stat 0.0000  map 0.0027  gain 0.0479  = 1.5108
+      terms: Jm 1.0877  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0004  = 1.0882
+      terms: Jm 1.0837  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0004  = 1.0841
+      terms: Jm 1.0892  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0035  = 1.0928
+      terms: Jm 1.2237  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0034  = 1.2271
+      terms: Jm 1.1062  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0139  = 1.1202
+      terms: Jm 1.0913  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0069  = 1.0983
+      terms: Jm 1.2085  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2085
+      terms: Jm 1.2533  osc 0.0000  stat 0.0000  map 0.0004  gain 0.0260  = 1.2796
+      terms: Jm 1.3334  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3334
+      terms: Jm 1.2112  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0007  = 1.2119
+      terms: Jm 1.0874  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0038  = 1.0913
+      terms: Jm 1.2218  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2218
+      terms: Jm 1.2166  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0002  = 1.2168
+      terms: Jm 1.1280  osc 0.0000  stat 0.0000  map 0.0058  gain 0.0662  = 1.2001
+      terms: Jm 1.2091  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2091
+      terms: Jm 1.2545  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0266  = 1.2811
+      terms: Jm 1.4563  osc 0.0000  stat 0.0000  map 0.0015  gain 0.0410  = 1.4988
+  iter 14: J=1.0841  (fevals 56)
+      terms: Jm 1.2051  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2051
+  iter 15: J=1.0841  (fevals 57)
+      terms: Jm 1.1222  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0139  = 1.1361
+  iter 16: J=1.0841  (fevals 58)
+      terms: Jm 1.0659  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0659
+      terms: Jm 1.4421  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4421
+  iter 17: J=1.0659  (fevals 60)
+      terms: Jm 1.1890  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1890
+  iter 18: J=1.0659  (fevals 61)
+      terms: Jm 1.0819  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0005  = 1.0824
+  iter 19: J=1.0659  (fevals 62)
+      terms: Jm 1.1952  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0046  = 1.1998
+  iter 20: J=1.0659  (fevals 63)
+      terms: Jm 1.2028  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0042  = 1.2071
+  iter 21: J=1.0659  (fevals 64)
+      terms: Jm 1.2050  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0037  = 1.2086
+  iter 22: J=1.0659  (fevals 65)
+      terms: Jm 1.1764  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0190  = 1.1954
+  iter 23: J=1.0659  (fevals 66)
+      terms: Jm 1.0921  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0045  = 1.0965
+  iter 24: J=1.0659  (fevals 67)
+      terms: Jm 1.3119  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0220  = 1.3339
+      terms: Jm 1.2059  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2059
+  iter 25: J=1.0659  (fevals 69)
+      terms: Jm 1.0976  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0056  = 1.1032
+  iter 26: J=1.0659  (fevals 70)
+      terms: Jm 1.2503  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0138  = 1.2641
+      terms: Jm 1.2108  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0010  = 1.2119
+      terms: Jm 1.3230  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3230
+      terms: Jm 1.1925  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1925
+      terms: Jm 1.0756  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0756
+      terms: Jm 1.0756  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0756
+      terms: Jm 1.3242  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3242
+      terms: Jm 1.3242  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3242
+      terms: Jm 1.3246  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3246
+      terms: Jm 1.3265  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3265
+      terms: Jm 1.2038  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2038
+      terms: Jm 1.4551  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4551
+      terms: Jm 1.2096  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2096
+      terms: Jm 1.0685  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0685
+      terms: Jm 1.2063  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0018  = 1.2081
+      terms: Jm 1.1973  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1973
+      terms: Jm 1.0870  osc 0.0000  stat 0.0000  map 0.0006  gain 0.0278  = 1.1154
+      terms: Jm 1.2006  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2006
+      terms: Jm 1.3239  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3239
+  iter 27: J=1.0659  (fevals 89)
+      terms: Jm 1.3226  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3226
+  iter 28: J=1.0659  (fevals 90)
+      terms: Jm 1.1955  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1955
+  iter 29: J=1.0659  (fevals 91)
+      terms: Jm 1.3226  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3226
+  iter 30: J=1.0659  (fevals 92)
+      terms: Jm 1.3199  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3199
+  iter 31: J=1.0659  (fevals 93)
+      terms: Jm 1.3194  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3194
+  iter 32: J=1.0659  (fevals 94)
+      terms: Jm 1.0805  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0805
+  iter 33: J=1.0659  (fevals 95)
+      terms: Jm 1.2032  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2032
+  iter 34: J=1.0659  (fevals 96)
+      terms: Jm 1.2080  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2080
+  iter 35: J=1.0659  (fevals 97)
+      terms: Jm 1.0810  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0810
+  iter 36: J=1.0659  (fevals 98)
+      terms: Jm 1.4512  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.4512
+      terms: Jm 1.3246  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3246
+      terms: Jm 1.0724  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0724
+      terms: Jm 1.0731  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0731
+      terms: Jm 1.0731  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0731
+      terms: Jm 1.1956  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1956
+      terms: Jm 1.3199  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3199
+      terms: Jm 1.2046  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0066  = 1.2112
+      terms: Jm 1.1962  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1962
+      terms: Jm 1.0720  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0720
+      terms: Jm 1.3194  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3194
+      terms: Jm 1.1934  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1934
+      terms: Jm 1.3239  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3239
+      terms: Jm 1.3229  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3229
+      terms: Jm 1.2018  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.2018
+      terms: Jm 1.3194  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3194
+      terms: Jm 1.3248  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3248
+      terms: Jm 1.1906  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1906
+      terms: Jm 1.1923  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1923
+  iter 37: J=1.0659  (fevals 117)
+      terms: Jm 1.1919  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1919
+  iter 38: J=1.0659  (fevals 118)
+      terms: Jm 1.1974  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1974
+  iter 39: J=1.0659  (fevals 119)
+      terms: Jm 1.1928  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1928
+  iter 40: J=1.0659  (fevals 120)
+      terms: Jm 1.0615  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.0615
+      terms: Jm 1.1902  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1902
+  iter 41: J=1.0615  (fevals 122)
+      terms: Jm 1.3178  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3178
+  iter 42: J=1.0615  (fevals 123)
+      terms: Jm 1.3177  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3177
+  iter 43: J=1.0615  (fevals 124)
+      terms: Jm 1.3231  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3231
+      terms: Jm 1.1928  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1928
+  iter 44: J=1.0615  (fevals 126)
+      terms: Jm 1.3208  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.3208
+      terms: Jm 1.1918  osc 0.0000  stat 0.0000  map 0.0000  gain 0.0000  = 1.1918
+  iter 45: J=1.0615  (fevals 128)
+
+=== parfit26 nch=3 result (8047 s, J final 1.0615) ===
+  ABR slope d : 0.495  (target 0.413)
+  maperr      : 144.0  (target <= 150)
+  level_c     : 5.60  (target 5)
+  maxRe       : +22.1 (healthy)  [osc -180.2], n_sub=0
+  SURFACE     : band-RMS 0.539 ms over 16/16 cells
+  Delta (pred): 0.59 ms  =>  neural delay a = 5.59 ms  (2013 assumed 5.00)
+saved /Users/neely/mccm_runs/s3fit_seg3.mat
+
+  SEG 3 | J 1.0615 | slope 0.4950 | lvl_c 5.604 | SHOULDER 0.2612
+        | maperr 144.02 | amp +41.26 | osc -180.2 | 2.3 h
+
+===== DONE, 7.0 h total =====
+  seg |      J | slope  | lvl_c | shldr  | maperr |   amp  |    osc | hrs
+    1 | 1.1054 | 0.5051 | 5.403 | 0.2608 | 145.78 | +38.84 | -195.1 |  2.4
+    2 | 1.0882 | 0.5038 | 5.422 | 0.2605 | 145.36 | +39.96 | -187.7 |  2.3
+    3 | 1.0615 | 0.4950 | 5.604 | 0.2612 | 144.02 | +41.26 | -180.2 |  2.3
+
+  READ THE SHOULDER COLUMN FIRST. If it rose across segments, the fit is
+  still buying latency with the second peak and the slope is not evidence.
+  saved: /Users/neely/mccm_runs/s3fit_hist.mat
+S3FIT_DONE
+Parallel pool using the 'Processes' profile is shutting down.
