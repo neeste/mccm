@@ -1766,29 +1766,25 @@ if (isfield(pr,'nch')),       nch=pr.nch; end
 if (isfield(pr,'boost')),     boost=pr.boost; end
 if (isfield(pr,'basalfrac')), bfrac=pr.basalfrac; end
 if (isfield(pr,'pa')), pa=pr.pa; nch=pa.m; else, pa=modpar26(nch); end % pr.pa: test a modified model
-% ---- coupeig CANNOT YET SEE THE OHC RC POLE. Refuse rather than mislead. ----
-% This protocol builds its operator column-by-column against unit vectors on the
-% state [d;v] only, and its state structs carry no vohc field. micro26's read is
-% guarded, so with pa.ohctau>0 it silently takes the LEGACY instantaneous branch
-% and this function returns the stability of a DIFFERENT MODEL -- measured
-% 2026-08-04, maxRe +22.07 and maxRe_osc -180.23 IDENTICAL at fc = Inf, 8000,
-% 4000 and 1000 Hz, i.e. completely blind to the pole.
+% ---- STATE INCLUDES THE OHC RC POLE WHEN IT IS ON (2026-08-04) ----
+% With pa.ohctau>0 the OHC lateral-wall voltage is a genuine dynamical state,
+%     tau * dvohc/dt = adrv(d,v) - vohc,
+% so the operator spans [d; v; vohc] rather than [d; v]. Before this, coupeig
+% built [d;v] only and its state structs carried no vohc field; micro26's read
+% is guarded, so it silently fell back to the instantaneous branch and returned
+% the stability of the POLE-FREE model -- maxRe +22.07 and maxRe_osc -180.23
+% came out IDENTICAL at fc = Inf, 8000, 4000 and 1000 Hz, completely blind.
+% Inside a fit that is worst of all: parfit26's osc guard would score a model
+% the search is not running, so a pole-driven instability could not be seen.
 %
-% That is this project's dominant failure mode exactly: two places holding the
-% same fact, agreeing only because one of them is inert. It would be worst
-% inside a fit, where parfit26's osc guard would be scoring a model the search
-% is not running, so a pole-driven instability could not be seen.
+% The extension is exact rather than approximate because the RC block is LINEAR:
+% adrv = k4.*uact + r4a*r4.*wact with uact/wact linear in d and v, and gam is
+% constant here (hbnl=0, small-signal). So the same unit-vector column sweep
+% that builds the [d;v] block builds the vohc rows and columns with no extra
+% machinery -- one accel per column, as before.
 %
-% THE REAL FIX is to extend the operator to [d; v; vohc]: with the pole on,
-% vohc is a genuine dynamical state (tau*dvohc/dt = adrv - vohc) and belongs in
-% the linearization. Until then this errors.
-if (isfield(pa,'ohctau') && ~isempty(pa.ohctau) && pa.ohctau > 0)
-    error('tdm26:coupeig_ohctau', ...
-          ['coupeig does not yet model the OHC RC pole (pa.ohctau=%g): its ' ...
-           'operator spans [d;v] only, so it would report the stability of the ' ...
-           'pole-free model. Extend it to [d;v;vohc] before trusting or fitting ' ...
-           'this configuration.'], pa.ohctau);
-end
+% vohc has length pa.n, NOT nsv: it is one voltage per place, while d and v
+% carry dof*n partition states plus the middle-ear evars.
 if (~isfield(pa,'gampro')||isempty(pa.gampro)), pa.gampro=ones(pa.n,1); end
 xf=((0:pa.n-1)')/(pa.n-1);
 pa.gampro = pa.gampro .* (1 + boost*0.5.*(1+cos(pi*min(xf/bfrac,1))));   % basal boost (matches gampro sweep)
@@ -1797,14 +1793,17 @@ dof = resolve_dof(pa);   % SAME function as tdm_init -- the two used to be
                          % duplicated and had to be kept in sync by hand.
 pa.dof=dof; pa.ncp=pa.n*dof;
 if (pa.nmev<1), pa.nmev=1; end
-nsv=pa.ncp+pa.nmev; N=2*nsv;
+nsv=pa.ncp+pa.nmev;
+rcon = isfield(pa,'ohctau') && ~isempty(pa.ohctau) && pa.ohctau > 0;
+nv = 0; if (rcon), nv = pa.n; end     % vohc block length (0 when the pole is off)
+N=2*nsv+nv;
 me=midear(pa); [cp,me]=macro26(pa,me);
 % Build the coupled operator densely (eigs 'largestreal' does not converge for
 % this interior-eigenvalue spectrum), one accel/fluid-solve per column.
 tb=tic; A=zeros(N,N);
 for j=1:N
     e=zeros(N,1); e(j)=1;
-    A(:,j)=coupeig_apply(e,pa,cp,me,nsv);
+    A(:,j)=coupeig_apply(e,pa,cp,me,nsv,nv);
 end
 wantvec = isfield(pr,'eigvec') && pr.eigvec;   % opt-in: also return eigenvectors
 if (wantvec)
@@ -1844,11 +1843,26 @@ end
 
 function s=ternstr(c,a,b), if c, s=a; else, s=b; end, end
 
-function Ay=coupeig_apply(y,pa,cp,me,nsv)
+function Ay=coupeig_apply(y,pa,cp,me,nsv,nv)
+% State is [d; v] and, when the OHC RC pole is on, [d; v; vohc] with nv=pa.n.
+if (nargin<6 || isempty(nv)), nv=0; end
 st.d=y(1:nsv); st.v=y(nsv+1:2*nsv); st.stm=0;
-[~,a]=accel(pa,cp,me,st,st);
+cur=st;                                   % accel takes cur AND st; the original
+                                          % passed st for both, so cur must keep
+                                          % carrying the same d/v.
+if (nv>0), cur.vohc=y(2*nsv+(1:nv)); end  % the pole's own state, read by micro26
+[cur,a]=accel(pa,cp,me,cur,st);
 a(~isfinite(a))=0;   % constrain the zero-mass helicotrema DOF (m2(n)=0 -> 0/0); fully decoupled
-Ay=[st.v; a];
+if (nv>0)
+    % tau * dvohc/dt = adrv(d,v) - vohc.  accel stores the instantaneous drive
+    % on cur, which is the SAME quantity ohc_rc_step filters in the time march,
+    % so the linearization and the marcher cannot disagree about what the pole
+    % is driven by -- they read one definition, in micro26.
+    adrv=cur.adrv; adrv(~isfinite(adrv))=0;
+    Ay=[st.v; a; (adrv - cur.vohc)/pa.ohctau];
+else
+    Ay=[st.v; a];
+end
 end
 
 % execute forward-masking stimulus condition
