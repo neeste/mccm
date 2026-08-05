@@ -58,7 +58,7 @@ function R = parfit26(nch, opts)
 % A test must exercise the shipped mapping, not a paraphrase of it.
 if (nargin>=1 && ischar(nch) && strcmp(nch,'handles'))
     R = struct('getpar',@getpar_l,'setpar',@setpar_l,'parnames',@parnames, ...
-               'lost',@roundtrip_lost_l); return;
+               'lost',@roundtrip_lost_l,'surf',@surf_term); return;
 end
 if (nargin<1 || isempty(nch)), nch=3; end
 if (nargin<2), opts=struct(); end
