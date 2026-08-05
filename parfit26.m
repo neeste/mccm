@@ -41,6 +41,11 @@ function R = parfit26(nch, opts)
 %              ones. The derived index is auto-removed from fitidx.
 %     .maptol  MAP acceptance level         (default 167)
 %     .lc      level_c band [lo hi]         (default [3.5 6.5])
+%     .allowreset  proceed even though the warm start does not survive setpar_l
+%              (default false = ABORT). See the WARM-START INTEGRITY guard: any
+%              field not carried in pv is reset on every evaluation, so the fit
+%              would optimise a different model than the one passed in. The
+%              normal fix is opts.pin, not this flag.
 %     .warm    starting pa or a .mat filename with R.pa   (default: refit_c3_map.mat
 %              if present, else modpar26(nch) baseline)
 %     .out     .mat to save R into          (default parfit26_nch<n>.mat)
@@ -52,7 +57,8 @@ function R = parfit26(nch, opts)
 % mode (two places holding the same fact, agreeing until the moment one changes).
 % A test must exercise the shipped mapping, not a paraphrase of it.
 if (nargin>=1 && ischar(nch) && strcmp(nch,'handles'))
-    R = struct('getpar',@getpar_l,'setpar',@setpar_l,'parnames',@parnames); return;
+    R = struct('getpar',@getpar_l,'setpar',@setpar_l,'parnames',@parnames, ...
+               'lost',@roundtrip_lost_l); return;
 end
 if (nargin<1 || isempty(nch)), nch=3; end
 if (nargin<2), opts=struct(); end
@@ -276,6 +282,52 @@ if (~isempty(chszderive))
     else
         fprintf('  chsz(%d) DERIVED (sum=2 enforced)\n', chszderive);
     end
+end
+% ---- WARM-START INTEGRITY (2026-08-04). THE GUARD THIS PROJECT MOST NEEDED ----
+% setpar_l REBUILDS pa from base=modpar26(nch) and writes back only what pv
+% carries. Any field of the warm start that differs from its modpar26 default and
+% is not in pv is therefore SILENTLY RESET on every evaluation -- the fit reports
+% one model and optimises another.
+%
+% This is not hypothetical and it is not one field. Measured 2026-08-04:
+% refit_m4_full carries clvent=0.5 (the CL vent conductance) against a default of
+% 3, and the round trip moves its maperr 329.32 -> 465.84. Restoring clvent alone
+% recovers it exactly. clvtgt, nested and clvoct are equally untransported and
+% merely happened to match their defaults in that fit -- so checking for clvent by
+% name would fix the instance and leave the class.
+%
+% The check is a STRUCT DIFF, not a rescore: it costs no model evaluations, it
+% names the field instead of reporting a number, and it is exhaustive over fields
+% rather than over the ones anyone thought to list. Comparing maperr (what s3fit
+% and d3fit hand-roll) is strictly weaker -- it is blind to any field that moves
+% the time domain without moving the frequency-domain map.
+%
+% Refuses rather than warns. A warning in a 16 h log is a warning nobody reads,
+% and the failure it prevents has already cost this project 7.3 h once. The fix
+% is normally one line at the call site: pass the field through opts.pin, which
+% exists precisely to force fields onto the model and hold them out of the fit.
+rt_   = setpar_l(base, pv0, chszderive);
+lost_ = roundtrip_lost_l(pa0, rt_, chszderive);
+if (~isempty(lost_))
+    msg_ = '';
+    for i_=1:numel(lost_)
+        f_=lost_{i_}; a_=pa0.(f_);
+        if (isfield(rt_,f_)), b_=rt_.(f_); else, b_=NaN; end
+        if (isscalar(a_) && isscalar(b_))
+            msg_ = [msg_ sprintf('\n    %-12s warm %-14.6g would be reset to %-14.6g', f_, a_, b_)]; %#ok<AGROW>
+        else
+            msg_ = [msg_ sprintf('\n    %-12s (non-scalar) would be reset', f_)]; %#ok<AGROW>
+        end
+    end
+    if (~gv('allowreset', false))
+        error(['parfit26 ABORTED: the warm start does not survive setpar_l. These ' ...
+               'fields would be SILENTLY RESET on every evaluation, so the fit would ' ...
+               'optimise a different model than the one you passed:%s\n\n  FIX: pass ' ...
+               'them through opts.pin, e.g. opts.pin=struct(''%s'',%g). Set ' ...
+               'opts.allowreset=true only if the reset is what you actually want.'], ...
+              msg_, lost_{1}, pa0.(lost_{1})(1));
+    end
+    fprintf('  allowreset=true: PROCEEDING with these fields reset:%s\n', msg_);
 end
 wstat  = gv('wstat', wcrit); % weight on the STATIC-divergence guard,
                              % wcrit*max(0, maxRe - statol). Defaults to wcrit
@@ -634,6 +686,34 @@ if (numel(pv) >= 30+nc+8 && pa.m < 4)
     if (isfield(pa,'r5e')), pa.r5e = pv(30+nc+7); end
     if (isfield(pa,'m5e')), pa.m5e = pv(30+nc+8); end
 end
+end
+function lost = roundtrip_lost_l(pa0, rt, dvi)
+% Fields of the warm start that setpar_l does NOT reproduce, i.e. the complete
+% set that would be silently reset on every evaluation. Exact equality is the
+% right test: getpar_l/setpar_l copy doubles, they do not compute, so a
+% surviving field matches bit for bit and a tolerance would only hide losses.
+lost = {};
+fn = fieldnames(pa0);
+for i=1:numel(fn)
+    f = fn{i}; a = pa0.(f);
+    if (~isnumeric(a) && ~islogical(a)), continue; end   % hbmode etc: char, and
+                                                         % jointobj sets it explicitly
+    if (~isfield(rt,f)), lost{end+1}=f; continue; end %#ok<AGROW>
+    b = rt.(f);
+    if (strcmp(f,'chsz') && ~isempty(dvi) && dvi>=1 && dvi<=numel(a))
+        % chsz(dvi) is DERIVED on purpose (sum=2 enforced inside setpar_l), so
+        % comparing it would flag the constraint as a defect. Check the rest.
+        o = true(1,numel(a)); o(dvi) = false;
+        a = a(o); b = b(o);
+    end
+    if (~isequal(size(a),size(b))), lost{end+1}=f; continue; end %#ok<AGROW>
+    if (any(a(:)~=b(:))), lost{end+1}=f; end %#ok<AGROW>
+end
+% gampro is NOT excluded, deliberately. setpar_l rebuilds it from the scalar
+% gpgrade every time, so a consistent pair compares equal and never fires -- but
+% a warm start carrying a non-uniform gampro with no matching gpgrade DOES get
+% reset to ones(n,1), which is a documented trap of this parameter. Letting the
+% guard catch it is the point.
 end
 function v=subsref_default(s,f,d), if (isfield(s,f)), v=s.(f); else, v=d; end, end
 function s=tern(c,a,b), if c, s=a; else, s=b; end, end
