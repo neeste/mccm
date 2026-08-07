@@ -854,7 +854,7 @@ f=sav.f; s=2i*pi*f; nf=length(f);
 spl=zeros(nf,nsv); phv=zeros(nf,nsv); gdv=zeros(nf,nsv); qe=zeros(1,nsv); pbf=zeros(1,nsv);
 dsp_ref = 140; spl_ref = 0.0002; j1=ceil(nf*(0.1/max(f)));
 for i=1:nsv
-    [d1,d2,pe,~,~,~,~,nr] = fetch_sav(i,sav);
+    [d1,d2,pe,~,~,~,~,nr,d3] = fetch_sav(i,sav);
     if (pa.ihceq<1)
         vh = nr/1000; 
     else
@@ -866,14 +866,22 @@ for i=1:nsv
         % from the FINAL timestep: wrong length and wrong quantity, and it would
         % broadcast SILENTLY because hb(:,3) is zero today.
         % So refuse rather than compute a wrong neural response.
+        % RESOLVED 2026-08-06 the way the refusal above prescribed: fetch_sav now
+        % returns the SAVED d3 SERIES, so the bundle can be built from all three
+        % columns instead of silently from two. The refusal remains for the case
+        % it was actually protecting against -- hbrl requested with no saved d3,
+        % which is dof<3, where the third column would broadcast a wrong quantity.
         if (isfield(pa,'hbrl') && pa.hbrl)
-            error('tdm26:hbrlIHC', ...
-                ['pa.hbrl (RL-referenced bundle) is not wired into the IHC path. ' ...
-                 'vh here is built from fetch_sav spectra, which do not include ' ...
-                 'd3. Extend fetch_sav to return the saved d3 series before using ' ...
-                 'hbrl with ihceq>=1, or set pa.ihceq<1 to take the nr/1000 path.']);
+            if (isempty(d3))
+                error('tdm26:hbrlIHC', ...
+                    ['pa.hbrl (RL-referenced bundle) needs the saved d3 series, ' ...
+                     'and sav.d3 is empty at this place (dof<3, or d3 never moved). ' ...
+                     'Run with dof>=3, or set pa.ihceq<1 to take the nr/1000 path.']);
+            end
+            vh = hbmix(cp.hb(sv,:), d1, d2, d3).*s;
+        else
+            vh = hbmix(cp.hb(sv,:), d1, d2).*s;
         end
-        vh = hbmix(cp.hb(sv,:), d1, d2).*s;
     end
     mnvh=1e-22; vh(isnan(vh)|(abs(vh)<mnvh)) = mnvh; pe = pe / spl_ref;
     spl(:,i)=20*log10(abs(pe./vh))+pa.hbt-dsp_ref; phv(:,i)=unwrap(angle(vh./pe))/(2*pi); gdv(:,i)=delay(vh./pe,f);
@@ -1946,9 +1954,17 @@ function p=f2p(f,a,b,c,xl)
 p = (1 - (log10((f / a) + c) / b) / 100) * xl;
 end
 
-function [d1,d2,pe,ps,vr,vs,ve,nr]=fetch_sav(i,sav)
+function [d1,d2,pe,ps,vr,vs,ve,nr,d3]=fetch_sav(i,sav)
+% d3 APPENDED (2026-08-06), never inserted: eight callers request up to nr and
+% must keep meaning what they meant. sav.d3 is zeros(nt,numel(pa.isv)), the same
+% shape as sav.d1 and filled at the same places (line ~320), so sav.d3(:,i) is
+% the parallel of sav.d1(:,i). Empty when dof<3, where no third DOF was saved.
 d1 = fft(sav.d1(:,i)); d2 = fft(sav.d2(:,i)); nr = fft(sav.nr(:,sav.isv(i))); vs = fft(sav.vst); ps = fft(sav.pst); pe = fft(sav.ped); ve = fft(sav.ved); vr = fft(sav.vep);
 nf=length(sav.f); ii=1:nf; d1 = d1(ii); d2 = d2(ii); nr = nr(ii); vs = vs(ii); ps = ps(ii); pe = pe(ii); ve = ve(ii); vr = vr(ii);
+d3 = [];
+if (isfield(sav,'d3') && ~isempty(sav.d3) && size(sav.d3,2) >= i && any(sav.d3(:,i)))
+    d3 = fft(sav.d3(:,i)); d3 = d3(ii);
+end
 end
 
 function [bf,qe,mi]=find_bf(f,thr,fmin)
