@@ -66,7 +66,15 @@ if (isfield(pa,'hbrl') && pa.hbrl)
     % Neither is the current m>=3 row [0 1 0], which instead REDEFINES d2 to be
     % the bundle. That change of variable, not a slaving, is why d2 means
     % different things above and below m=3.
-    cp.hb=[zeros(n,1) -ones(n,1) ones(n,1)];   % bundle = d3 - d2
+    % SIGN IS SELECTABLE (2026-08-06). pa.hbrl = +1 keeps bundle = d3 - d2 exactly
+    % as before (bit-identical); pa.hbrl = -1 gives d2 - d3. Added because under
+    % pa.rlsplit the RL becomes the FLUID-COUPLED membrane and the TM the internal
+    % one, which is the reverse of the arrangement this sign was chosen for, and
+    % the net OHC work on the BM comes out NEGATIVE there (-7.5e-05 against
+    % +2.3e-04 with hbrl off). A mechanism that absorbs where it should inject is
+    % the RC-pole failure repeating, and the sign is the first thing to rule out.
+    sg = sign(pa.hbrl);
+    cp.hb=[zeros(n,1) -sg*ones(n,1) sg*ones(n,1)];   % bundle = sg*(d3 - d2)
 end
 dx = pa.xl / (n - 1);
 if (m < 1), cp.abmom=0; cp.alfx = me.mst / (2 * pa.rho * dx); return; end
